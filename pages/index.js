@@ -1,209 +1,50 @@
 import Head from 'next/head'
+import Navbar from '../Components/Navbar'
+
+import styles from '../styles/styles.module.css'
 
 export default function Home() {
   return (
-    <div className="container">
+    <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>laulopez Arts | Inici</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <header>
+        <Navbar
+          onNavigateContact={() => console.log('contact')}
+          onNavigateHome={() => console.log('home')}
+          onNavigateWorks={() => console.log('works')}
+          selected={'Home'}
+        />
+      </header>
 
       <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+        <h1 className={styles.title}>
+          INICI
         </h1>
 
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
+        <p className={styles.description}>
+          Lorem fistrum me cago en tus muelas apetecan diodeno. Mamaar fistro mamaar jarl a peich apetecan ese que llega papaar papaar pupita benemeritaar. Sexuarl ese hombree diodeno benemeritaar pecador a gramenawer mamaar mamaar llevame al sircoo jarl. No puedor está la cosa muy malar está la cosa muy malar llevame al sircoo. Benemeritaar la caidita a wan está la cosa muy malar torpedo se calle ustée ahorarr ese que llega benemeritaar. Fistro quietooor sexuarl de la pradera sexuarl a wan la caidita me cago en tus muelas. Me cago en tus muelas sexuarl tiene musho peligro a gramenawer no te digo trigo por no llamarte Rodrigor va usté muy cargadoo jarl por la gloria de mi madre hasta luego Lucas ese que llega. Por la gloria de mi madre diodeno papaar papaar caballo blanco caballo negroorl ese hombree ese que llega ahorarr te va a hasé pupitaa no puedor quietooor.
+
+          La caidita no te digo trigo por no llamarte Rodrigor de la pradera pupita la caidita me cago en tus muelas a peich te va a hasé pupitaa. Ese hombree caballo blanco caballo negroorl mamaar no puedor hasta luego Lucas. Se calle ustée jarl no puedor papaar papaar caballo blanco caballo negroorl llevame al sircoo ese que llega benemeritaar la caidita va usté muy cargadoo pecador. Diodenoo a wan benemeritaar ese que llega ese hombree está la cosa muy malar amatomaa pupita hasta luego Lucas quietooor. Condemor sexuarl a peich te voy a borrar el cerito. Pecador condemor por la gloria de mi madre qué dise usteer al ataquerl quietooor ese que llega pecador pecador.
+
+          A wan ese hombree hasta luego Lucas apetecan tiene musho peligro no puedor papaar papaar llevame al sircoo te va a hasé pupitaa amatomaa está la cosa muy malar. Está la cosa muy malar papaar papaar se calle ustée llevame al sircoo diodeno quietooor la caidita. Te voy a borrar el cerito jarl pecador qué dise usteer ese que llega apetecan ese hombree a peich condemor. La caidita no puedor mamaar va usté muy cargadoo ese pedazo de no puedor. Diodeno ahorarr qué dise usteer a wan papaar papaar no te digo trigo por no llamarte Rodrigor pecador pecador. Ese que llega apetecan ese pedazo de me cago en tus muelas a peich.
+
+          Lorem fistrum fistro mamaar pecador se calle ustée de la pradera pupita ese pedazo de tiene musho peligro a wan está la cosa muy malar. Torpedo no te digo trigo por no llamarte Rodrigor me cago en tus muelas benemeritaar pecador llevame al sircoo llevame al sircoo. Pupita ese que llega llevame al sircoo por la gloria de mi madre te va a hasé pupitaa. Qué dise usteer no puedor a gramenawer benemeritaar benemeritaar amatomaa. No te digo trigo por no llamarte Rodrigor a wan de la pradera de la pradera. Te va a hasé pupitaa condemor ahorarr de la pradera ese que llega quietooor apetecan te voy a borrar el cerito hasta luego Lucas. Ahorarr tiene musho peligro llevame al sircoo te voy a borrar el cerito no puedor ahorarr.
+
+          Ese pedazo de ese que llega no puedor fistro se calle ustée amatomaa. Hasta luego Lucas te va a hasé pupitaa mamaar pupita no puedor. Apetecan benemeritaar fistro apetecan. Ahorarr por la gloria de mi madre pecador no te digo trigo por no llamarte Rodrigor ese pedazo de de la pradera quietooor. Condemor me cago en tus muelas apetecan me cago en tus muelas diodenoo. Qué dise usteer la caidita ese que llega tiene musho peligro tiene musho peligro qué dise usteer a peich.
         </p>
-
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/zeit/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <button className="uk-button uk-button-default uk-button-large">
+          apretaaaa
+        </button>
       </main>
 
       <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
+        <p className={styles.description}>
+          footer
+        </p>
       </footer>
-
-      <style jsx>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer img {
-          margin-left: 0.5rem;
-        }
-
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        a {
-          color: inherit;
-          text-decoration: none;
-        }
-
-        .title a {
-          color: #0070f3;
-          text-decoration: none;
-        }
-
-        .title a:hover,
-        .title a:focus,
-        .title a:active {
-          text-decoration: underline;
-        }
-
-        .title {
-          margin: 0;
-          line-height: 1.15;
-          font-size: 4rem;
-        }
-
-        .title,
-        .description {
-          text-align: center;
-        }
-
-        .description {
-          line-height: 1.5;
-          font-size: 1.5rem;
-        }
-
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        .card {
-          margin: 1rem;
-          flex-basis: 45%;
-          padding: 1.5rem;
-          text-align: left;
-          color: inherit;
-          text-decoration: none;
-          border: 1px solid #eaeaea;
-          border-radius: 10px;
-          transition: color 0.15s ease, border-color 0.15s ease;
-        }
-
-        .card:hover,
-        .card:focus,
-        .card:active {
-          color: #0070f3;
-          border-color: #0070f3;
-        }
-
-        .card h3 {
-          margin: 0 0 1rem 0;
-          font-size: 1.5rem;
-        }
-
-        .card p {
-          margin: 0;
-          font-size: 1.25rem;
-          line-height: 1.5;
-        }
-
-        .logo {
-          height: 1em;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
     </div>
   )
 }
