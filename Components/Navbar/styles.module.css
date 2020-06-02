@@ -1,0 +1,7 @@
+.sticky {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: ivory;
+    height: 3rem;
+}

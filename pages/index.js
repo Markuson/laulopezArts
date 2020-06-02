@@ -1,5 +1,6 @@
 import Head from 'next/head'
-import Navbar from '../Components/Navbar'
+
+import Header from '../Components/Header'
 
 import styles from '../styles/styles.module.css'
 
@@ -7,21 +8,15 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>laulopez Arts | Inici</title>
+        <title>laulópez Arts</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header>
-        <Navbar
-          onNavigateContact={() => console.log('contact')}
-          onNavigateHome={() => console.log('home')}
-          onNavigateWorks={() => console.log('works')}
-          selected={'Home'}
-        />
-      </header>
+
+      <Header selected='Home' />
 
       <main>
         <h1 className={styles.title}>
-          INICI
+          PORTFOLIO
         </h1>
 
         <p className={styles.description}>
