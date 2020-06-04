@@ -13,11 +13,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header selected='Home' />
-
-      <main>
-        <div>
-          <ul class="uk-breadcrumb">
+      <Header selected="Home" />
+      <main className="uk-padding-large">
+        <div className="uk-padding uk-padding-remove-top uk-padding-remove-horizontal">
+          <ul className="uk-breadcrumb">
             <li><a href="">Serigrafia</a></li>
             <li><a href="">Gravat</a></li>
             <li><a href="">Tècniques Seques</a></li>
@@ -29,7 +28,7 @@ export default function Home() {
           </ul>
         </div>
 
-        <Portfolio/>
+        <Portfolio />
       </main>
 
       <footer>

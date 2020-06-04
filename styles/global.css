@@ -5,10 +5,7 @@ html,
 body {
     padding: 0;
     margin: 0;
-    /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-    sans-serif; */
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
     /* background-color: ivory; */
 }
 
@@ -24,10 +21,11 @@ header {
     background-color: wheat;
     width: 100%;
     height: 20rem;
+    z-index: 1;
 }
 
 main {
-    padding: 2rem 10rem 5rem 10rem;
+    /* padding: 2rem 10rem 5rem 10rem; */
     flex: 1;
     display: flex;
     flex-direction: column;
