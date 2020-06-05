@@ -53,6 +53,7 @@ export default function Contact() {
                 <textarea class="uk-textarea" rows="7" placeholder="Write your message..."></textarea>
               </div>
             </div>
+            <button class="uk-button uk-button-default">Enviar</button>
           </form>
         </div>
 
