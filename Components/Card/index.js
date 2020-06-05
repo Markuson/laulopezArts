@@ -2,7 +2,7 @@ export default function Card({
     src
 }) {
 
-    return <div className="uk-card uk-card-hover uk-card-small" >
+    return <div className="uk-box-shadow-hover-large" >
             <a href={src} data-caption="Title: description">
                 <div className="uk-text-center">
                     <img src={src} />

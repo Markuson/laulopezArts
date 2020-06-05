@@ -17,7 +17,7 @@ export default function Navbar({
     }, [])
 
     const hideBar = () => {
-        window.scrollY > 250 ?
+        window.scrollY > 450 ?
         setIsHide(false)
         :
         setIsHide(true);

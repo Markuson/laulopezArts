@@ -15,8 +15,8 @@ export default function Home() {
 
       <Header selected="Home" />
       <main className="uk-padding-large">
-        <div className="uk-padding uk-padding-remove-top uk-padding-remove-horizontal">
-          <ul className="uk-breadcrumb">
+        <div className="uk-animation-slide-top uk-padding uk-padding-remove-top uk-padding-remove-horizontal">
+          <ul className=" uk-breadcrumb">
             <li><a href="">Serigrafia</a></li>
             <li><a href="">Gravat</a></li>
             <li><a href="">Tècniques Seques</a></li>
@@ -32,9 +32,9 @@ export default function Home() {
       </main>
 
       <footer>
-        <p className={styles.description}>
-          footer
-        </p>
+        <a class="uk-button uk-button-text" href="#top" data-uk-scroll>
+          go to top
+        </a>
       </footer>
     </div>
   )
