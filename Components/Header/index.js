@@ -4,7 +4,7 @@ import Navbar from '../Navbar'
 export default function Header({
   selected = undefined
 }) {
-  const [mainLogo, setMainLogo] = useState('images/mainLogo1.png');
+  const [mainLogo, setMainLogo] = useState('');
   const [randColor, setrandColor] = useState("#f5e3ae");
 
   useEffect(() => {
