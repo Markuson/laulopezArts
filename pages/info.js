@@ -14,10 +14,10 @@ export default function Info() {
 
             <Header selected='About' />
 
-            <main className="uk-flex uk-flex-column uk-flex-center uk-padding-large">
+            <main className="uk-flex uk-flex-column uk-flex-center uk-padding-small uk-padding-remove-bottom">
                 <div className="uk-flex uk-flex-center uk-flex-row uk-flex-stretch uk-flex-middle uk-flex-top">
                     <div className=" uk-padding uk-padding-remove-horizontal uk-flex-right uk-animation-fade">
-                        <img src="/images/profile picture.jpg" width="440px" alt="Profile Picture" />
+                        <img src="/images/profilePic.jpg" width="440px" alt="Profile Picture" />
                     </div>
                     <div className="uk-flex-left  uk-flex-stretch uk-padding-small uk-width-1-3 uk-animation-scale-up">
                         <p className={styles.description}>
@@ -39,13 +39,13 @@ export default function Info() {
                 </div>
                 <div className="uk-flex uk-flex-center">
                     <div className='uk-padding-small'>
-                        <a className={styles.growRotate} href="https://www.instagram.com/lau_llc/"><img src='icons/instagram.png' width='60px' /></a>
+                        <a className={styles.growRotate} target='_blank' href="https://www.instagram.com/lau_llc/"><img src='icons/instagram.png' width='60px' /></a>
                     </div>
                     <div className='uk-padding-small'>
-                        <a className={styles.growRotate} href="https://www.facebook.com/entre.nusos" ><img src='icons/behance.png' width='60px' /></a>
+                        <a className={styles.growRotate} target='_blank' href="https://www.facebook.com/entre.nusos" ><img src='icons/behance.png' width='60px' /></a>
                     </div>
                     <div className='uk-padding-small'>
-                        <a className={styles.growRotate} href=""><img src='icons/linkedin.png' width='60px' /></a>
+                        <a className={styles.growRotate} target='_blank' href=""><img src='icons/linkedin.png' width='60px' /></a>
                     </div>
                 </div>
             </main>

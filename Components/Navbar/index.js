@@ -1,9 +1,10 @@
 import Link from 'next/link'
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 
 import styles from './styles.module.css'
 
 export default function Navbar({
+    color ,
     selected = undefined
 }) {
 
@@ -18,13 +19,24 @@ export default function Navbar({
 
     const hideBar = () => {
         window.scrollY > 450 ?
-        setIsHide(false)
-        :
-        setIsHide(true);
+            setIsHide(false)
+            :
+            setIsHide(true);
+    }
+
+    const stickyStyles = () => {
+        console.log(color)
+        return {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#f5e3ae",
+            height: "2.5rem"
+        }
     }
 
     return <div className=".uk-width-1-1" >
-        <div className={styles.sticky} data-uk-sticky="sel-target: .uk-navbar-container;  top: 150; animation: uk-animation-slide-top; bottom: #sticky-on-scroll-up;" >
+        <div style={stickyStyles()} data-uk-sticky="sel-target: .uk-navbar-container;  top: 150; animation: uk-animation-slide-top; bottom: #sticky-on-scroll-up;">
             <nav className="uk-width-1-1 uk-navbar-container uk-navbar-transparent" data-uk-navbar data-uk-scrollspy="cls:uk-animation-fade ">
                 <div className="uk-navbar-center">
                     <ul className="uk-navbar-nav">
@@ -40,7 +52,7 @@ export default function Navbar({
                         <div className='uk-padding uk-padding-remove-vertical'>
                             <li>
                                 <Link href="/">
-                                    <button className="uk-button uk-button-text uk-button-xlarge" disabled={selected === 'Home' ? true : false } >
+                                    <button className="uk-button uk-button-text uk-button-xlarge" disabled={selected === 'Home' ? true : false} >
                                         <strong>PORTFOLIO</strong>
                                     </button>
                                 </Link>
@@ -49,7 +61,7 @@ export default function Navbar({
                         <div className='uk-padding uk-padding-remove-vertical'>
                             <li>
                                 <a href="">
-                                    <button className="uk-button uk-button-text uk-button-xlarge" disabled={selected === 'Contact' ? true : false } >
+                                    <button className="uk-button uk-button-text uk-button-xlarge" disabled={selected === 'Contact' ? true : false} >
                                         <strong>SHOP</strong>
                                     </button>
                                 </a>
@@ -58,7 +70,7 @@ export default function Navbar({
                     </ul>
                 </div>
                 <div hidden={isHide} className="uk-navbar-left uk-padding-small" uk-scrollspy="cls: uk-animation-fade; target: .smallLogo; offset-top  :500; delay: 1000; repeat: false">
-                  <img className="smallLogo" src='images/smallLogo.png' alt="laulópez Arts"  width="80px"/>
+                    <img className="smallLogo" src='images/smallLogo.png' alt="laulópez Arts" width="80px" />
                 </div>
             </nav>
         </div>
