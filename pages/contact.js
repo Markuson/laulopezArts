@@ -8,7 +8,7 @@ export default function Contact() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>laulopez Arts | Contacte</title>
+        <title>laulopez Arts | Contact</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -34,26 +34,26 @@ export default function Contact() {
           <p className="uk-text">Or send me an email:</p>
         </div>
         <div className="uk-width-2-5@s">
-          <form class="uk-form-stacked">
-            <div class="uk-margin">
-              <label class="uk-form-label" for="form-stacked-text">Name:</label>
-              <div class="uk-form-controls">
-                <input class="uk-input" id="form-stacked-text" type="text" placeholder="Your name..." />
+          <form className="uk-form-stacked">
+            <div className="uk-margin">
+              <label className="uk-form-label" for="form-stacked-text">Name:</label>
+              <div className="uk-form-controls">
+                <input className="uk-input" id="form-stacked-text" type="text" placeholder="Your name..." />
               </div>
             </div>
-            <div class="uk-margin">
-              <label class="uk-form-label" for="form-stacked-text">Email:</label>
-              <div class="uk-form-controls">
-                <input class="uk-input" id="form-stacked-text" type="email" placeholder="Your email..." />
+            <div className="uk-margin">
+              <label className="uk-form-label" for="form-stacked-text">Email:</label>
+              <div className="uk-form-controls">
+                <input className="uk-input" id="form-stacked-text" type="email" placeholder="Your email..." />
               </div>
             </div>
-            <div class="uk-margin">
-              <label class="uk-form-label" for="form-stacked-text">Message:</label>
-              <div class="uk-form-controls">
-                <textarea class="uk-textarea" rows="7" placeholder="Write your message..."></textarea>
+            <div className="uk-margin">
+              <label className="uk-form-label" for="form-stacked-text">Message:</label>
+              <div className="uk-form-controls">
+                <textarea className="uk-textarea" rows="7" placeholder="Write your message..."></textarea>
               </div>
             </div>
-            <button class="uk-button uk-button-default">Enviar</button>
+            <button className="uk-button uk-button-default">Enviar</button>
           </form>
         </div>
 

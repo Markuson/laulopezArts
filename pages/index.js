@@ -14,17 +14,13 @@ export default function Home() {
       </Head>
 
       <Header selected="Home" />
-      <main className="uk-padding-large">
-        <div className="uk-animation-slide-top uk-padding uk-padding-remove-top uk-padding-remove-horizontal">
+      <main className="uk-padding-large uk-padding-remove-top">
+        <div className="uk-animation-slide-top uk-padding">
           <ul className=" uk-breadcrumb">
-            <li><a href="">Serigrafia</a></li>
-            <li><a href="">Gravat</a></li>
-            <li><a href="">Tècniques Seques</a></li>
-            <li><a href="">Pintura</a></li>
-            <li><a href="">Digital</a></li>
-            <li><a href="">Animació</a></li>
-            <li><a href="">Ciència</a></li>
-            <li><a href="">Altres</a></li>
+            <li><a href="">Screenprinting</a></li>
+            <li><a href="">Ilustration</a></li>
+            <li><a href="">Science</a></li>
+            <li><a href="">Oter works</a></li>
           </ul>
         </div>
 
@@ -32,7 +28,7 @@ export default function Home() {
       </main>
 
       <footer>
-        <a class="uk-button uk-button-text" href="#top" data-uk-scroll>
+        <a className="uk-button uk-button-text" href="#top" data-uk-scroll>
           go to top
         </a>
       </footer>

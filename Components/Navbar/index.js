@@ -30,9 +30,9 @@ export default function Navbar({
                     <ul className="uk-navbar-nav">
                         <div className='uk-padding uk-padding-remove-vertical'>
                             <li className='uk-active'>
-                                <Link href="/about">
+                                <Link href="/info">
                                     <button className="uk-button uk-button-text uk-button-xlarge" disabled={selected === 'About' ? true : false} >
-                                        ABOUT ME
+                                        <strong>INFO</strong>
                                     </button>
                                 </Link>
                             </li>
@@ -41,18 +41,18 @@ export default function Navbar({
                             <li>
                                 <Link href="/">
                                     <button className="uk-button uk-button-text uk-button-xlarge" disabled={selected === 'Home' ? true : false } >
-                                        PORTFOLIO
+                                        <strong>PORTFOLIO</strong>
                                     </button>
                                 </Link>
                             </li>
                         </div>
                         <div className='uk-padding uk-padding-remove-vertical'>
                             <li>
-                                <Link href="/contact">
+                                <a href="">
                                     <button className="uk-button uk-button-text uk-button-xlarge" disabled={selected === 'Contact' ? true : false } >
-                                        CONTACT
+                                        <strong>SHOP</strong>
                                     </button>
-                                </Link>
+                                </a>
                             </li>
                         </div>
                     </ul>
