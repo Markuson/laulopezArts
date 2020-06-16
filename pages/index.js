@@ -16,7 +16,7 @@ export default function Home() {
       <Header selected="Home" />
       <main className="uk-padding-large uk-padding-remove-top">
         <div className="uk-animation-slide-top uk-padding">
-          <ul className=" uk-breadcrumb">
+          <ul className=" uk-breadcrumb uk-visible@s">
             <li><a href="">Screenprinting</a></li>
             <li><a href="">Ilustration</a></li>
             <li><a href="">Science</a></li>

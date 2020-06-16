@@ -15,11 +15,11 @@ export default function Info() {
             <Header selected='About' />
 
             <main className="uk-flex uk-flex-column uk-flex-center uk-padding-small uk-padding-remove-bottom">
-                <div className="uk-flex uk-flex-center uk-flex-row uk-flex-stretch uk-flex-middle uk-flex-top">
-                    <div className=" uk-padding uk-padding-remove-horizontal uk-flex-right uk-animation-fade">
+                <div className="uk-flex uk-flex-middle uk-flex-top uk-flex-center uk-flex-row" data-uk-grid>
+                    <div className="uk-padding uk-animation-fade">
                         <img src="/images/profilePic.jpg" width="440px" alt="Profile Picture" />
                     </div>
-                    <div className="uk-flex-left  uk-flex-stretch uk-padding-small uk-width-1-3 uk-animation-scale-up">
+                    <div className=" uk-padding uk-width-1-3@s uk-animation-scale-up">
                         <p className={styles.description}>
                             I am Laura.  I am a biologist, illustrator and screenprinting artist.
                         </p>

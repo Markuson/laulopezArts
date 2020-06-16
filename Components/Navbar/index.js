@@ -69,7 +69,7 @@ export default function Navbar({
                         </div>
                     </ul>
                 </div>
-                <div hidden={isHide} className="uk-navbar-left uk-padding-small" uk-scrollspy="cls: uk-animation-fade; target: .smallLogo; offset-top  :500; delay: 1000; repeat: false">
+                <div hidden={isHide} className="uk-navbar-left uk-padding-small uk-visible@s" uk-scrollspy="cls: uk-animation-fade; target: .smallLogo; offset-top  :500; delay: 1000; repeat: false">
                     <img className="smallLogo" src='images/smallLogo.png' alt="laulópez Arts" width="80px" />
                 </div>
             </nav>
