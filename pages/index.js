@@ -1,11 +1,23 @@
+import {useEffect, useState} from 'react'
 import Head from 'next/head'
 
 import Header from '../Components/Header'
 import Portfolio from '../Components/Portfolio'
 
+import logic from '../logic'
+
 import styles from '../styles/styles.module.css'
 
 export default function Home() {
+  const [imageArray, setImageArra] = useState([])
+
+  useEffect(() => {
+    (async () => {
+      const result = await logic.getAlbum('dCVdFscoudVJ83aG7')
+      console.log(result)
+      console.log('entra')
+    })();
+  })
   return (
     <div className={styles.container}>
       <Head>
