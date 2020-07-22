@@ -9,7 +9,6 @@ export default function Contact() {
     <div className={styles.container}>
       <Head>
         <title>laulopez Arts | Contact</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Header selected='Contact' />

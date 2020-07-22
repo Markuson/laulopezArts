@@ -9,7 +9,6 @@ export default function Info() {
         <div className={styles.container}>
             <Head>
                 <title>laulopez Arts | Info</title>
-                <link rel="icon" href="/favicon.ico" />
             </Head>
 
             <Header selected='About' />

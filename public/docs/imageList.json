@@ -1,0 +1,33 @@
+[
+  {
+    "section": "screenprinting",
+    "images": []
+  },
+  {
+    "section": "ilustration",
+    "images": []
+  },
+  {
+    "section": "science",
+    "images": []
+  },
+  {
+    "section": "other",
+    "images": []
+  },
+  {
+    "section": "test",
+    "images": [
+      {
+        "id": "SomeID3",
+        "url": "some kind of url",
+        "description": "blablabla blabla blablablabla blablabla"
+      },
+      {
+        "id": "SomeID4",
+        "url": "some kind of url",
+        "description": "blablabla blabla blablablabla blablabla"
+      }
+    ]
+  }
+]
