@@ -1,11 +1,18 @@
+import {Image} from 'cloudinary-react';
+
+
 export default function Card({
-    src
+    description,
+    id,
+    publicId,
+    url
 }) {
 
-    return <div className="uk-box-shadow-hover-large" >
-            <a href={src} data-caption="Title: description">
-                <div className="uk-text-center">
-                    <img src={src} />
+    return <div className="uk-box-shadow-hover-large uk-animation-fade " tabindex="0">
+            <a href={url} data-caption={description}>
+                <div id={id} className="uk-text-center">
+                    {/* <img src={src} /> */}
+                    <Image publicId={publicId}/>
                 </div>
             </a>
     </div>

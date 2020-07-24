@@ -31,26 +31,28 @@ const logic = {
     addImage(newImageData) {
         //check newImageData is an object and has the data you need..... check newImageData.section is ok, id shoud be lowercase
 
-        const {description, id, section, url} = newImageData
+        const {description, id, publicId,section, url} = newImageData
         let sectionFound = false
-        let existingId = 0
+        let index = -1
         return (async () => {
             try {
                 const imageList = await this.getImageList()
-                imageList.forEach(element => existingId = element.images.find(element => element.id == id))
-                if (!existingId){
+                imageList.forEach(section =>{
+                    if(index == -1) index = section.images.findIndex(image => image.id == id)
+                })
+                if (index==-1){
                     imageList.forEach(element => {
                         if(element.section === section){
-                            element.images.push({id, url, description})
+                            element.images.push({id, url, publicId, description})
                             sectionFound = true
                         }
                     });
                     await this.setImageList(imageList)
                 }
 
-                if (!sectionFound && existingId) return {status: 'ERROR', message: 'duplicated Id'}
+                if (!sectionFound && index > -1) return {status: 'ERROR', message: 'duplicated Id'}
                 if (sectionFound) return {status: 'OK', message: 'image added'}
-                return {status: 'ERROR', message: 'section not found'}
+                return {status: 'ERROR', message: `section "${section}" not found`}
             } catch (error) {
                 return {status: 'ERROR', message: error.message}
             }
@@ -58,15 +60,16 @@ const logic = {
     },
 
     deleteImage(imageId){
+        //validate
         let deleted = false
         return (async () => {
             try {
                 const imageList = await this.getImageList()
-                imageList.forEach(element => {
+                imageList.forEach(list => {
                     if(!deleted){
-                        let index = element.images.findIndex(image =>image.id==imageId)
+                        let index = list.images.findIndex(image =>image.id==imageId)
                         if (index != -1){
-                            element.images.splice(index,1)
+                            list.images.splice(index,1)
                             deleted = true
                         }
                     }
@@ -82,7 +85,37 @@ const logic = {
     },
 
     editImage(imageId, data){
-
+        const {description, section, url} = data
+        let imageFound = false
+        let index = -1
+        return (async () => {
+            try {
+                const imageList = await this.getImageList()
+                imageList.forEach(list =>{
+                    if(!imageFound){
+                        if(index == -1) index = list.images.findIndex(image => image.id == imageId)
+                        if (index > -1) {
+                            console.log(section, list.section)
+                            if (section == list.section || !section){
+                                description ? list.images[index].description = description : false
+                                url ? list.images[index].url = url : false
+                            }else{
+                                const editedImage = list.images.splice(index,1)
+                                imageList.forEach(list => {
+                                    if (list.section == section) list.images.push(editedImage[0])
+                                })
+                            }
+                            imageFound = true
+                        }
+                    }
+                })
+                if (imageFound) await this.setImageList(imageList)
+                if (imageFound) return {status: 'OK', message: 'image edited'}
+                return {status: 'ERROR', message: 'image not found'}
+            } catch (error) {
+                return {status: 'ERROR', message: error.message}
+            }
+        })()
     }
 }
 export default logic

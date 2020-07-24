@@ -22,10 +22,15 @@ export default function userHandler(req, res) {
               res.status(200).json(response)
             })();
             break
+          case 'edit':
+            return (async () => {
+              const response = await logic.editImage(id, data)
+              res.status(200).json(response)
+            })();
+            break
           default:
             res.status(200).json({status:'ERROR', message:'unrecognized command'})
         }
-        
         break
 
       case 'DELETE':
