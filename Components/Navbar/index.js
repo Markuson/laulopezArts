@@ -25,7 +25,7 @@ export default function Navbar({
     }
 
     const stickyStyles = () => {
-        console.log(color)
+        // console.log(color)
         return {
             display: "flex",
             justifyContent: "center",

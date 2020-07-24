@@ -8,15 +8,14 @@ export default function Info() {
     return (
         <div className={styles.container}>
             <Head>
-                <title>laulopez Arts | About</title>
-                <link rel="icon" href="/favicon.ico" />
+                <title>laulopez Arts | Info</title>
             </Head>
 
             <Header selected='About' />
 
             <main className="uk-flex uk-flex-column uk-flex-center uk-padding-small uk-padding-remove-bottom">
                 <div className="uk-flex uk-flex-middle uk-flex-top uk-flex-center uk-flex-row" data-uk-grid>
-                    <div className="uk-padding uk-animation-fade">
+                    <div className="uk-padding uk-align-center uk-animation-fade">
                         <img src="/images/profilePic.jpg" width="440px" alt="Profile Picture" />
                     </div>
                     <div className=" uk-padding uk-width-1-3@s uk-animation-scale-up">
