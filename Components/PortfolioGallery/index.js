@@ -2,7 +2,7 @@ import Card from '../Card'
 import { CloudinaryContext } from 'cloudinary-react';
 
 
-export default function Portfolio({
+export default function PortfolioGallery({
     imageList
 }) {
 

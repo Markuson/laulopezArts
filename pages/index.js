@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Head from 'next/head'
 
 import Header from '../Components/Header'
-import Portfolio from '../Components/Portfolio'
+import PortfolioGallery from '../Components/PortfolioGallery'
 
 import logic from '../logic/app'
 
@@ -34,11 +34,11 @@ export default function Home() {
           <li><a onClick={() => setSection('screenprinting')}>Screenprinting</a></li>
           <li><a onClick={() => setSection('ilustration')}>Ilustration</a></li>
           <li><a onClick={() => setSection('science')}>Science</a></li>
-          <li><a onClick={() => setSection('screenprinting')}>Oter works</a></li>
+          <li><a onClick={() => setSection('other')}>Other works</a></li>
         </ul>
       </div>
 
-      <Portfolio imageList={imageList} />
+      <PortfolioGallery imageList={imageList} />
     </main>
 
     <footer>
