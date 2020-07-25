@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/client'
 import Head from 'next/head'
-import Router from 'next/router'
 import request from 'superagent';
 import Uikit from 'uikit/dist/js/uikit.min.js'
 
@@ -29,7 +28,6 @@ export default function Administradora() {
     }, [])
 
     const handleImageAdd = (files) => {
-        console.log(`entra. - ${files.length} -`)
         if (files.length > 0) {
             try {
                 const uploadPreset = process.env.UPLOADPRESET
@@ -84,6 +82,7 @@ export default function Administradora() {
                                 })
                             }
                             document.getElementById('fileupload').value = null;
+                            //for description and section not working... should review
                             document.getElementById('description').value = null;
                             document.getElementById('sectionSelect').value = 'other';
                             setUploadingProgress(0)
@@ -99,12 +98,52 @@ export default function Administradora() {
         }
     }
 
-    const handleImageEdit =  async (id, data) => {
+    const handleImageDelete = async (id) => {
+        const res = await logic.deleteImageData(id)
 
-        const res = await logic.editImageData(id, data)
-
-        console.log(response)
+        if (res.data.status === 'OK') {
+            Uikit.notification({
+                message: "Imatge editada correctament!",
+                pos: "top-center",
+                status: 'success',
+                timeout: 3000,
+            })
+        } else {
+            Uikit.notification({
+                message: `ERROR! ${res.data.message}`,
+                pos: "top-center",
+                status: 'danger',
+                timeout: 3000,
+            })
+        }
+        Uikit.modal('#edit-image-modal').hide();
+        handleGetImages()
     }
+
+    const handleImageEdit =  async (data) => {
+        const { id, description, section } = data
+
+        const res = await logic.editImageData(id, {description, section})
+
+        if (res.data.status === 'OK') {
+            Uikit.notification({
+                message: "Imatge editada correctament!",
+                pos: "top-center",
+                status: 'success',
+                timeout: 3000,
+            })
+        } else {
+            Uikit.notification({
+                message: `ERROR! ${res.data.message}`,
+                pos: "top-center",
+                status: 'danger',
+                timeout: 3000,
+            })
+        }
+        Uikit.modal('#edit-image-modal').hide();
+        handleGetImages()
+    }
+
     const handleGetImages = async () => {
         const response = await logic.getImages()
         setImageList(response)
@@ -135,7 +174,7 @@ export default function Administradora() {
                                 EDIT IMAGES:
                             </div>
                             <div>
-                                <EditGallery imageList={imageList} onImageEdit={handleImageEdit}/>
+                                <EditGallery imageList={imageList} onImageDelete={handleImageDelete} onImageEdit={handleImageEdit}/>
                             </div>
                             <div className="uk-padding-large" >
                                 <a href="/api/auth/signout/google">Sign out</a>

@@ -6,21 +6,31 @@ export default function EditModal({
     onDescriptionChange,
     onSelectChange,
     onSubmit,
+    description,
+    publicId,
+    section
 }) {
     const [confirmDelete, setConfirmDelete] = useState(false)
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onSubmit(e); 
+        e.target.description.value='';
+        e.target.sectionSelect.value=''
+    }
 
     return (
         <div id="edit-image-modal" data-uk-modal>
             <div className="uk-modal-dialog uk-margin-auto-vertical uk-modal-body">
                 <button className="uk-modal-close-default" type="button" data-uk-close></button>
-                <form onSubmit={(e) => { e.preventDefault(); onSubmit(e) }}>
+                <form onSubmit={(e) => { e.preventDefault(); handleSubmit(e) }}>
                     <fieldset className="uk-fieldset">
                         <div className="uk-margin uk-text-center">
                             <legend className="uk-legend" path="title">Editar Imatge:</legend>
                         </div>
                         <div className="uk-text-center">
-                            <Image publicId={'ilustration/arfk6xwdhcgalqndkixw'}>
-                                <Transformation height="200" crop="fill" />
+                            <Image publicId={publicId}>
+                                <Transformation quality="auto" height="200" crop="fill" />
                             </Image>
 
                         </div>
@@ -30,7 +40,7 @@ export default function EditModal({
                                 className="uk-select"
                                 onChange={(e) => onSelectChange(e.target.value)}
                                 id='sectionSelect'
-                                defaultValue='other'
+                                value={section}
                             >
                                 <option value="screenprinting">Screenprinting</option>
                                 <option value="ilustration">Ilustration</option>
@@ -44,6 +54,7 @@ export default function EditModal({
                                 className="uk-input"
                                 type="text"
                                 id="description"
+                                value={description}
                                 onChange={e => onDescriptionChange(e.target.value)}
                             />
                         </div>
@@ -58,7 +69,7 @@ export default function EditModal({
                                 </div>
                                 <div className="uk-margin uk-flex uk-flex-auto uk-flex-around uk-flex-middle">
                                     <button type="button" onClick={() => setConfirmDelete(false)} className='uk-button uk-button-default'>Cancela</button>
-                                    <button type="button" onClick={() => onDelete()} className='uk-button uk-button-danger'>Confirma</button>
+                                    <button type="button" onClick={() =>{ onDelete(); setConfirmDelete(false)}} className='uk-button uk-button-danger'>Confirma</button>
                                 </div>
                             </div>
                         }

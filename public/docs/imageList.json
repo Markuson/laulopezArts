@@ -25,6 +25,12 @@
         "url": "https://res.cloudinary.com/marcuson/image/upload/v1595525325/screenprinting/eqm9b3i2dqfbmxgqzveu.jpg",
         "publicId": "screenprinting/eqm9b3i2dqfbmxgqzveu",
         "description": "Samarreta fugu gris"
+      },
+      {
+        "id": "emozlynzoyepxskzpsqi",
+        "url": "https://res.cloudinary.com/marcuson/image/upload/v1595664535/screenprinting/emozlynzoyepxskzpsqi.jpg",
+        "publicId": "screenprinting/emozlynzoyepxskzpsqi",
+        "description": ""
       }
     ]
   },
@@ -66,16 +72,10 @@
         "description": "samarreta flaciots blanca blava"
       },
       {
-        "id": "usui8ffsxi6epzyhbyly",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1595548279/other/usui8ffsxi6epzyhbyly.png",
-        "publicId": "other/usui8ffsxi6epzyhbyly",
-        "description": "aaaa"
-      },
-      {
         "id": "rowt2ffxz1almhe3oz7w",
         "url": "https://res.cloudinary.com/marcuson/image/upload/v1595551209/other/rowt2ffxz1almhe3oz7w.jpg",
         "publicId": "other/rowt2ffxz1almhe3oz7w",
-        "description": "qqq"
+        "description": "antelope canyon"
       },
       {
         "id": "rmcig9apsqvqjyctcwd0",
@@ -87,7 +87,37 @@
         "id": "pfr4rly8bfsrjemsaogd",
         "url": "https://res.cloudinary.com/marcuson/image/upload/v1595639401/other/pfr4rly8bfsrjemsaogd.jpg",
         "publicId": "other/pfr4rly8bfsrjemsaogd",
-        "description": "asdasdfffffffff"
+        "description": "testing testing"
+      },
+      {
+        "id": "i91gw5pdljsvipwklsxp",
+        "url": "https://res.cloudinary.com/marcuson/image/upload/v1595664184/other/i91gw5pdljsvipwklsxp.jpg",
+        "publicId": "other/i91gw5pdljsvipwklsxp",
+        "description": "testing something"
+      },
+      {
+        "id": "lsksrjegbzpigbcniq0b",
+        "url": "https://res.cloudinary.com/marcuson/image/upload/v1595664377/other/lsksrjegbzpigbcniq0b.jpg",
+        "publicId": "other/lsksrjegbzpigbcniq0b",
+        "description": ""
+      },
+      {
+        "id": "ykq0sytzztjy8skdjzrq",
+        "url": "https://res.cloudinary.com/marcuson/image/upload/v1595664418/other/ykq0sytzztjy8skdjzrq.jpg",
+        "publicId": "other/ykq0sytzztjy8skdjzrq",
+        "description": ""
+      },
+      {
+        "id": "eer5rxqi4irktcsyt0nd",
+        "url": "https://res.cloudinary.com/marcuson/image/upload/v1595665387/other/eer5rxqi4irktcsyt0nd.jpg",
+        "publicId": "other/eer5rxqi4irktcsyt0nd",
+        "description": "testestestestest"
+      },
+      {
+        "id": "ifgxrqjzvycmlrv2cqok",
+        "url": "https://res.cloudinary.com/marcuson/image/upload/v1595665442/other/ifgxrqjzvycmlrv2cqok.jpg",
+        "publicId": "other/ifgxrqjzvycmlrv2cqok",
+        "description": ""
       }
     ]
   },

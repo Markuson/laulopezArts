@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 
 export default function AddImageModal({
     onDescriptionChange,
@@ -7,12 +8,17 @@ export default function AddImageModal({
     progress,
     uploadingImage,
 }) {
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onSubmit(e); 
+        e.target.description.value='';
+        e.target.sectionSelect.value='other'
+    }
     return (
         <div id="add-image-modal" data-uk-modal>
             <div className="uk-modal-dialog uk-margin-auto-vertical uk-modal-body">
                 <button className="uk-modal-close-default" type="button" data-uk-close></button>
-                <form onSubmit={(e) => {e.preventDefault(); onSubmit(e);}}>
+                <form onSubmit={(e) => handleSubmit(e)}>
                     <fieldset className="uk-fieldset">
                         <div className="uk-margin">
                             <legend className="uk-legend" path="title">Afegir Imatges:</legend>
@@ -53,7 +59,10 @@ export default function AddImageModal({
                         <div className="uk-margin uk-flex uk-flex-auto uk-flex-between uk-flex-middle">
                             <div>
                                 {uploadingImage &&
-                                    <span className="uk-margin-left uk-text-middle">Pujant... Progrés: {progress}% </span>
+                                    <div>
+                                        <span className="uk-margin-left uk-text-middle">Pujant...{progress}% </span>
+                                        <progress value={progress} max='100' >{progress}%</progress>
+                                    </div>
                                 }
                             </div>
                             <button className='uk-button uk-button-default'>Puja</button>

@@ -20,7 +20,6 @@ const options = {
       }
     },
     redirect: async (url, baseUrl) => {
-      console.log(url)
       return Promise.resolve(`${baseUrl}/administradora`)
      },
   }

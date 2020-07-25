@@ -75,8 +75,23 @@ const logic = {
         })();
     },
 
-    deleteImageData() {
-
+    deleteImageData(id) {
+        return (async () => {
+            let url = `/api/admin/image/${id}`
+            try {
+                const response = await axios({
+                    method: 'delete',
+                    url,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                return response
+            }
+            catch (e) {
+                return e.message
+            }
+        })();
     },
 
     saveImageData(response, folder, description) {
