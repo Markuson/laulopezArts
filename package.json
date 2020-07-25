@@ -1,8 +1,9 @@
 {
   "name": "laulopezarts",
   "version": "0.1.0",
+  "description": "Laura Lopez Arts personal website",
   "private": true,
-  "scripts": {
+    "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p $PORT",
@@ -18,5 +19,8 @@
     "react-dom": "16.13.1",
     "superagent": "^5.3.1",
     "uikit": "^3.4.6"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
