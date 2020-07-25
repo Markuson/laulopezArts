@@ -29,7 +29,7 @@ const logic = {
         })();
     },
 
-    addImagedata(data) {
+    addImageData(data) {
         return (async () => {
             let url = `/api/admin/image/${data.id}`
             try {
@@ -52,18 +52,52 @@ const logic = {
         })();
     },
 
-    deleteImageData() {
+    editImageData(id, data) {
+        return (async () => {
+            let url = `/api/admin/image/${id}`
+            try {
+                const response = await axios({
+                    method: 'put',
+                    url,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: {
+                        command: "edit",
+                        data
+                    }
+                })
+                return response
+            }
+            catch (e) {
+                return e.message
+            }
+        })();
+    },
 
+    deleteImageData(id) {
+        return (async () => {
+            let url = `/api/admin/image/${id}`
+            try {
+                const response = await axios({
+                    method: 'delete',
+                    url,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                return response
+            }
+            catch (e) {
+                return e.message
+            }
+        })();
     },
 
     saveImageData(response, folder, description) {
         const { body: { public_id, secure_url } } = response
 
         console.log(`public id: ${public_id}, url: ${secure_url},folder: ${folder}, description: ${description}`)
-    },
-
-    getImageList() {
-
     }
 }
 

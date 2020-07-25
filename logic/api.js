@@ -85,7 +85,7 @@ const logic = {
     },
 
     editImage(imageId, data){
-        const {description, section, url} = data
+        const { description, section } = data
         let imageFound = false
         let index = -1
         return (async () => {
@@ -95,10 +95,8 @@ const logic = {
                     if(!imageFound){
                         if(index == -1) index = list.images.findIndex(image => image.id == imageId)
                         if (index > -1) {
-                            console.log(section, list.section)
                             if (section == list.section || !section){
                                 description ? list.images[index].description = description : false
-                                url ? list.images[index].url = url : false
                             }else{
                                 const editedImage = list.images.splice(index,1)
                                 imageList.forEach(list => {

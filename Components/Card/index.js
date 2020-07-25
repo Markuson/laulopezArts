@@ -8,7 +8,7 @@ export default function Card({
     url
 }) {
 
-    return <div className="uk-box-shadow-hover-large uk-animation-fade " tabindex="0">
+    return <div className="uk-box-shadow-hover-large uk-animation-fade " tabIndex="0">
             <a href={url} data-caption={description}>
                 <div id={id} className="uk-text-center">
                     {/* <img src={src} /> */}
