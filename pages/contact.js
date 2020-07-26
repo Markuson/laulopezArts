@@ -22,7 +22,7 @@ export default function Contact() {
             <a href="https://www.instagram.com/lau_llc/" className="uk-icon-button"><img src='icons/instagram.svg' /></a>
           </div>
           <div className='uk-padding-small'>
-            <a href="https://www.facebook.com/entre.nusos" className="uk-icon-button"><img src='icons/behance.svg' /></a>
+            <a href="hhttps://www.behance.net/lau_llc" className="uk-icon-button"><img src='icons/behance.svg' /></a>
           </div>
           <div className='uk-padding-small'>
             <a href="" className="uk-icon-button"><img src='icons/linkedin.svg' /></a>
