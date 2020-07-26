@@ -1,8 +1,9 @@
-import {Image} from 'cloudinary-react';
+import {Image, Transformation} from 'cloudinary-react';
 
 
 export default function Card({
     description,
+    height = 500,
     id,
     publicId,
     url
@@ -12,7 +13,9 @@ export default function Card({
             <a href={url} data-caption={description}>
                 <div id={id} className="uk-text-center">
                     {/* <img src={src} /> */}
-                    <Image publicId={publicId}/>
+                    <Image publicId={publicId}>
+                    <Transformation quality="auto" height={height} crop="fill" />
+                            </Image>
                 </div>
             </a>
     </div>

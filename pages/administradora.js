@@ -17,6 +17,7 @@ export default function Administradora() {
     const [session, loading] = useSession()
 
     const [description, setDescription] = useState('')
+    const [displaySection, setDisplaySection] = useState(undefined)
     const [fileInput, setFileInput] = useState('')
     const [imageList, setImageList] = useState([])
     const [section, setSection] = useState('other')
@@ -24,8 +25,8 @@ export default function Administradora() {
     const [uploadingProgress, setUploadingProgress] = useState(0)
 
     useEffect(() => {
-          handleGetImages()
-    }, [])
+        handleGetImages(displaySection)
+    }, [displaySection])
 
     const handleImageAdd = (files) => {
         if (files.length > 0) {
@@ -120,10 +121,10 @@ export default function Administradora() {
         handleGetImages()
     }
 
-    const handleImageEdit =  async (data) => {
+    const handleImageEdit = async (data) => {
         const { id, description, section } = data
 
-        const res = await logic.editImageData(id, {description, section})
+        const res = await logic.editImageData(id, { description, section })
 
         if (res.data.status === 'OK') {
             Uikit.notification({
@@ -144,8 +145,8 @@ export default function Administradora() {
         handleGetImages()
     }
 
-    const handleGetImages = async () => {
-        const response = await logic.getImages()
+    const handleGetImages = async (_section = undefined) => {
+        const response = await logic.getImages(_section)
         setImageList(response)
     }
 
@@ -156,38 +157,48 @@ export default function Administradora() {
             </Head>
 
             <Header selected={undefined} />
-            <main className="uk-padding-large">
-                {!session &&
+            {!session &&
+                <main className="uk-padding-large">
                     <div className="uk-padding-large uk-text-center uk-height-1-1">
                         <a className='uk-button uk-button-default uk-button-large' href="/api/auth/signin/google">Sign in</a>
                     </div>
-                }
-                {session &&
-                    <div className="uk-text-center">
-                        <div>
-                            <button className='uk-button uk-button-default uk-button-large' data-uk-toggle="target: #add-image-modal" type="button">
-                                ADD NEW IMAGE
+                </main>
+            }
+            {session &&
+                <main className="uk-padding-large">
+                    <div className=" uk-padding-large uk-text-center">
+                        <button className='uk-button uk-button-default uk-button-large' data-uk-toggle="target: #add-image-modal" type="button">
+                            ADD NEW IMAGE
                             </button>
+                    </div>
+                    <div className='uk-text-center uk-padding-large' >
+                            EDIT IMAGES:
+                            </div>
+                    <div className="uk-animation-scale-up ">
+                        <ul className="uk-breadcrumb uk-visible@s">
+                            <li><a onClick={() => setDisplaySection(undefined)}>All my works</a></li>
+                            <li><a onClick={() => setDisplaySection('screenprinting')}>Screenprinting</a></li>
+                            <li><a onClick={() => setDisplaySection('ilustration')}>Ilustration</a></li>
+                            <li><a onClick={() => setDisplaySection('science')}>Science</a></li>
+                            <li><a onClick={() => setDisplaySection('other')}>Other works</a></li>
+                        </ul>
+                    </div>
+                    <div className="uk-padding uk-text-center">
+                        <div>
+                            <EditGallery imageList={imageList} onImageDelete={handleImageDelete} onImageEdit={handleImageEdit} />
                         </div>
-                        <div className="uk-padding uk-text-center">
-                            <div className='uk-text-center uk-padding-small' >
-                                EDIT IMAGES:
-                            </div>
-                            <div>
-                                <EditGallery imageList={imageList} onImageDelete={handleImageDelete} onImageEdit={handleImageEdit}/>
-                            </div>
-                            <div className="uk-padding-large" >
-                                <a href="/api/auth/signout/google">Sign out</a>
-                            </div>
+                        <div className="uk-padding-large" >
+                            <a href="/api/auth/signout/google">Sign out</a>
                         </div>
                     </div>
-                }
-            </main>
+                </main>
+            }
+
             <AddImageModal
                 onDescriptionChange={(value) => setDescription(value)}
                 onFileInput={(value) => setFileInput(value)}
-                onSectionChange={(value) => setSection(value)} 
-                onSubmit={() => handleImageAdd(fileInput.files)} 
+                onSectionChange={(value) => setSection(value)}
+                onSubmit={() => handleImageAdd(fileInput.files)}
                 progress={Math.floor(uploadingProgress)}
                 uploadingImage={uploadingImage}
             />

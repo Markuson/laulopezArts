@@ -30,7 +30,7 @@ export default function EditModal({
                         </div>
                         <div className="uk-text-center">
                             <Image publicId={publicId}>
-                                <Transformation quality="auto" height="200" crop="fill" />
+                                <Transformation quality="auto" height="350" crop="fill" />
                             </Image>
 
                         </div>

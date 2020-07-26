@@ -33,34 +33,39 @@ export default function EditGallery({
         Uikit.modal("#edit-image-modal").show();
     }
 
-return (
-    <CloudinaryContext cloudName="marcuson">
-        <div
-            className="uk-padding-large uk-padding-remove-vertical uk-child-width-1-3@m uk-grid-small uk-grid-match uk-text-center uk-flex-middle"
-            data-uk-grid
-            data-uk-lightbox="animation: slide"
-            uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 1000; repeat: true"
-        >
-            {
-                imageList.map(({ description, id, publicId, url }) => {
-                    return <div key={id} onClick={() => handleImageClick(description, id, publicId, url)}>
-                        <div className="uk-box-shadow-hover-large uk-animation-fade " tabIndex="0">
-                            <Image publicId={publicId} />
+    return (
+        <CloudinaryContext cloudName="marcuson">
+            <div
+                className="uk-padding-large uk-padding-remove-vertical uk-child-width-1-3@m uk-grid-small uk-grid-match uk-text-center uk-flex-middle"
+                data-uk-grid
+                data-uk-lightbox="animation: slide"
+                uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 1000; repeat: true"
+            >
+                {
+                    imageList.map(({ description, id, publicId, url }) => {
+                        return <div key={id} onClick={() => handleImageClick(description, id, publicId, url)}>
+                            <div className="uk-box-shadow-hover-large uk-animation-fade " tabIndex="0">
+                                <div class="uk-inline">
+                                    <Image publicId={publicId} />
+                                    <div class="uk-overlay uk-overlay-primary uk-light uk-position-bottom">
+                                        <p>{description}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                })
+                    })
 
-            }
-        </div>
-        <EditModal
-            onDelete={(value) => onImageDelete(id)}
-            onDescriptionChange={(value) => setDescription(value)}
-            onSelectChange={(value) => setSection(value)}
-            onSubmit={() => handleSubmit()}
-            description={description}
-            publicId={publicId}
-            section={section}
-        />
-    </CloudinaryContext>
-)
+                }
+            </div>
+            <EditModal
+                onDelete={(value) => onImageDelete(id)}
+                onDescriptionChange={(value) => setDescription(value)}
+                onSelectChange={(value) => setSection(value)}
+                onSubmit={() => handleSubmit()}
+                description={description}
+                publicId={publicId}
+                section={section}
+            />
+        </CloudinaryContext>
+    )
 }
