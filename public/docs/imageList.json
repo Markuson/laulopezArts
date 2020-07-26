@@ -25,31 +25,12 @@
         "url": "https://res.cloudinary.com/marcuson/image/upload/v1595525325/screenprinting/eqm9b3i2dqfbmxgqzveu.jpg",
         "publicId": "screenprinting/eqm9b3i2dqfbmxgqzveu",
         "description": "Samarreta fugu gris"
-      },
-      {
-        "id": "emozlynzoyepxskzpsqi",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1595664535/screenprinting/emozlynzoyepxskzpsqi.jpg",
-        "publicId": "screenprinting/emozlynzoyepxskzpsqi",
-        "description": ""
       }
     ]
   },
   {
     "section": "ilustration",
-    "images": [
-      {
-        "id": "arfk6xwdhcgalqndkixw",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1595525397/ilustration/arfk6xwdhcgalqndkixw.jpg",
-        "publicId": "ilustration/arfk6xwdhcgalqndkixw",
-        "description": "logo exemple"
-      },
-      {
-        "id": "arocmrhx31jdhuvd2g6f",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1595526856/ilustration/arocmrhx31jdhuvd2g6f.jpg",
-        "publicId": "ilustration/arocmrhx31jdhuvd2g6f",
-        "description": "test"
-      }
-    ]
+    "images": []
   },
   {
     "section": "science",
@@ -84,12 +65,6 @@
         "description": "wwwwww"
       },
       {
-        "id": "pfr4rly8bfsrjemsaogd",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1595639401/other/pfr4rly8bfsrjemsaogd.jpg",
-        "publicId": "other/pfr4rly8bfsrjemsaogd",
-        "description": "testing testing"
-      },
-      {
         "id": "i91gw5pdljsvipwklsxp",
         "url": "https://res.cloudinary.com/marcuson/image/upload/v1595664184/other/i91gw5pdljsvipwklsxp.jpg",
         "publicId": "other/i91gw5pdljsvipwklsxp",
@@ -105,18 +80,24 @@
         "id": "ykq0sytzztjy8skdjzrq",
         "url": "https://res.cloudinary.com/marcuson/image/upload/v1595664418/other/ykq0sytzztjy8skdjzrq.jpg",
         "publicId": "other/ykq0sytzztjy8skdjzrq",
-        "description": ""
+        "description": "San Francisco (Full House sitcom intro image)"
       },
       {
         "id": "eer5rxqi4irktcsyt0nd",
         "url": "https://res.cloudinary.com/marcuson/image/upload/v1595665387/other/eer5rxqi4irktcsyt0nd.jpg",
         "publicId": "other/eer5rxqi4irktcsyt0nd",
-        "description": "testestestestest"
+        "description": "Yosemite from Tunnel View Point"
       },
       {
         "id": "ifgxrqjzvycmlrv2cqok",
         "url": "https://res.cloudinary.com/marcuson/image/upload/v1595665442/other/ifgxrqjzvycmlrv2cqok.jpg",
         "publicId": "other/ifgxrqjzvycmlrv2cqok",
+        "description": "Road to Grand Canyon"
+      },
+      {
+        "id": "emozlynzoyepxskzpsqi",
+        "url": "https://res.cloudinary.com/marcuson/image/upload/v1595664535/screenprinting/emozlynzoyepxskzpsqi.jpg",
+        "publicId": "screenprinting/emozlynzoyepxskzpsqi",
         "description": ""
       }
     ]
