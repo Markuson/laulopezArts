@@ -29,7 +29,7 @@ export default function EditModal({
                             <legend className="uk-legend" path="title">Editar Imatge:</legend>
                         </div>
                         <div className="uk-text-center">
-                            <Image publicId={publicId}>
+                            <Image alt={description} publicId={publicId}>
                                 <Transformation quality="auto" height="350" crop="fill" />
                             </Image>
 

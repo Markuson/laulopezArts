@@ -19,13 +19,13 @@ export default function Contact() {
         </div>
         <div className="uk-flex uk-flex-center uk-width-1-1">
           <div className='uk-padding-small'>
-            <a href="https://www.instagram.com/lau_llc/" className="uk-icon-button"><img src='icons/instagram.svg' /></a>
+            <a href="https://www.instagram.com/lau_llc/" rel="noopener noreferrer" className="uk-icon-button"><img src='icons/instagram.svg' /></a>
           </div>
           <div className='uk-padding-small'>
-            <a href="hhttps://www.behance.net/lau_llc" className="uk-icon-button"><img src='icons/behance.svg' /></a>
+            <a href="hhttps://www.behance.net/lau_llc" rel="noopener noreferrer" className="uk-icon-button"><img src='icons/behance.svg' /></a>
           </div>
           <div className='uk-padding-small'>
-            <a href="" className="uk-icon-button"><img src='icons/linkedin.svg' /></a>
+            <a href="" rel="noopener noreferrer" className="uk-icon-button"><img src='icons/linkedin.svg' /></a>
           </div>
         </div>
         {/* <hr/> */}

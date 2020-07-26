@@ -46,7 +46,7 @@ export default function EditGallery({
                         return <div key={id} onClick={() => handleImageClick(description, id, publicId, url)}>
                             <div className="uk-box-shadow-hover-large uk-animation-fade " tabIndex="0">
                                 <div class="uk-inline">
-                                    <Image publicId={publicId} />
+                                    <Image alt={description} publicId={publicId} />
                                     <div class="uk-overlay uk-overlay-primary uk-light uk-position-bottom">
                                         <p>{description}</p>
                                     </div>

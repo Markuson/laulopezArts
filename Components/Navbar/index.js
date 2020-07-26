@@ -60,7 +60,7 @@ export default function Navbar({
                         </div>
                         <div className='uk-padding uk-padding-remove-vertical'>
                             <li>
-                                <a href="https://www.etsy.com/es/shop/LauLopezArts" target="_blank">
+                                <a href="https://www.etsy.com/es/shop/LauLopezArts" rel="noopener noreferrer" target="_blank">
                                     <button className="uk-button uk-button-text uk-button-xlarge" disabled={selected === 'Contact' ? true : false} >
                                         <strong>SHOP</strong>
                                     </button>

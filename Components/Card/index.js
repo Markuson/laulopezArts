@@ -13,7 +13,7 @@ export default function Card({
             <a href={url} data-caption={description}>
                 <div id={id} className="uk-text-center">
                     {/* <img src={src} /> */}
-                    <Image publicId={publicId}>
+                    <Image publicId={publicId} alt={description}>
                     <Transformation quality="auto" height={height} crop="fill" />
                             </Image>
                 </div>
