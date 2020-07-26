@@ -20,7 +20,7 @@ const options = {
       }
     },
     redirect: async (url, baseUrl) => {
-      return Promise.resolve(`${baseUrl}/administradora`)
+      return Promise.resolve(`https://laulopezarts.herokuapp.com/administradora`)
      },
   }
 }
