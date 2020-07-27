@@ -43,7 +43,7 @@ const logic = {
                 if (index==-1){
                     imageList.forEach(element => {
                         if(element.section === section){
-                            element.images.push({id, url, publicId, description})
+                            element.images.push({id, url, publicId, description, timestamp: Date.now()})
                             sectionFound = true
                         }
                     });
@@ -114,6 +114,6 @@ const logic = {
                 return {status: 'ERROR', message: error.message}
             }
         })()
-    }
+    },
 }
 export default logic

@@ -13,7 +13,7 @@ const options = {
   ],
   callbacks: {
     signin: async (profile, account, metadata) => {
-      if (profile.email===process.env.ADMIN_USER) {
+      if ((profile.email===process.env.ADMIN_USER)||(profile.email===process.env.SUPERADMIN_USER)) {
         return Promise.resolve(true)
       } else {
         return Promise.resolve(false)
