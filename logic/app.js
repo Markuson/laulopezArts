@@ -5,6 +5,7 @@ const logic = {
     getImages(section = undefined) {
         let url = `/api/admin/images`
         let result =[]
+        let sorted = []
         return (async () => {
             try {
                 const response = await axios({
@@ -21,6 +22,19 @@ const logic = {
                         })
                     }
                 })
+                result = result.sort((a, b) => {
+                    const time1 = a.timestamp;
+                    const time2 = b.timestamp;
+
+                    let comparison = 0;
+                    if (time1 > time2) {
+                      comparison = 1;
+                    } else if (time1 < time2) {
+                      comparison = -1;
+                    }
+                    return comparison;
+                })
+
                 return result
             }
             catch (e) {

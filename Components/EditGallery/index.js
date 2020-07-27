@@ -41,7 +41,7 @@ export default function EditGallery({
                 data-uk-lightbox="animation: slide"
                 uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 1000; repeat: true"
             >
-                {
+                {imageList && 
                     imageList.map(({ description, id, publicId, url }) => {
                         return <div key={id} onClick={() => handleImageClick(description, id, publicId, url)}>
                             <div className="uk-box-shadow-hover-large uk-animation-fade " tabIndex="0">

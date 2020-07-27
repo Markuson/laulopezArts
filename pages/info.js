@@ -14,8 +14,8 @@ export default function Info() {
             <Header selected='About' />
 
             <main className="uk-flex uk-flex-column uk-flex-center uk-padding-small uk-padding-remove-bottom">
-                <div className="uk-flex uk-flex-middle uk-flex-top uk-flex-center uk-flex-row" data-uk-grid>
-                    <div className="uk-padding uk-align-center uk-animation-fade">
+                <div className="uk-flex uk-flex-middle uk-flex-center uk-flex-row" data-uk-grid>
+                    <div className=" uk-padding uk-align-right uk-animation-fade">
                         <img src="/images/profilePic.jpg" width="440px" alt="Profile Picture" />
                     </div>
                     <div className=" uk-padding uk-width-1-3@s uk-animation-scale-up">
@@ -26,7 +26,7 @@ export default function Info() {
                             I currently live and work in Barcelona. You can find me in Àrtica Studio.
                         </p>
                         <p className={styles.description}>
-                            For work enquiries or collaboration please contact me on <a><strong>info@laulopezarts.com</strong></a>
+                            For work enquiries or collaboration please contact me on <a href="mailto:laulopezarts@gmail.com"><strong>laulopezarts@gmail.com</strong></a>
                         </p>
                         <p className={styles.description}>
                             I enjoy using art to bring biodiversity closer to people.
@@ -44,7 +44,7 @@ export default function Info() {
                         <a className={styles.growRotate} target='_blank' href="https://www.facebook.com/entre.nusos" ><img src='icons/behance.png' width='60px' /></a>
                     </div>
                     <div className='uk-padding-small'>
-                        <a className={styles.growRotate} target='_blank' href=""><img src='icons/linkedin.png' width='60px' /></a>
+                        <a className={styles.growRotate} target='_blank' href="https://www.linkedin.com/in/laura-l%C3%B3pez-8a59a351/"><img src='icons/linkedin.png' width='60px' /></a>
                     </div>
                 </div>
             </main>
