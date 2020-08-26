@@ -28,6 +28,12 @@ export default function userHandler(req, res) {
               res.status(200).json(response)
             })();
             break
+          case 'delete':
+            return (async () => {
+              const response = await logic.deleteImage(data)
+              res.status(200).json(response)
+            })();
+            break
           default:
             res.status(200).json({status:'ERROR', message:'unrecognized command'})
         }
