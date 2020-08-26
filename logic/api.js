@@ -1,4 +1,11 @@
 const jsonfile = require('jsonfile')
+const cloudinary = require('cloudinary').v2
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDNAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET
+});
 
 const logic = {
     getImageList() {
@@ -64,6 +71,9 @@ const logic = {
         let deleted = false
         return (async () => {
             try {
+                cloudinary.uploader.destroy(`other/${imageId}`, function(error,result) {
+                    if(error) throw new Error(error) 
+                });
                 const imageList = await this.getImageList()
                 imageList.forEach(list => {
                     if(!deleted){
@@ -79,6 +89,7 @@ const logic = {
                 if (deleted) return {status: 'OK', message: 'image deleted'}
                 return {status: 'ERROR', message: 'image not found'}
             } catch (error) {
+                if (error.message == undefined) return {status: 'ERROR', message: error}
                 return {status: 'ERROR', message: error.message}
             }
         })()
