@@ -28,7 +28,7 @@ export default function Administradora() {
         handleGetImages(displaySection)
     }, [displaySection])
 
-    const handleImageAdd = (files) => {
+    const handleImageAdd = async (files) => {
         if (files.length > 0) {
             try {
                 const uploadPreset = process.env.UPLOADPRESET
@@ -91,6 +91,7 @@ export default function Administradora() {
                             setSection('other')
                             setDescription('')
                             Uikit.modal('#add-image-modal').hide();
+                            handleGetImages(displaySection)
                         });
                 }
             } catch (error) {
@@ -104,7 +105,7 @@ export default function Administradora() {
 
         if (res.data.status === 'OK') {
             Uikit.notification({
-                message: "Imatge editada correctament!",
+                message: "Imatge eliminada correctament!",
                 pos: "top-center",
                 status: 'success',
                 timeout: 3000,

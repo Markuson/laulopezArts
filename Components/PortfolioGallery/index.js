@@ -12,12 +12,12 @@ export default function PortfolioGallery({
                 className="uk-padding-large uk-padding-remove-vertical uk-child-width-1-3@m uk-grid-small uk-grid-match uk-text-center uk-flex-middle"
                 data-uk-grid
                 data-uk-lightbox="animation: slide"
-                uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 1000; repeat: true"
+                uk-scrollspy="cls: uk-animation-fade; target: .card; delay: 500; repeat: true"
             >
                 {
                     imageList.map(({ description, id, publicId, url }) => {
 
-                        return <div key={id}>
+                        return <div key={id} className="card">
                             <Card description={description} id={id} publicId={publicId} url={url} />
                         </div>
                     })

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "cloudinary": "^1.23.0",
     "cloudinary-core": "^2.8.2",
     "cloudinary-react": "^1.6.2",
     "jsonfile": "^6.0.1",

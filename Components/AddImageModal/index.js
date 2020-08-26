@@ -10,7 +10,9 @@ export default function AddImageModal({
 }) {
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(e); 
+        (async () => {
+            await onSubmit(e);
+        })();
         e.target.description.value='';
         e.target.sectionSelect.value='other'
     }
