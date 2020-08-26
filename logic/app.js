@@ -89,16 +89,21 @@ const logic = {
         })();
     },
 
-    deleteImageData(id) {
+    deleteImageData(publicId) {
+        const [,id] = publicId.split('/')
         return (async () => {
             let url = `/api/admin/image/${id}`
             try {
                 const response = await axios({
-                    method: 'delete',
+                    method: 'put',
                     url,
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                    data: {
+                        command: "delete",
+                        data:{publicId}
+                    }
                 })
                 return response
             }

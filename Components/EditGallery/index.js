@@ -58,7 +58,7 @@ export default function EditGallery({
                 }
             </div>
             <EditModal
-                onDelete={(value) => onImageDelete(id)}
+                onDelete={(value) => onImageDelete(`${section}/${id}`)}
                 onDescriptionChange={(value) => setDescription(value)}
                 onSelectChange={(value) => setSection(value)}
                 onSubmit={() => handleSubmit()}
