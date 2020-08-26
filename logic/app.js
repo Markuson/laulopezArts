@@ -28,9 +28,9 @@ const logic = {
 
                     let comparison = 0;
                     if (time1 > time2) {
-                      comparison = 1;
-                    } else if (time1 < time2) {
                       comparison = -1;
+                    } else if (time1 < time2) {
+                      comparison = 1;
                     }
                     return comparison;
                 })
