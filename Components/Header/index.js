@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 import Navbar from '../Navbar'
+import Link from 'next/link'
 
 export default function Header({
   selected = undefined
@@ -39,7 +40,9 @@ export default function Header({
   }
 
   return <header style={{backgroundColor:randColor}} className="uk-animation-fade">
-    <img src={mainLogo} alt="laulópez Arts" width="460px" />
+    <Link href="/">
+      <img src={mainLogo} alt="laulópez Arts" width="460px" />
+    </Link>
     <Navbar selected={selected} color={randColor}/>
   </header>
 }

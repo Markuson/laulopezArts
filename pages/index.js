@@ -14,7 +14,12 @@ export default function Home() {
 
   useEffect(() => {
     (async() => {
-      const response = await logic.getImages(section)
+      let response
+      if (section=='undefined'){
+        response = await logic.getImages(undefined)
+      }else {
+        response = await logic.getImages(section)
+      }
       setImageList(response)
 
     })();
@@ -29,13 +34,25 @@ export default function Home() {
     <Header selected="Home" />
     <main className="uk-padding-large uk-padding-remove-top">
       <div className="uk-animation-scale-up uk-padding">
-        <ul className=" uk-breadcrumb uk-visible@s">
+        <ul className=" uk-breadcrumb uk-visible@m">
         <li><a onClick={() => setSection(undefined)}>All my works</a></li>
           <li><a onClick={() => setSection('screenprinting')}>Screenprinting</a></li>
           <li><a onClick={() => setSection('ilustration')}>Ilustration</a></li>
           <li><a onClick={() => setSection('science')}>Science</a></li>
           <li><a onClick={() => setSection('other')}>Other works</a></li>
         </ul>
+          <select
+            className="uk-select uk-hidden@m  "
+            onChange={(e) => console.log(e.target.value)}
+            id='sectionSelect'
+            defaultValue={undefined}
+          >
+            <option value='undefined'>All my works</option>
+            <option value="screenprinting">Screenprinting</option>
+            <option value="ilustration">Ilustration</option>
+            <option value="science">Science</option>
+            <option value="other">Other</option>
+          </select>
       </div>
 
       <PortfolioGallery imageList={imageList} />
