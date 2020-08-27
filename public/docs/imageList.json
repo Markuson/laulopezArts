@@ -1,107 +1,19 @@
 [
   {
     "section": "screenprinting",
-    "images": [
-      {
-        "id": "nimfoablmwdsr5zgebul",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1598513627/screenprinting/nimfoablmwdsr5zgebul.jpg",
-        "publicId": "screenprinting/nimfoablmwdsr5zgebul",
-        "description": "test 3",
-        "timestamp": 1598513629244
-      },
-      {
-        "id": "gpjkolejpurvld30dzln",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1598513773/screenprinting/gpjkolejpurvld30dzln.jpg",
-        "publicId": "screenprinting/gpjkolejpurvld30dzln",
-        "description": "test 6",
-        "timestamp": 1598513775073
-      },
-      {
-        "id": "zz4xrqkhjgzr2mhsqxfq",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1598513839/screenprinting/zz4xrqkhjgzr2mhsqxfq.jpg",
-        "publicId": "screenprinting/zz4xrqkhjgzr2mhsqxfq",
-        "description": "test 8",
-        "timestamp": 1598513841246
-      },
-      {
-        "id": "hrpfbktky1smyrpdujel",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1598513912/screenprinting/hrpfbktky1smyrpdujel.jpg",
-        "publicId": "screenprinting/hrpfbktky1smyrpdujel",
-        "description": "test 10",
-        "timestamp": 1598513914421
-      }
-    ]
+    "images": []
   },
   {
     "section": "ilustration",
-    "images": [
-      {
-        "id": "blg86kugry8dcvooxpxy",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1598513934/ilustration/blg86kugry8dcvooxpxy.jpg",
-        "publicId": "ilustration/blg86kugry8dcvooxpxy",
-        "description": "test 11",
-        "timestamp": 1598513935778
-      },
-      {
-        "id": "lg6pmlnoh9amxif4rmlt",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1598513960/ilustration/lg6pmlnoh9amxif4rmlt.jpg",
-        "publicId": "ilustration/lg6pmlnoh9amxif4rmlt",
-        "description": "test 12",
-        "timestamp": 1598513961667
-      }
-    ]
+    "images": []
   },
   {
     "section": "science",
-    "images": [
-      {
-        "id": "e00rbeoihypsldqky7ao",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1598513649/science/e00rbeoihypsldqky7ao.jpg",
-        "publicId": "science/e00rbeoihypsldqky7ao",
-        "description": "test 4",
-        "timestamp": 1598513651462
-      },
-      {
-        "id": "fsdq6aw8fegj04fkpetb",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1598513744/science/fsdq6aw8fegj04fkpetb.jpg",
-        "publicId": "science/fsdq6aw8fegj04fkpetb",
-        "description": "test 5",
-        "timestamp": 1598513746221
-      },
-      {
-        "id": "e2v4dhjjlmgirmcy8wb5",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1598513856/science/e2v4dhjjlmgirmcy8wb5.jpg",
-        "publicId": "science/e2v4dhjjlmgirmcy8wb5",
-        "description": "test 9",
-        "timestamp": 1598513858295
-      }
-    ]
+    "images": []
   },
   {
     "section": "other",
-    "images": [
-      {
-        "id": "a8uaosmneqpauktbdtib",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1598513523/other/a8uaosmneqpauktbdtib.jpg",
-        "publicId": "other/a8uaosmneqpauktbdtib",
-        "description": "test1",
-        "timestamp": 1598513525865
-      },
-      {
-        "id": "hvgmkormouqfteoiha6i",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1598513583/other/hvgmkormouqfteoiha6i.jpg",
-        "publicId": "other/hvgmkormouqfteoiha6i",
-        "description": "test2",
-        "timestamp": 1598513584974
-      },
-      {
-        "id": "i4t2ze8wa95v9yc5zeom",
-        "url": "https://res.cloudinary.com/marcuson/image/upload/v1598513820/other/i4t2ze8wa95v9yc5zeom.jpg",
-        "publicId": "other/i4t2ze8wa95v9yc5zeom",
-        "description": "test 7",
-        "timestamp": 1598513822923
-      }
-    ]
+    "images": []
   },
   {
     "section": "test",
