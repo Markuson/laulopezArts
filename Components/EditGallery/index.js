@@ -34,14 +34,14 @@ export default function EditGallery({
     }
 
     return (
-        <CloudinaryContext cloudName="laulopezarts">
+        <CloudinaryContext cloudName="marcuson">
             <div
                 className="uk-padding-large uk-padding-remove-vertical uk-child-width-1-3@m uk-grid-small uk-grid-match uk-text-center uk-flex-middle"
                 data-uk-grid
                 data-uk-lightbox="animation: slide"
-                uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 1000; repeat: true"
+                uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 100; repeat: false"
             >
-                {imageList && 
+                {!!imageList && 
                     imageList.map(({ description, id, publicId, url }) => {
                         return <div key={id} onClick={() => handleImageClick(description, id, publicId, url)}>
                             <div className="uk-box-shadow-hover-large uk-animation-fade " tabIndex="0">

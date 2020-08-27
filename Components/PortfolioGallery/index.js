@@ -7,12 +7,12 @@ export default function PortfolioGallery({
 }) {
 
     return (
-        <CloudinaryContext cloudName="laulopezarts">
+        <CloudinaryContext cloudName="marcuson">
             <div
                 className="uk-padding-large uk-padding-remove-vertical uk-child-width-1-3@m uk-grid-small uk-grid-match uk-text-center uk-flex-middle"
                 data-uk-grid
                 data-uk-lightbox="animation: slide"
-                uk-scrollspy="cls: uk-animation-fade; target: .card; delay: 500; repeat: true"
+                uk-scrollspy="cls: uk-animation-fade; target: .card; delay: 100; repeat: false"
             >
                 {
                     imageList.map(({ description, id, publicId, url }) => {
