@@ -44,10 +44,10 @@ export default function EditGallery({
                 {!!imageList && 
                     imageList.map(({ description, id, publicId, url }) => {
                         return <div key={id} onClick={() => handleImageClick(description, id, publicId, url)}>
-                            <div className="uk-box-shadow-hover-large uk-animation-fade " tabIndex="0">
+                            <div className="uk-box-shadow-hover-large uk-animation-fade uk-transition-toggle " tabIndex="0">
                                 <div class="uk-inline">
                                     <Image alt={description} publicId={publicId} />
-                                    <div class="uk-overlay uk-overlay-primary uk-light uk-position-bottom">
+                                    <div class="uk-transition-scale-up">
                                         <p>{description}</p>
                                     </div>
                                 </div>

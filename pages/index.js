@@ -43,7 +43,7 @@ export default function Home() {
         </ul>
           <select
             className="uk-select uk-hidden@m  "
-            onChange={(e) => console.log(e.target.value)}
+            onChange={(e) => setSection(e.target.value)}
             id='sectionSelect'
             defaultValue={undefined}
           >
