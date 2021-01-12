@@ -1,29 +1,24 @@
+import { connectToDatabase } from "../utils/mongodb";
+
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
 
 import Header from '../Components/Header'
 import PortfolioGallery from '../Components/PortfolioGallery'
 
-import logic from '../logic/app'
+// import logic from '../logic/app'
+import logic from '../logic'
 
 import styles from '../styles/styles.module.css'
 
-export default function Home() {
+export default function Home({ portfolio }) {
   const [imageList, setImageList] = useState([])
   const [section, setSection] = useState(undefined)
 
   useEffect(() => {
-    (async() => {
-      let response
-      if (section=='undefined'){
-        response = await logic.getImages(undefined)
-      }else {
-        response = await logic.getImages(section)
-      }
-      setImageList(response)
-
-    })();
-  }, [section])
+    let result = logic.getImages(portfolio, section)
+    console.log(result)
+  },[section])
 
   return (
     <div className={styles.container}>
@@ -55,7 +50,7 @@ export default function Home() {
           </select>
       </div>
 
-      <PortfolioGallery imageList={imageList} />
+      {/* <PortfolioGallery imageList={imageList} /> */}
     </main>
 
     <footer>
@@ -65,4 +60,18 @@ export default function Home() {
     </footer>
     </div >
   )
+}
+
+export async function getServerSideProps() {
+  const { db } = await connectToDatabase();
+
+  const portfolio = await db
+    .collection("portfolios")
+    .findOne({})
+
+  return {
+    props: {
+      portfolio: JSON.parse(JSON.stringify(portfolio.sections)),
+    },
+  };
 }

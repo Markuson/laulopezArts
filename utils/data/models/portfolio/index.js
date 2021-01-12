@@ -23,7 +23,7 @@ const imageSchema = new Schema({
 const sectionSchema = new Schema({
     name: {
         type: String,
-        enum: ['ilsutration', 'screenprinting', 'science', 'other']
+        enum: ['ilustration', 'screenprinting', 'science', 'other']
     },
 
     images: [imageSchema]

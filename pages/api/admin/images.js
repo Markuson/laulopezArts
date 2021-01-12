@@ -1,6 +1,7 @@
 import logic from '../../../logic/api'
+import { connectToDatabase } from '../../../utils/mongodb';
 
-export default function userHandler(req, res) {
+export default function userHandler (req, res) {
     const {
         body: { command, data },
         method,
@@ -10,8 +11,18 @@ export default function userHandler(req, res) {
         case 'GET':
             // Get data from your database
             return (async () => {
+                const { db } = await connectToDatabase();
+
+                const portfolios = await db
+                    .collection("portfolios")
+                    .find({})
+                    // .sort({ metacritic: -1 })
+                    // .limit(20)
+                    .toArray();
+
                 const response = await logic.getImageList()
-                res.status(200).json(response)
+                console.log(portfolios)
+                res.status(200).json(portfolios)
             })();
             break
         default:

@@ -3,7 +3,8 @@ const axios = require('axios')
 const logic = {
 
     getImages(section = undefined) {
-        let url = `/api/admin/images`
+        // let url = `/api/admin/images`
+        let url = `http://localhost:3000/api/admin/images` //FOR TESTING
         let result =[]
         let sorted = []
         return (async () => {
@@ -45,7 +46,8 @@ const logic = {
 
     addImageData(data) {
         return (async () => {
-            let url = `/api/admin/image/${data.id}`
+            // let url = `/api/admin/image/${data.id}`
+            let url = `http://localhost:3000/api/admin/image/${data.id}` //FOR TESTING
             try {
                 const response = await axios({
                     method: 'put',
@@ -68,7 +70,8 @@ const logic = {
 
     editImageData(id, data) {
         return (async () => {
-            let url = `/api/admin/image/${id}`
+            // let url = `/api/admin/image/${id}`
+            let url = `http://localhost:3000/api/admin/image/${id}` //FOR TESTING
             try {
                 const response = await axios({
                     method: 'put',
@@ -92,7 +95,8 @@ const logic = {
     deleteImageData(publicId) {
         const [,id] = publicId.split('/')
         return (async () => {
-            let url = `/api/admin/image/${id}`
+            // let url = `/api/admin/image/${id}`
+            let url = `http://localhost:3000/api/admin/image/${id}` //FOR TESTING
             try {
                 const response = await axios({
                     method: 'put',
@@ -120,4 +124,5 @@ const logic = {
     }
 }
 
-export default logic;
+// export default logic;
+module.exports = logic
