@@ -14,38 +14,9 @@ cloudinary.config({
 });
 
 const logic = {
-    getImageList(section = 'all') {
-        validate.arguments([
-            { name: 'section', value: section, type: 'string', notEmpty: true }
-        ])
-        if (section != 'ilustration' &&
-            section != 'screenprinting' &&
-            section != 'science' &&
-            section != 'other' &&
-            section != 'all') {
-            throw new LogicError(`${section} is not a valid section`)
-        }
-        return (async () => {
-            try {
-                const _portfolio = await Portfolio.findOne({})
-                if (_portfolio == null) {
-                    throw new LogicError(`Portfolio not found`)
-                }
-                if (section == 'all') return _portfolio
-                const _section = _portfolio.sections.filter(__section => __section.name == section)
-                if (_section.length > 0) return _section[0]
-                else throw new LogicError('section not found in your portfolio')
-            } catch (error) {
-                return error.message
-            }
-        })();
-
-    },
-
     addImage(newImageData) {
 
         const { description, publicId, section, url } = newImageData
-
         validate.arguments([
             { name: 'description', value: description, type: 'string', notEmpty: true },
             { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
@@ -121,12 +92,13 @@ const logic = {
                 _portfolio.sections.forEach(_section => {
                     const oldImagesLength = _section.length
                     const filteredImages = _section.images.filter(_image => _image.publicId != publicId)
-                    if (oldImagesLength != filteredImages.length) imageFound = true
+                    if (oldImagesLength != filteredImages.length) {
+                        imageFound = true
+                        console.log(filteredImages)
+                    }
                     _sections.push({ name: _section.name, _id: _section.id, images: filteredImages })
                 })
-
                 if (!imageFound) throw new LogicError(`The image you want to delete doesn't exist in your portfolio`)
-
                 _portfolio.sections = _sections
 
                 await Portfolio.findByIdAndUpdate(_portfolio.id, _portfolio)
@@ -138,8 +110,9 @@ const logic = {
         })();
     },
 
-    editImage(publicId, imageData) {
-        const { description, section } = imageData
+    editImage(imageData) {
+        console.log(imageData)
+        const {publicId, description, section } = imageData
         validate.arguments([
             { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
             { name: 'description', value: description, type: 'string', notEmpty: true },
@@ -152,7 +125,6 @@ const logic = {
             section != 'other') {
             throw new LogicError(`${section} is not a valid section`)
         }
-
 
         return (async () => {
             try {

@@ -4,7 +4,7 @@ const logic = require('./api')
 const { models, mongoose } = require('data')
 
 const { Portfolio } = models;
-const { env: { MONGO_URL_TEST: url } } = process
+const url = 'mongodb://localhost/laulopezarts-test'
 
 
 
@@ -12,22 +12,22 @@ let random = Math.random()
 
 let imageData = {
     description: `test description${random}`,
-    publicId: `testPublicId${random}`,
+    publicId: `other/testPublicId${random}`,
     section: 'other',
     url: `http://testimageurl.com/${random}`
 }
 
-describe('Logic', () => {
+xdescribe('Logic', () => {
 
     before(async () => {
         await mongoose.connect(url, { useNewUrlParser: true })
     })
 
     beforeEach(async () => {
-        // await Portfolio.deleteMany()
+        await Portfolio.deleteMany()
         imageData = {
             description: 'test description',
-            publicId: 'testPublicId',
+            publicId: 'other/testPublicId',
             section: 'other',
             url: 'http://testimageurl.com'
         }
@@ -451,7 +451,7 @@ describe('Logic', () => {
 
             imageData = {
                 description: 'test description',
-                publicId: 'testPublicId2',
+                publicId: 'other/testPublicId2',
                 section: 'other',
                 url: 'http://testimageurl2.com'
             }
@@ -460,7 +460,7 @@ describe('Logic', () => {
 
             imageData = {
                 description: 'test description',
-                publicId: 'testPublicId3',
+                publicId: 'screenprinting/testPublicId3',
                 section: 'screenprinting',
                 url: 'http://testimageurl3.com'
             }
@@ -557,7 +557,7 @@ describe('Logic', () => {
             random = Math.random()
             imageData = {
                 description: `test description${random}`,
-                publicId: `testPublicId1`,
+                publicId: `other/testPublicId1`,
                 section: 'other',
                 url: `http://testimageurl.com/${random}`
             }
@@ -565,7 +565,7 @@ describe('Logic', () => {
             random = Math.random()
             imageData = {
                 description: `test description${random}`,
-                publicId: `testPublicId2`,
+                publicId: `other/testPublicId2`,
                 section: 'other',
                 url: `http://testimageurl.com/${random}`
             }
@@ -573,16 +573,17 @@ describe('Logic', () => {
             random = Math.random()
             imageData = {
                 description: `test description${random}`,
-                publicId: `testPublicId3`,
+                publicId: `other/testPublicId3`,
                 section: 'other',
                 url: `http://testimageurl.com/${random}`
             }
             await logic.addImage(imageData)
             const data = {
+                publicId: imageData.publicId,
                 description: "new description",
                 section: imageData.section
             }
-            const res = await logic.editImage(imageData.publicId, data)
+            const res = await logic.editImage(data)
             expect(res).to.not.exist
 
             const _portfolio = await Portfolio.find({})
@@ -611,7 +612,7 @@ describe('Logic', () => {
             random = Math.random()
             imageData = {
                 description: `test description1`,
-                publicId: `testPublicId${random}`,
+                publicId: `other/testPublicId${random}`,
                 section: 'other',
                 url: `http://testimageurl.com/${random}`
             }
@@ -619,7 +620,7 @@ describe('Logic', () => {
             random = Math.random()
             imageData = {
                 description: `test description2`,
-                publicId: `testPublicId${random}`,
+                publicId: `other/testPublicId${random}`,
                 section: 'other',
                 url: `http://testimageurl.com/${random}`
             }
@@ -627,16 +628,17 @@ describe('Logic', () => {
             random = Math.random()
             imageData = {
                 description: `test description3`,
-                publicId: `testPublicId${random}`,
+                publicId: `other/testPublicId${random}`,
                 section: 'other',
                 url: `http://testimageurl.com/${random}`
             }
             await logic.addImage(imageData)
             const data = {
+                publicId: imageData.publicId,
                 description: imageData.description,
                 section: 'screenprinting'
             }
-            const res = await logic.editImage(imageData.publicId, data)
+            const res = await logic.editImage(data)
             expect(res).to.not.exist
 
             const _portfolio = await Portfolio.find({})
@@ -664,7 +666,7 @@ describe('Logic', () => {
                 random = Math.random()
                 imageData = {
                     description: `test description1`,
-                    publicId: `testPublicId${random}`,
+                    publicId: `other/testPublicId${random}`,
                     section: 'other',
                     url: `http://testimageurl.com/${random}`
                 }
@@ -672,7 +674,7 @@ describe('Logic', () => {
                 random = Math.random()
                 imageData = {
                     description: `test description2`,
-                    publicId: `testPublicId${random}`,
+                    publicId: `other/testPublicId${random}`,
                     section: 'other',
                     url: `http://testimageurl.com/${random}`
                 }
@@ -680,17 +682,17 @@ describe('Logic', () => {
                 random = Math.random()
                 imageData = {
                     description: `test description3`,
-                    publicId: `testPublicId${random}`,
+                    publicId: `other/testPublicId${random}`,
                     section: 'other',
                     url: `http://testimageurl.com/${random}`
                 }
                 await logic.addImage(imageData)
                 const data = {
+                    publicId: 'notFoundPublicId',
                     description: imageData.description,
                     section: 'screenprinting'
                 }
-                imageData.publicId = 'notFoundPublicId'
-                await logic.editImage(imageData.publicId, data)
+                await logic.editImage(data)
                 throw Error('should not reach this point')
             } catch (error) {
                 expect(error).to.exist
@@ -700,29 +702,29 @@ describe('Logic', () => {
         })
 
         it('should fail on not valid publicId', async () => {
+            const data = {
+                publicId: 2,
+                description: imageData.description,
+                section: 'screenprinting'
+            }
             try {
-                imageData.publicId = 2
-                const data = {
-                    description: imageData.description,
-                    section: 'screenprinting'
-                }
-                await logic.editImage(imageData.publicId, data)
+                await logic.editImage(data)
                 throw Error('should not reach this point')
             } catch (error) {
                 expect(error).to.exist
                 expect(error).to.be.instanceOf(Error)
-                expect(error.message).to.equal(`publicId ${imageData.publicId} is not a string`)
+                expect(error.message).to.equal(`publicId ${data.publicId} is not a string`)
             }
         })
 
         it('should fail on undefined publicId', async () => {
             try {
-                imageData.publicId = undefined
                 const data = {
+                    publicId: undefined,
                     description: imageData.description,
                     section: 'screenprinting'
                 }
-                await logic.editImage(imageData.publicId, data)
+                await logic.editImage(data)
                 throw Error('should not reach this point')
             } catch (error) {
                 expect(error).to.exist
@@ -733,12 +735,12 @@ describe('Logic', () => {
 
         it('should fail on null publicId', async () => {
             try {
-                imageData.publicId = null
                 const data = {
+                    publicId: null,
                     description: imageData.description,
                     section: 'screenprinting'
                 }
-                await logic.editImage(imageData.publicId, data)
+                await logic.editImage(data)
                 throw Error('should not reach this point')
             } catch (error) {
                 expect(error).to.exist
@@ -749,12 +751,12 @@ describe('Logic', () => {
 
         it('should fail on empty publicId', async () => {
             try {
-                imageData.publicId = ''
                 const data = {
+                    publicId: '',
                     description: imageData.description,
                     section: 'screenprinting'
                 }
-                await logic.editImage(imageData.publicId, data)
+                await logic.editImage(data)
                 throw Error('should not reach this point')
             } catch (error) {
                 expect(error).to.exist
@@ -766,10 +768,11 @@ describe('Logic', () => {
         it('should fail on undefined description', async () => {
             try {
                 const data = {
+                    publicId: imageData.publicId,
                     description: undefined,
                     section: imageData.section
                 }
-                await logic.editImage(imageData.publicId, data)
+                await logic.editImage(data)
                 throw Error('should not reach this point')
             } catch (error) {
                 expect(error).to.exist
@@ -781,10 +784,11 @@ describe('Logic', () => {
         it('should fail on null description', async () => {
             try {
                 const data = {
+                    publicId: imageData.publicId,
                     description: null,
                     section: imageData.section
                 }
-                await logic.editImage(imageData.publicId, data)
+                await logic.editImage(data)
                 throw Error('should not reach this point')
             } catch (error) {
                 expect(error).to.exist
@@ -796,10 +800,11 @@ describe('Logic', () => {
         it('should fail on empty description', async () => {
             try {
                 const data = {
+                    publicId: imageData.publicId,
                     description: '',
                     section: imageData.section
                 }
-                await logic.editImage(imageData.publicId, data)
+                await logic.editImage(data)
                 throw Error('should not reach this point')
             } catch (error) {
                 expect(error).to.exist
@@ -811,10 +816,11 @@ describe('Logic', () => {
         it('should fail on undefined section', async () => {
             try {
                 const data = {
+                    publicId: imageData.publicId,
                     description: imageData.description,
                     section: undefined
                 }
-                await logic.editImage(imageData.publicId, data)
+                await logic.editImage(data)
                 throw Error('should not reach this point')
             } catch (error) {
                 expect(error).to.exist
@@ -826,10 +832,11 @@ describe('Logic', () => {
         it('should fail on null section', async () => {
             try {
                 const data = {
+                    publicId: imageData.publicId,
                     description: imageData.description,
                     section: null
                 }
-                await logic.editImage(imageData.publicId, data)
+                await logic.editImage(data)
                 throw Error('should not reach this point')
             } catch (error) {
                 expect(error).to.exist
@@ -841,10 +848,11 @@ describe('Logic', () => {
         it('should fail on empty section', async () => {
             try {
                 const data = {
+                    publicId: imageData.publicId,
                     description: imageData.description,
                     section: ''
                 }
-                await logic.editImage(imageData.publicId, data)
+                await logic.editImage(data)
                 throw Error('should not reach this point')
             } catch (error) {
                 expect(error).to.exist
@@ -854,256 +862,6 @@ describe('Logic', () => {
         })
     })
 
-    describe('getImages', () => {
-        it('should succeed on getting the entire protfolio', async () => {
-            await logic.addImage(imageData)
-            random = Math.random()
-            imageData = {
-                description: `test description${random}`,
-                publicId: `testPublicId1`,
-                section: 'science',
-                url: `http://testimageurl.com/${random}`
-            }
-            await logic.addImage(imageData)
-            random = Math.random()
-            imageData = {
-                description: `test description${random}`,
-                publicId: `testPublicId2`,
-                section: 'screenprinting',
-                url: `http://testimageurl.com/${random}`
-            }
-            await logic.addImage(imageData)
-            random = Math.random()
-            imageData = {
-                description: `test description${random}`,
-                publicId: `testPublicId3`,
-                section: 'other',
-                url: `http://testimageurl.com/${random}`
-            }
-            await logic.addImage(imageData)
-            const data = {
-                description: "new description",
-                section: imageData.section
-            }
-
-            const res = await logic.getImageList()
-            expect(res).to.exist
-            expect(res.sections).to.be.instanceOf(Array)
-            expect(res.sections.length).to.equal(4)
-            let foundOther = false
-            let foundScreenprinting = false
-            let foundScience = false
-            let foundIlustration = false
-            res.sections.forEach(section => {
-                if (section.name == 'other' && section.images.length == 2) {
-                    foundOther = true
-                }
-                if (section.name == 'ilustration'  && section.images.length == 0){
-                    foundIlustration = true
-                }
-                if (section.name == 'science' && section.images.length == 1){
-                    foundScience = true
-                }
-                if (section.name == 'screenprinting' && section.images.length == 1){
-                    foundScreenprinting = true
-                }
-            })
-            expect(foundIlustration).to.equal(true)
-            expect(foundOther).to.equal(true)
-            expect(foundScience).to.equal(true)
-            expect(foundScreenprinting).to.equal(true)
-        })
-
-        it('should succeed on getting ilustrations from "other" section', async () => {
-            await logic.addImage(imageData)
-            random = Math.random()
-            imageData = {
-                description: `test description${random}`,
-                publicId: `testPublicId1`,
-                section: 'science',
-                url: `http://testimageurl.com/${random}`
-            }
-            await logic.addImage(imageData)
-            random = Math.random()
-            imageData = {
-                description: `test description${random}`,
-                publicId: `testPublicId2`,
-                section: 'screenprinting',
-                url: `http://testimageurl.com/${random}`
-            }
-            await logic.addImage(imageData)
-            random = Math.random()
-            imageData = {
-                description: `test description${random}`,
-                publicId: `testPublicId3`,
-                section: 'other',
-                url: `http://testimageurl.com/${random}`
-            }
-            await logic.addImage(imageData)
-            const data = {
-                description: "new description",
-                section: imageData.section
-            }
-
-            section='other'
-            const res = await logic.getImageList(section)
-            expect(res).to.exist
-            expect(res.sections).to.not.exist
-            expect(res.name).to.exist
-            expect(res.name).to.equal(section)
-            expect(res.images).to.exist
-            expect(res.images).to.be.instanceOf(Array)
-            expect(res.images.length).to.equal(2)
-        })
-
-        it('should succeed on getting ilustrations from "science" section', async () => {
-            await logic.addImage(imageData)
-            random = Math.random()
-            imageData = {
-                description: `test description${random}`,
-                publicId: `testPublicId1`,
-                section: 'science',
-                url: `http://testimageurl.com/${random}`
-            }
-            await logic.addImage(imageData)
-            random = Math.random()
-            imageData = {
-                description: `test description${random}`,
-                publicId: `testPublicId2`,
-                section: 'screenprinting',
-                url: `http://testimageurl.com/${random}`
-            }
-            await logic.addImage(imageData)
-            random = Math.random()
-            imageData = {
-                description: `test description${random}`,
-                publicId: `testPublicId3`,
-                section: 'other',
-                url: `http://testimageurl.com/${random}`
-            }
-            await logic.addImage(imageData)
-            const data = {
-                description: "new description",
-                section: imageData.section
-            }
-
-            section='science'
-            const res = await logic.getImageList(section)
-            expect(res).to.exist
-            expect(res.sections).to.not.exist
-            expect(res.name).to.exist
-            expect(res.name).to.equal(section)
-            expect(res.images).to.exist
-            expect(res.images).to.be.instanceOf(Array)
-            expect(res.images.length).to.equal(1)
-        })
-
-        it('should succeed on getting ilustrations from "screenprinting" section', async () => {
-            await logic.addImage(imageData)
-            random = Math.random()
-            imageData = {
-                description: `test description${random}`,
-                publicId: `testPublicId1`,
-                section: 'science',
-                url: `http://testimageurl.com/${random}`
-            }
-            await logic.addImage(imageData)
-            random = Math.random()
-            imageData = {
-                description: `test description${random}`,
-                publicId: `testPublicId2`,
-                section: 'screenprinting',
-                url: `http://testimageurl.com/${random}`
-            }
-            await logic.addImage(imageData)
-            random = Math.random()
-            imageData = {
-                description: `test description${random}`,
-                publicId: `testPublicId3`,
-                section: 'other',
-                url: `http://testimageurl.com/${random}`
-            }
-            await logic.addImage(imageData)
-            const data = {
-                description: "new description",
-                section: imageData.section
-            }
-
-            section='screenprinting'
-            const res = await logic.getImageList(section)
-            expect(res).to.exist
-            expect(res.sections).to.not.exist
-            expect(res.name).to.exist
-            expect(res.name).to.equal(section)
-            expect(res.images).to.exist
-            expect(res.images).to.be.instanceOf(Array)
-            expect(res.images.length).to.equal(1)
-        })
-
-        it('should succeed on getting ilustrations from "ilustration" section', async () => {
-            await logic.addImage(imageData)
-            random = Math.random()
-            imageData = {
-                description: `test description${random}`,
-                publicId: `testPublicId1`,
-                section: 'science',
-                url: `http://testimageurl.com/${random}`
-            }
-            await logic.addImage(imageData)
-            random = Math.random()
-            imageData = {
-                description: `test description${random}`,
-                publicId: `testPublicId2`,
-                section: 'screenprinting',
-                url: `http://testimageurl.com/${random}`
-            }
-            await logic.addImage(imageData)
-            random = Math.random()
-            imageData = {
-                description: `test description${random}`,
-                publicId: `testPublicId3`,
-                section: 'other',
-                url: `http://testimageurl.com/${random}`
-            }
-            await logic.addImage(imageData)
-            const data = {
-                description: "new description",
-                section: imageData.section
-            }
-
-            section='ilustration'
-            const res = await logic.getImageList(section)
-            expect(res).to.exist
-            expect(res.sections).to.not.exist
-            expect(res.name).to.exist
-            expect(res.name).to.equal(section)
-            expect(res.images).to.exist
-            expect(res.images).to.be.instanceOf(Array)
-            expect(res.images.length).to.equal(0)
-        })
-
-        it('should fail on not valid section', async () => {
-            try {
-                await logic.getImageList('notValidSection')
-                throw Error('should not reach this point')
-            } catch (error) {
-                expect(error).to.exist
-                expect(error).to.be.instanceOf(Error)
-                expect(error.message).to.equal(`notValidSection is not a valid section`)
-            }
-        })
-
-        it('should fail on null publicId', async () => {
-            try {
-                await logic.getImageList(null)
-                throw Error('should not reach this point')
-            } catch (error) {
-                expect(error).to.exist
-                expect(error).to.be.instanceOf(Error)
-                expect(error.message).to.equal(`section is not optional`)
-            }
-        })
-    })
     after(async () => {
         mongoose.disconnect()
     })

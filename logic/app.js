@@ -1,53 +1,50 @@
 const axios = require('axios')
+const validate = require('validate')
 
 const logic = {
 
-    getImages(section = undefined) {
-        // let url = `/api/admin/images`
-        let url = `http://localhost:3000/api/admin/images` //FOR TESTING
-        let result =[]
-        let sorted = []
-        return (async () => {
-            try {
-                const response = await axios({
-                    method: 'get',
-                    url,
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                })
-                response.data.forEach(({ section: _section, images }) => {
-                    if (section == undefined || section == _section){
-                        images.forEach(image => {
-                            result.push(image)
-                        })
-                    }
-                })
-                result = result.sort((a, b) => {
-                    const time1 = a.timestamp;
-                    const time2 = b.timestamp;
+    getImages(portfolio, section = undefined) {
+        /**
+         * TODO: Error handling (check portfolio is OK, check sections)
+         */
 
-                    let comparison = 0;
-                    if (time1 > time2) {
-                      comparison = -1;
-                    } else if (time1 < time2) {
-                      comparison = 1;
-                    }
-                    return comparison;
-                })
+         console.log(typeof portfolio)
+        let images =[]
 
-                return result
+        portfolio.forEach(({ name: _section, images: _images }) => {
+            if (section == undefined || section == _section){
+                _images.forEach(image => {
+                    images.push(image)
+                })
             }
-            catch (e) {
-                return e.message
+        })
+        images = images.sort((a, b) => {
+            const time1 = a.date;
+            const time2 = b.date;
+
+            let comparison = 0;
+            if (time1 > time2) {
+              comparison = -1;
+            } else if (time1 < time2) {
+              comparison = 1;
             }
-        })();
+            return comparison;
+        })
+        return images
     },
 
     addImageData(data) {
+        const {publicId, description, section, url} = data
+        validate.arguments([
+            { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
+            { name: 'description', value: description, type: 'string', notEmpty: true },
+            { name: 'section', value: section, type: 'string', notEmpty: true },
+        ])
+        validate.url(url)
+        const [,id] = publicId.split('/')
         return (async () => {
             // let url = `/api/admin/image/${data.id}`
-            let url = `http://localhost:3000/api/admin/image/${data.id}` //FOR TESTING
+            let url = `http://localhost:3000/api/admin/image/${id}` //FOR TESTING
             try {
                 const response = await axios({
                     method: 'put',
@@ -68,7 +65,14 @@ const logic = {
         })();
     },
 
-    editImageData(id, data) {
+    editImageData(data) {
+        const {publicId, description, section} = data
+        validate.arguments([
+            { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
+            { name: 'description', value: description, type: 'string', notEmpty: true, optional: true },
+            { name: 'section', value: section, type: 'string', notEmpty: true, optional: true },
+        ])
+        const [,id] = id.split('/')
         return (async () => {
             // let url = `/api/admin/image/${id}`
             let url = `http://localhost:3000/api/admin/image/${id}` //FOR TESTING
@@ -93,6 +97,9 @@ const logic = {
     },
 
     deleteImageData(publicId) {
+        validate.arguments([
+            { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
+        ])
         const [,id] = publicId.split('/')
         return (async () => {
             // let url = `/api/admin/image/${id}`
@@ -116,13 +123,7 @@ const logic = {
             }
         })();
     },
-
-    saveImageData(response, folder, description) {
-        const { body: { public_id, secure_url } } = response
-
-        console.log(`public id: ${public_id}, url: ${secure_url},folder: ${folder}, description: ${description}`)
-    }
 }
 
-// export default logic;
+// export default logic
 module.exports = logic
