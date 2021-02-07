@@ -17,6 +17,7 @@ export default function EditGallery({
     const [section, setSection] = useState(undefined)
 
     const handleSubmit = () => {
+        console.log(section)
         onImageEdit({ id, description, section })
         setDescription(undefined)
         setId(undefined)
@@ -42,12 +43,12 @@ export default function EditGallery({
                 uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 100; repeat: false"
             >
                 {!!imageList && 
-                    imageList.map(({ description, id, publicId, url }) => {
+                    imageList.map(({ description, _id: id, publicId, url }) => {
                         return <div key={id} onClick={() => handleImageClick(description, id, publicId, url)}>
-                            <div className="uk-box-shadow-hover-large uk-animation-fade " tabIndex="0">
+                            <div className="uk-box-shadow-hover-large uk-animation-fade uk-transition-toggle " tabIndex="0">
                                 <div class="uk-inline">
                                     <Image alt={description} publicId={publicId} />
-                                    <div class="uk-overlay uk-overlay-primary uk-light uk-position-bottom">
+                                    <div class="uk-transition-scale-up">
                                         <p>{description}</p>
                                     </div>
                                 </div>

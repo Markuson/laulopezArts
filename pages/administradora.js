@@ -1,19 +1,24 @@
-import { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/client'
-import Head from 'next/head'
-import request from 'superagent';
-import Uikit from 'uikit/dist/js/uikit.min.js'
+import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/client';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+// import request from 'superagent';
+import Uikit from 'uikit/dist/js/uikit.min.js';
 
-import Header from '../Components/Header'
+import { connectToDatabase } from '../utils/mongodb';
+import { cloudinaryUpdate } from '../utils/cloudinary';
+
+import Header from '../Components/Header';
 import EditGallery from '../Components/EditGallery';
 import AddImageModal from '../Components/AddImageModal';
 
 import logic from '../logic/app'
 
-import styles from '../styles/styles.module.css'
+import styles from '../utils/styles/styles.module.css'
 
-export default function Administradora() {
+export default function Administradora({ cloudinaryUrl, cloudinaryUploadPresset, portfolio }) {
 
+    const router = useRouter()
     const [session, loading] = useSession()
 
     const [description, setDescription] = useState('')
@@ -28,74 +33,54 @@ export default function Administradora() {
         handleGetImages(displaySection)
     }, [displaySection])
 
+    const handleNotification = (status, message) => {
+        Uikit.notification({
+            message: message,
+            pos: "top-center",
+            status: status,
+            timeout: 3000,
+        })
+    }
+
+    const handleUploadingImage = (status = false) => {
+        setUploadingImage(status)
+    }
+
+    const handleUploadingProgress = (progress = 0) => {
+        setUploadingProgress(progress)
+    }
+
+    const handleUploadFinished = () => {
+        document.getElementById('fileupload').value = null;
+        //for description and section not working... should review
+        document.getElementById('description').value = null;
+        document.getElementById('sectionSelect').value = 'other';
+        setUploadingProgress(0)
+        setFileInput('')
+        setSection('other')
+        setDescription('')
+        Uikit.modal('#add-image-modal').hide();
+        handleGetImages(displaySection)
+    }
+
     const handleImageAdd = async (files) => {
         if (files.length > 0) {
             try {
-                const uploadPreset = process.env.UPLOADPRESET
-                const url = process.env.ADDRESS
-                setUploadingImage(true)
-                for (let file of files) {
-                    request.post(url)
-                        .field('upload_preset', uploadPreset)
-                        .field('file', file)
-                        .field('multiple', true)
-                        .field('tags', section ? `${section}` : 'untagged')
-                        .field('context', section ? `photo=${section}` : '')
-                        .field('folder', section ? `${section}` : '')
-                        .on('progress', (_progress) =>
-                            setUploadingProgress(Math.floor(_progress.percent))
-                        )
-                        .end((error, response) => {
-                            if (response.statusCode == 200) {
-                                const _id = response.body.public_id.split('/');
-                                (async () => {
-                                    const res = await logic.addImageData({
-                                        id: _id[1],
-                                        url: response.body.secure_url,
-                                        publicId: response.body.public_id,
-                                        section,
-                                        description
-                                    })
-                                    if (res.data.status === 'OK') {
-                                        Uikit.notification({
-                                            message: "Imatge pujada correctament!",
-                                            pos: "top-center",
-                                            status: 'success',
-                                            timeout: 3000,
-                                        })
-                                    } else {
-                                        Uikit.notification({
-                                            message: `ERROR! ${res.data.message}`,
-                                            pos: "top-center",
-                                            status: 'danger',
-                                            timeout: 3000,
-                                        })
-                                    }
-                                })();
-                                handleGetImages()
-                                setUploadingImage(false)
-                            } else {
-                                Uikit.notification({
-                                    message: "Error en la pujada!   ",
-                                    pos: "top-center",
-                                    status: 'danger',
-                                    timeout: 3000,
-                                })
-                            }
-                            document.getElementById('fileupload').value = null;
-                            //for description and section not working... should review
-                            document.getElementById('description').value = null;
-                            document.getElementById('sectionSelect').value = 'other';
-                            setUploadingProgress(0)
-                            setFileInput('')
-                            setSection('other')
-                            setDescription('')
-                            Uikit.modal('#add-image-modal').hide();
-                            handleGetImages(displaySection)
-                        });
-                }
+                cloudinaryUpdate(
+                    cloudinaryUrl,
+                    cloudinaryUploadPresset,
+                    files,
+                    description,
+                    section,
+                    logic.addImageData,
+                    handleNotification,
+                    handleGetImages,
+                    handleUploadingImage,
+                    handleUploadingProgress,
+                    handleUploadFinished
+                )
             } catch (error) {
-                console.error(error)
+                console.error(error.message)
             }
         }
     }
@@ -103,53 +88,41 @@ export default function Administradora() {
     const handleImageDelete = async (id) => {
         const res = await logic.deleteImageData(id)
 
+        //cloudinary.v2.uploader.destroy(public_id, options, callback);
+
         if (res.data.status === 'OK') {
-            Uikit.notification({
-                message: "Imatge eliminada correctament!",
-                pos: "top-center",
-                status: 'success',
-                timeout: 3000,
-            })
+            handleNotification('success', "Imatge eliminada correctament!")
         } else {
-            Uikit.notification({
-                message: `ERROR! ${res.data.message}`,
-                pos: "top-center",
-                status: 'danger',
-                timeout: 3000,
-            })
+            handleNotification('danger', `ERROR! ${res.data.message}`)
         }
         Uikit.modal('#edit-image-modal').hide();
+        refreshData()
         handleGetImages()
     }
 
     const handleImageEdit = async (data) => {
         const { id, description, section } = data
 
-        const res = await logic.editImageData(id, { description, section })
+        const res = await logic.editImageData(id, { publicId: id, description, section })
 
-        if (res.data.status === 'OK') {
-            Uikit.notification({
-                message: "Imatge editada correctament!",
-                pos: "top-center",
-                status: 'success',
-                timeout: 3000,
-            })
-        } else {
-            Uikit.notification({
-                message: `ERROR! ${res.data.message}`,
-                pos: "top-center",
-                status: 'danger',
-                timeout: 3000,
-            })
-        }
+        if (res.data && res.data.status === 'OK') {
+            handleNotification('success', "Imatge editada correctament!")
+        } else if (res.data) {
+            handleNotification('danger', `ERROR! ${res.data.message}`)
+        } else console.error(res)
         Uikit.modal('#edit-image-modal').hide();
+        refreshData()
         handleGetImages()
     }
 
     const handleGetImages = async (_section = undefined) => {
-        const response = await logic.getImages(_section)
-        setImageList(response)
+        if (portfolio) {
+            const response = await logic.getImages(portfolio, _section)
+            setImageList(response)
+        }
     }
+
+    const refreshData = () => router.replace(router.asPath);
 
     return (
         <div className={styles.container}>
@@ -173,7 +146,7 @@ export default function Administradora() {
                             </button>
                     </div>
                     <div className='uk-text-center uk-padding-large' >
-                            EDIT IMAGES:
+                        EDIT IMAGES:
                             </div>
                     <div className="uk-animation-scale-up ">
                         <ul className="uk-breadcrumb uk-visible@s">
@@ -205,4 +178,22 @@ export default function Administradora() {
             />
         </div >
     )
+}
+
+export async function getServerSideProps() {
+
+    const { UPLOADPRESSET: cloudinaryUploadPresset, ADDRESS: cloudinaryUrl } = process.env
+    const { db } = await connectToDatabase();
+
+    let portfolio = await db
+        .collection("portfolios")
+        .findOne({})
+
+    return {
+        props: {
+            portfolio: portfolio == null ? [] : JSON.parse(JSON.stringify(portfolio.sections)),
+            cloudinaryUrl,
+            cloudinaryUploadPresset
+        },
+    };
 }

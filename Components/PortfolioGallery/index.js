@@ -15,7 +15,7 @@ export default function PortfolioGallery({
                 uk-scrollspy="cls: uk-animation-fade; target: .card; delay: 100; repeat: false"
             >
                 {
-                    imageList.map(({ description, id, publicId, url }) => {
+                    imageList.map(({ description, _id:id, publicId, url }) => {
 
                         return <div key={id} className="card">
                             <Card description={description} id={id} publicId={publicId} url={url} />

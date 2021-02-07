@@ -1,5 +1,11 @@
-const jsonfile = require('jsonfile')
+const validate = require('validate')
+const { LogicError } = require('errors')
+const { models } = require('data')
 const cloudinary = require('cloudinary').v2
+require('dotenv').config()
+
+const { Portfolio, Images, Sections } = models
+// const jsonfile = require('jsonfile')
 
 cloudinary.config({
     cloud_name: process.env.CLOUDNAME,
@@ -8,126 +14,164 @@ cloudinary.config({
 });
 
 const logic = {
-    getImageList() {
-        const file = `./public/docs/imageList.json`
-
-        return (async () => {
-            try {
-                const response = jsonfile.readFile(file)
-                return response
-            } catch (error) {
-                throw Error(error.message)
-            }
-        })()
-    },
-
-    setImageList(imageList) {
-        //check imageList. it must be an array of objects...
-        const file = `./public/docs/imageList.json`
-
-        return (async () => {
-            try {
-                const response = await jsonfile.writeFile(file, imageList, { spaces: 2, EOL: '\r\n' })
-                return response
-            } catch (error) {
-                throw Error(error.message)
-            }
-        })();
-    },
-
     addImage(newImageData) {
-        //check newImageData is an object and has the data you need..... check newImageData.section is ok, id shoud be lowercase
 
-        const { description, id, publicId, section, url } = newImageData
-        let sectionFound = false
-        let index = -1
+        const { description, publicId, section, url } = newImageData
+        validate.arguments([
+            { name: 'description', value: description, type: 'string', notEmpty: true },
+            { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
+            { name: 'section', value: section, type: 'string', notEmpty: true },
+            { name: 'url', value: url, type: 'string', notEmpty: true }
+        ])
+        validate.url(url)
+
+        if (section != 'ilustration' &&
+            section != 'screenprinting' &&
+            section != 'science' &&
+            section != 'other' &&
+            section != 'all') {
+            throw new LogicError(`${section} is not a valid section`)
+        }
+
         return (async () => {
             try {
-                const imageList = await this.getImageList()
-                imageList.forEach(section => {
-                    if (index == -1) index = section.images.findIndex(image => image.id == id)
-                })
-                if (index == -1) {
-                    imageList.forEach(element => {
-                        if (element.section === section) {
-                            element.images.push({ id, url, publicId, description, timestamp: Date.now() })
-                            sectionFound = true
-                        }
-                    });
-                    await this.setImageList(imageList)
+                let _portfolio = await Portfolio.findOne({})
+                if (_portfolio == null) {
+                    const sections = [
+                        new Sections({ name: 'ilustration' }),
+                        new Sections({ name: 'screenprinting' }),
+                        new Sections({ name: 'science' }),
+                        new Sections({ name: 'other' })
+                    ]
+                    await Portfolio.create({ sections })
+                    _portfolio = await Portfolio.findOne({})
                 }
 
-                if (!sectionFound && index > -1) return { status: 'ERROR', message: 'duplicated Id' }
-                if (sectionFound) return { status: 'OK', message: 'image added' }
-                return { status: 'ERROR', message: `section "${section}" not found` }
+                let _section = await Portfolio.findOne({ 'sections.name': section })
+                if (_section == null) {
+                    _portfolio.sections.push(new Sections({ name: section }))
+                    await Portfolio.findByIdAndUpdate(_portfolio.id, _portfolio)
+                    _portfolio = await Portfolio.findOne()
+                }
+
+                _portfolio.sections.forEach(__section => {
+                    const filteredImages = __section.images.filter(_image => _image.url == url)
+                    const _filteredImages = __section.images.filter(_image => _image.publicId == publicId)
+                    if (filteredImages.length > 0 || _filteredImages.length > 0) {
+                        throw new LogicError(`The image you want to add already exists in your portfolio`)
+                    }
+                })
+
+                const sectionIndex = _portfolio.sections.findIndex(___section => ___section.name == section)
+
+                _portfolio.sections[sectionIndex].images.push(new Images({ description, publicId, url, date: Date.now() }))
+
+                await Portfolio.findByIdAndUpdate(_portfolio.id, _portfolio)
+
             } catch (error) {
-                return { status: 'ERROR', message: error.message }
+                throw new LogicError(error.message)
             }
-        })()
+
+        })();
+
     },
 
-    deleteImage(data) {
-        // validate
-        const { publicId } = data
-        let deleted = false
-        let found = false
+    deleteImage(publicId) {
+        validate.arguments([
+            { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
+        ])
 
         return (async () => {
             try {
-                const result = await cloudinary.uploader.destroy(publicId);
-                if(result.result=='ok'){
-                    const [, imageId] = publicId.split('/')
-                    const imageList = await this.getImageList()
-                    imageList.forEach(list => {
-                        if (!deleted) {
-                            let index = list.images.findIndex(image => image.id == imageId)
-                            if (index != -1) {
-                                list.images.splice(index, 1)
-                                deleted = true
-                            }
-                        }
-                    });
-                    await this.setImageList(imageList)
+                let _portfolio = await Portfolio.findOne({})
+                if (_portfolio == null) {
+                    throw new LogicError(`The image you want to delete doesn't exist in your portfolio`)
                 }
-                if (deleted) return { status: 'OK', message: 'image deleted' }
-                return { status: 'ERROR', message: 'image not found' }
+                let _sections = []
+                let imageFound = false
+                _portfolio.sections.forEach(_section => {
+                    const oldImagesLength = _section.length
+                    const filteredImages = _section.images.filter(_image => _image.publicId != publicId)
+                    if (oldImagesLength != filteredImages.length) {
+                        imageFound = true
+                        console.log(filteredImages)
+                    }
+                    _sections.push({ name: _section.name, _id: _section.id, images: filteredImages })
+                })
+                if (!imageFound) throw new LogicError(`The image you want to delete doesn't exist in your portfolio`)
+                _portfolio.sections = _sections
+
+                await Portfolio.findByIdAndUpdate(_portfolio.id, _portfolio)
+
             } catch (error) {
-                if (error.message == undefined) return { status: 'ERROR', message: error }
-                return { status: 'ERROR', message: error.message }
+                throw new LogicError(error.message)
             }
+
         })();
     },
 
-    editImage(imageId, data) {
-        const { description, section } = data
-        let imageFound = false
-        let index = -1
+    editImage(imageData) {
+        console.log(imageData)
+        const {publicId, description, section } = imageData
+        validate.arguments([
+            { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
+            { name: 'description', value: description, type: 'string', notEmpty: true },
+            { name: 'section', value: section, type: 'string', notEmpty: true },
+        ])
+
+        if (section != 'ilustration' &&
+            section != 'screenprinting' &&
+            section != 'science' &&
+            section != 'other') {
+            throw new LogicError(`${section} is not a valid section`)
+        }
+
         return (async () => {
             try {
-                const imageList = await this.getImageList()
-                imageList.forEach(list => {
-                    if (!imageFound) {
-                        if (index == -1) index = list.images.findIndex(image => image.id == imageId)
-                        if (index > -1) {
-                            if (section == list.section || !section) {
-                                description ? list.images[index].description = description : false
-                            } else {
-                                const editedImage = list.images.splice(index, 1)
-                                imageList.forEach(list => {
-                                    if (list.section == section) list.images.push(editedImage[0])
-                                })
+                let _portfolio = await Portfolio.findOne({})
+                if (_portfolio == null) {
+                    throw new LogicError(`Portfolio not found`)
+                }
+
+                let imageFound = false
+                _portfolio.sections.forEach(_section => {
+                    if (imageFound == false) {
+                        if (_section.name == section) {
+                            _section.images.forEach(_image => {
+                                if (_image.publicId == publicId) {
+                                    _image.description = description
+                                    imageFound = true
+                                }
+                            })
+                        } else {
+                            const filteredImage = _section.images.filter(_image => _image.publicId == publicId)
+                            if (filteredImage.length > 0) {
+                                _oldSection = _section.name
+                                imageFound = true
+                                const oldSectionIndex = _portfolio.sections.findIndex(__section => __section.name == _oldSection)
+                                const imageIndex = _portfolio.sections[oldSectionIndex].images.findIndex(__image => __image.publicId == publicId)
+                                _portfolio.sections[oldSectionIndex].images.splice(imageIndex, 1)
+                                let newSectionIndex = _portfolio.sections.findIndex(_newSection => _newSection.name == section)
+                                if (newSectionIndex == -1) {
+                                    _portfolio.sections.push(new Sections({ name: section }))
+                                    newSectionIndex = _portfolio.sections.findIndex(_newSection => _newSection.name == section)
+                                    if (newSectionIndex == -1) throw new LogicError(`The new section doesn't exist in your portfolio`)
+                                }
+                                _portfolio.sections[newSectionIndex].images.push(filteredImage[0])
                             }
-                            imageFound = true
                         }
                     }
                 })
-                if (imageFound) await this.setImageList(imageList)
-                if (imageFound) return { status: 'OK', message: 'image edited' }
-                return { status: 'ERROR', message: 'image not found' }
+
+                if (!imageFound) throw new LogicError(`The image you want to edit doesn't exist in your portfolio`)
+
+                await Portfolio.findOneAndUpdate({_id: _portfolio.id}, _portfolio)
+
             } catch (error) {
-                return { status: 'ERROR', message: error.message }
+                throw new LogicError(error.message)
             }
-        })()
+        })();
     },
 }
-export default logic
+// export default logic
+module.exports = logic

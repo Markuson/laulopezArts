@@ -1,11 +1,23 @@
 import logic from '../../../../logic/api'
+import { mongoose } from 'data'
+import { loadGetInitialProps } from 'next/dist/next-server/lib/utils';
+
+const { env: { MONGODB_URI } } = process
 
 export default function userHandler(req, res) {
     const {
       query:{id},
       body:{command, data},
       method,
-    } = req
+    } = req;
+    
+    (async () => {
+      try {
+        await mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
+      } catch (error) {
+        console.error(error.message)
+      }
+    })();
 
     switch (method) {
       case 'GET':
@@ -18,24 +30,37 @@ export default function userHandler(req, res) {
         switch(command){
           case 'add':
             return (async () => {
-              const response = await logic.addImage(data)
-              res.status(200).json(response)
+              try {
+                await logic.addImage(data)
+                res.status(200).json({status:'OK', message:'Image added'})
+              } catch (error) {
+                res.status(200).json({status:'KO', message:error.message})
+              }
             })();
             break
           case 'edit':
             return (async () => {
-              const response = await logic.editImage(id, data)
-              res.status(200).json(response)
+              try{
+                await logic.editImage(data)
+                res.status(200).json({ status: 'OK', message: 'Image edited' })
+              } catch (error) {
+                res.status(200).json({ status: 'KO', message: error.message })
+              }
             })();
             break
           case 'delete':
             return (async () => {
-              const response = await logic.deleteImage(data)
-              res.status(200).json(response)
+              try {
+                console.log(data.publicId)
+                await logic.deleteImage(data.publicId)
+                res.status(200).json({ status: 'OK', message: 'Image deleted' })
+              } catch (error) {
+                res.status(200).json({ status: 'KO', message: error.message })
+              }
             })();
             break
           default:
-            res.status(200).json({status:'ERROR', message:'unrecognized command'})
+            res.status(200).json({status:'KO', message:'unrecognized command'})
         }
         break
 
