@@ -6,13 +6,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p $PORT",
+    "start": "next start -p 4000",
     "test": "mocha ./logic/*.test.js --runInBand --timeout 40000",
     "test:debug": "mocha --inspect-brk=9228 ./logic/*.test.js --runInBand",
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "cloudinary": "^1.23.0",
     "cloudinary-core": "^2.8.2",
     "cloudinary-react": "^1.6.2",
