@@ -43,8 +43,8 @@ const logic = {
         validate.url(url)
         const [,id] = publicId.split('/')
         return (async () => {
-            // let url = `/api/admin/image/${data.id}`
-            let url = `http://localhost:3000/api/admin/image/${id}` //FOR TESTING
+            let url = `/api/admin/image/${data.id}`
+            // let url = `http://localhost:3000/api/admin/image/${id}` //FOR TESTING
             try {
                 const response = await axios({
                     method: 'put',
@@ -74,8 +74,8 @@ const logic = {
         ])
         const [,id] = id.split('/')
         return (async () => {
-            // let url = `/api/admin/image/${id}`
-            let url = `http://localhost:3000/api/admin/image/${id}` //FOR TESTING
+            let url = `/api/admin/image/${id}`
+            // let url = `http://localhost:3000/api/admin/image/${id}` //FOR TESTING
             try {
                 const response = await axios({
                     method: 'put',
@@ -102,8 +102,8 @@ const logic = {
         ])
         const [,id] = publicId.split('/')
         return (async () => {
-            // let url = `/api/admin/image/${id}`
-            let url = `http://localhost:3000/api/admin/image/${id}` //FOR TESTING
+            let url = `/api/admin/image/${id}`
+            // let url = `http://localhost:3000/api/admin/image/${id}` //FOR TESTING
             try {
                 const response = await axios({
                     method: 'put',
@@ -125,5 +125,5 @@ const logic = {
     },
 }
 
-// export default logic
-module.exports = logic
+export default logic
+// module.exports = logic
