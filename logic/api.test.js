@@ -4,7 +4,7 @@ const logic = require('./api')
 const { models, mongoose } = require('data')
 
 const { Portfolio } = models;
-const url = 'mongodb://localhost/laulopezarts-test'
+
 
 
 
@@ -20,7 +20,12 @@ let imageData = {
 xdescribe('Logic', () => {
 
     before(async () => {
-        await mongoose.connect(url, { useNewUrlParser: true })
+        mongoose.connect("mongodb://localhost:27017/laulopezartsTest", {
+            "auth": { "authSource": "admin" },
+            "user": "<MONGODB USER>",
+            "pass": "<MONGODB PASSWORD>",
+            "useMongoClient": true
+        });
     })
 
     beforeEach(async () => {
