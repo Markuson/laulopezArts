@@ -69,7 +69,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      portfolio: portfolio == null ? null : JSON.parse(JSON.stringify(portfolio.sections)),
+      portfolio: portfolio == null ? [] : JSON.parse(JSON.stringify(portfolio.sections)),
     },
   };
 }
