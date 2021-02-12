@@ -8,7 +8,6 @@ const logic = {
          * TODO: Error handling (check portfolio is OK, check sections)
          */
 
-         console.log(typeof portfolio)
         let images =[]
 
         portfolio.forEach(({ name: _section, images: _images }) => {
