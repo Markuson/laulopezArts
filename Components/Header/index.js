@@ -3,7 +3,7 @@ import Navbar from '../Navbar'
 import Link from 'next/link'
 
 export default function Header({
-  selected = undefined
+  selected = undefined,
 }) {
   const [mainLogo, setMainLogo] = useState('');
   const [randColor, setrandColor] = useState("#f5e3ae");
