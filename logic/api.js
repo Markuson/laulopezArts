@@ -94,7 +94,6 @@ const logic = {
                     const filteredImages = _section.images.filter(_image => _image.publicId != publicId)
                     if (oldImagesLength != filteredImages.length) {
                         imageFound = true
-                        console.log(filteredImages)
                     }
                     _sections.push({ name: _section.name, _id: _section.id, images: filteredImages })
                 })
@@ -111,7 +110,6 @@ const logic = {
     },
 
     editImage(imageData) {
-        console.log(imageData)
         const {publicId, description, section } = imageData
         validate.arguments([
             { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
