@@ -5,6 +5,7 @@ export async function cloudinaryUpdate (url, uploadPreset, files, description, s
             onUploading(true)
             for (let file of files) {
                 request.post(url)
+                    .set('Access-Control-Allow-Origin', '*')
                     .field('upload_preset', uploadPreset)
                     .field('file', file)
                     .field('multiple', true)
