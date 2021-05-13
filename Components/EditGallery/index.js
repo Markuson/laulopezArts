@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Image } from 'cloudinary-react';
 import { CloudinaryContext } from 'cloudinary-react';
 import Uikit from 'uikit/dist/js/uikit.min.js'
@@ -16,22 +16,28 @@ export default function EditGallery({
     const [publicId, setPublicId] = useState(undefined)
     const [section, setSection] = useState(undefined)
 
-    const handleSubmit = () => {
-        console.log(section)
-        onImageEdit({ id, description, section })
+    useEffect(() => {
         setDescription(undefined)
         setId(undefined)
         setPublicId(undefined)
         setSection(undefined)
+    }, [])
+
+
+    const handleSubmit = () => {
+        onImageEdit({ id, publicId, description, section })
     }
 
-    const handleImageClick = (description, id, publicId, url) => {
-        const _section = publicId.split('/')
+    const handleImageClick = (description, id, publicId, section, url) => {
         setDescription(description)
         setId(id)
         setPublicId(publicId)
-        setSection(_section[0])
+        setSection(section)
         Uikit.modal("#edit-image-modal").show();
+    }
+
+    const handleImageDelete = () => {
+        onImageDelete(publicId)
     }
 
     return (
@@ -42,24 +48,23 @@ export default function EditGallery({
                 data-uk-lightbox="animation: slide"
                 uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 100; repeat: false"
             >
-                {!!imageList && 
-                    imageList.map(({ description, _id: id, publicId, url }) => {
-                        return <div key={id} onClick={() => handleImageClick(description, id, publicId, url)}>
+                {!!imageList &&
+                    imageList.map(({ description, _id: id, publicId, section, url }) => {
+                        return <div key={id} onClick={() => handleImageClick(description, id, publicId, section, url)}>
                             <div className="uk-box-shadow-hover-large uk-animation-fade uk-transition-toggle " tabIndex="0">
-                                <div class="uk-inline">
+                                <div className="uk-inline">
                                     <Image alt={description} publicId={publicId} />
-                                    <div class="uk-transition-scale-up">
+                                    <div className="uk-transition-scale-up">
                                         <p>{description}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     })
-
                 }
             </div>
             <EditModal
-                onDelete={(value) => onImageDelete(`${section}/${id}`)}
+                onDelete={() => handleImageDelete() }
                 onDescriptionChange={(value) => setDescription(value)}
                 onSelectChange={(value) => setSection(value)}
                 onSubmit={() => handleSubmit()}

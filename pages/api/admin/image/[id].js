@@ -1,6 +1,5 @@
 import logic from '../../../../logic/api'
 import { mongoose } from 'data'
-import { loadGetInitialProps } from 'next/dist/next-server/lib/utils';
 
 const { env: { MONGODB_URI } } = process
 
@@ -51,7 +50,6 @@ export default function userHandler(req, res) {
           case 'delete':
             return (async () => {
               try {
-                console.log(data.publicId)
                 await logic.deleteImage(data.publicId)
                 res.status(200).json({ status: 'OK', message: 'Image deleted' })
               } catch (error) {
