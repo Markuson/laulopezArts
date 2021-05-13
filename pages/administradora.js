@@ -1,22 +1,17 @@
 import { useEffect, useState } from 'react';
+import { useMutate } from 'restful-react';
 import { useSession } from 'next-auth/client';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-// import request from 'superagent';
 import Uikit from 'uikit/dist/js/uikit.min.js';
-
 import { connectToDatabase } from '../utils/mongodb';
-import { cloudinaryUpdate } from '../utils/cloudinary';
-
 import Header from '../Components/Header';
 import EditGallery from '../Components/EditGallery';
 import AddImageModal from '../Components/AddImageModal';
-
 import logic from '../logic/app'
-
 import styles from '../utils/styles/styles.module.css'
 
-export default function Administradora({ cloudinaryUrl, cloudinaryUploadPresset, portfolio }) {
+export default function Administradora({ portfolio }) {
 
     const router = useRouter()
     const [session, loading] = useSession()
@@ -27,11 +22,19 @@ export default function Administradora({ cloudinaryUrl, cloudinaryUploadPresset,
     const [imageList, setImageList] = useState([])
     const [section, setSection] = useState('other')
     const [uploadingImage, setUploadingImage] = useState(false)
-    const [uploadingProgress, setUploadingProgress] = useState(0)
+
+    const { mutate: uploadImage } = useMutate({
+        verb: 'POST',
+        path: 'api/admin/image/upload'
+    });
 
     useEffect(() => {
         handleGetImages(displaySection)
     }, [displaySection])
+
+    useEffect(() => {
+        handleGetImages(displaySection)
+    }, [portfolio])
 
     const handleNotification = (status, message) => {
         Uikit.notification({
@@ -42,83 +45,72 @@ export default function Administradora({ cloudinaryUrl, cloudinaryUploadPresset,
         })
     }
 
-    const handleUploadingImage = (status = false) => {
-        setUploadingImage(status)
-    }
-
-    const handleUploadingProgress = (progress = 0) => {
-        setUploadingProgress(progress)
-    }
-
     const handleUploadFinished = () => {
         document.getElementById('fileupload').value = null;
-        //for description and section not working... should review
         document.getElementById('description').value = null;
         document.getElementById('sectionSelect').value = 'other';
-        setUploadingProgress(0)
-        setFileInput('')
-        setSection('other')
-        setDescription('')
+        setFileInput('');
+        setSection('other');
+        setDescription('');
         Uikit.modal('#add-image-modal').hide();
-        handleGetImages(displaySection)
     }
 
-    const handleImageAdd = async (files) => {
-        if (files.length > 0) {
+    const handleImageAdd = async () => {
+        if(fileInput.files[0]){
             try {
-                cloudinaryUpdate(
-                    cloudinaryUrl,
-                    cloudinaryUploadPresset,
-                    files,
-                    description,
-                    section,
-                    logic.addImageData,
-                    handleNotification,
-                    handleGetImages,
-                    handleUploadingImage,
-                    handleUploadingProgress,
-                    handleUploadFinished
-                )
+                const formData = new FormData();
+                formData.append('image', fileInput.files[0]);
+                setUploadingImage(true);
+                const { message, data: { public_id, secure_url } } = await uploadImage(formData);
+                if (message === 'OK') {
+                    await logic.addImageData({ publicId: public_id, description, section, url: secure_url });
+                } else {
+                    handleNotification('danger', `ERROR! No s'ha pogut pujar la imatge`);
+                    throw Error('Error en la pujada');
+                }
+                setUploadingImage(false);
+                handleUploadFinished();
+                refreshData();
             } catch (error) {
-                console.error(error.message)
+                console.error(error.message);
+                handleNotification('danger', `${error.message}`);
             }
         }
     }
 
-    const handleImageDelete = async (id) => {
-        const res = await logic.deleteImageData(id)
-
-        //cloudinary.v2.uploader.destroy(public_id, options, callback);
-
-        if (res.data.status === 'OK') {
-            handleNotification('success', "Imatge eliminada correctament!")
-        } else {
-            handleNotification('danger', `ERROR! ${res.data.message}`)
-        }
+    const handleImageDelete = async (publicId) => {
         Uikit.modal('#edit-image-modal').hide();
-        refreshData()
-        handleGetImages()
+        const response = await logic.deleteImage(publicId);
+        if (response.data && response.data.data && response.data.data.result == "ok"){
+            const res = await logic.deleteImageData(publicId);
+            if (res.data.status === 'OK') {
+                handleNotification('success', "Imatge eliminada correctament!");
+            } else {
+                handleNotification('danger', `ERROR! ${res.data.message}`);
+            }
+        } else {
+            handleNotification('danger', `ERROR! No sha pogut eliminar`);
+        }
+        refreshData();
     }
 
     const handleImageEdit = async (data) => {
-        const { id, description, section } = data
-
-        const res = await logic.editImageData(id, { publicId: id, description, section })
+        const { id, publicId, description, section } = data
+        const res = await logic.editImageData(id, { publicId, description, section })
 
         if (res.data && res.data.status === 'OK') {
-            handleNotification('success', "Imatge editada correctament!")
+            handleNotification('success', "Imatge editada correctament!");
         } else if (res.data) {
-            handleNotification('danger', `ERROR! ${res.data.message}`)
-        } else console.error(res)
+            handleNotification('danger', `ERROR! ${res.data.message}`);
+        } else console.error(res);
         Uikit.modal('#edit-image-modal').hide();
-        refreshData()
-        handleGetImages()
+        refreshData();
     }
 
     const handleGetImages = async (_section = undefined) => {
         if (portfolio) {
-            const response = await logic.getImages(portfolio, _section)
-            setImageList(response)
+            const response = await logic.getImages(portfolio, _section);
+            setImageList(response);
         }
     }
 
@@ -172,8 +164,7 @@ export default function Administradora({ cloudinaryUrl, cloudinaryUploadPresset,
                 onDescriptionChange={(value) => setDescription(value)}
                 onFileInput={(value) => setFileInput(value)}
                 onSectionChange={(value) => setSection(value)}
-                onSubmit={() => handleImageAdd(fileInput.files)}
-                progress={Math.floor(uploadingProgress)}
+                onSubmit={() => handleImageAdd()}
                 uploadingImage={uploadingImage}
             />
         </div >
@@ -182,7 +173,6 @@ export default function Administradora({ cloudinaryUrl, cloudinaryUploadPresset,
 
 export async function getServerSideProps() {
 
-    const { UPLOADPRESSET: cloudinaryUploadPresset, ADDRESS: cloudinaryUrl } = process.env
     const { db } = await connectToDatabase();
 
     let portfolio = await db
@@ -192,8 +182,6 @@ export async function getServerSideProps() {
     return {
         props: {
             portfolio: portfolio == null ? [] : JSON.parse(JSON.stringify(portfolio.sections)),
-            cloudinaryUrl,
-            cloudinaryUploadPresset
         },
     };
 }

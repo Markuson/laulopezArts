@@ -18,7 +18,7 @@ const logic = {
 
         const { description, publicId, section, url } = newImageData
         validate.arguments([
-            { name: 'description', value: description, type: 'string', notEmpty: true },
+            { name: 'description', value: description, type: 'string'},
             { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
             { name: 'section', value: section, type: 'string', notEmpty: true },
             { name: 'url', value: url, type: 'string', notEmpty: true }
@@ -113,7 +113,7 @@ const logic = {
         const {publicId, description, section } = imageData
         validate.arguments([
             { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
-            { name: 'description', value: description, type: 'string', notEmpty: true },
+            { name: 'description', value: description, type: 'string'},
             { name: 'section', value: section, type: 'string', notEmpty: true },
         ])
 

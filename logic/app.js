@@ -9,10 +9,10 @@ const logic = {
          */
 
         let images =[]
-
         portfolio.forEach(({ name: _section, images: _images }) => {
             if (section == undefined || section == _section){
                 _images.forEach(image => {
+                    image.section = _section;
                     images.push(image)
                 })
             }
@@ -20,7 +20,6 @@ const logic = {
         images = images.sort((a, b) => {
             const time1 = a.date;
             const time2 = b.date;
-
             let comparison = 0;
             if (time1 > time2) {
               comparison = -1;
@@ -36,7 +35,7 @@ const logic = {
         const {publicId, description, section, url} = data
         validate.arguments([
             { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
-            { name: 'description', value: description, type: 'string', notEmpty: true },
+            { name: 'description', value: description, type: 'string'},
             { name: 'section', value: section, type: 'string', notEmpty: true },
         ])
         validate.url(url)
@@ -64,14 +63,14 @@ const logic = {
         })();
     },
 
-    editImageData(data) {
+    editImageData(id, data) {
         const {publicId, description, section} = data
         validate.arguments([
+            { name: 'id', value: id, type: 'string', notEmpty: true },
             { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
-            { name: 'description', value: description, type: 'string', notEmpty: true, optional: true },
+            { name: 'description', value: description, type: 'string', optional: true },
             { name: 'section', value: section, type: 'string', notEmpty: true, optional: true },
         ])
-        const [,id] = id.split('/')
         return (async () => {
             let url = `/api/admin/image/${id}`
             // let url = `http://localhost:3000/api/admin/image/${id}` //FOR TESTING
@@ -115,6 +114,33 @@ const logic = {
                         data:{publicId}
                     }
                 })
+                return response
+            }
+            catch (e) {
+                return e.message
+            }
+        })();
+    },
+
+    deleteImage(publicId) {
+        validate.arguments([
+            { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
+        ])
+        return (async () => {
+            let url = `/api/admin/image/delete`
+            // let url = `http://localhost:3000/api/admin/image/delete` //FOR TESTING
+            try {
+                const response = await axios({
+                    method: 'put',
+                    url,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: {
+                        data:{publicId}
+                    }
+                })
+                if (response.data.data.result == 'not found') throw Error(response.data.data.result)
                 return response
             }
             catch (e) {
