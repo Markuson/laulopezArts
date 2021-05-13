@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { connectToDatabase } from "../utils/mongodb";
-
 import Header from '../Components/Header'
 import PortfolioGallery from '../Components/PortfolioGallery'
-
 import logic from '../logic/app'
-
 import styles from '../utils/styles/styles.module.css'
 
 export default function Home({ portfolio }) {

@@ -1,11 +1,10 @@
-import { useEffect } from 'react'
+import ReactLoading from 'react-loading';
 
 export default function AddImageModal({
     onDescriptionChange,
     onFileInput,
     onSectionChange,
     onSubmit,
-    progress,
     uploadingImage,
 }) {
     const handleSubmit = (e) => {
@@ -13,8 +12,8 @@ export default function AddImageModal({
         (async () => {
             await onSubmit(e);
         })();
-        e.target.description.value='';
-        e.target.sectionSelect.value='other'
+        e.target.description.value = '';
+        e.target.sectionSelect.value = 'other'
     }
     return (
         <div id="add-image-modal" data-uk-modal>
@@ -59,11 +58,10 @@ export default function AddImageModal({
                             />
                         </div>
                         <div className="uk-margin uk-flex uk-flex-auto uk-flex-between uk-flex-middle">
-                            <div>
+                            <div className="uk-flex">
                                 {uploadingImage &&
-                                    <div>
-                                        <span className="uk-margin-left uk-text-middle">Pujant...{progress}% </span>
-                                        <progress value={progress} max='100' >{progress}%</progress>
+                                    <div className="uk-margin-left">
+                                        <ReactLoading type={'balls'} color={'#f5e3ae'} height={40} width={40} />
                                     </div>
                                 }
                             </div>

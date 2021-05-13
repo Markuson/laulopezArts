@@ -1,7 +1,5 @@
 import Head from 'next/head'
-
 import Header from '../Components/Header'
-
 import styles from '../styles/styles.module.css'
 
 export default function Info() {
@@ -40,9 +38,9 @@ export default function Info() {
                     <div className='uk-padding-small'>
                         <a className={styles.growRotate} target='_blank' href="https://www.instagram.com/lau_llc/"><img src='icons/instagram.png' width='60px' /></a>
                     </div>
-                    <div className='uk-padding-small'>
+                    {/* <div className='uk-padding-small'>
                         <a className={styles.growRotate} target='_blank' href="https://www.facebook.com/entre.nusos" ><img src='icons/behance.png' width='60px' /></a>
-                    </div>
+                    </div> */}
                     <div className='uk-padding-small'>
                         <a className={styles.growRotate} target='_blank' href="https://www.linkedin.com/in/laura-l%C3%B3pez-8a59a351/"><img src='icons/linkedin.png' width='60px' /></a>
                     </div>
