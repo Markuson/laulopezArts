@@ -22,7 +22,7 @@
     "jsonfile": "^6.0.1",
     "mongodb": "^3.6.3",
     "next": "9.4.2",
-    "next-auth": "^2.2.0",
+    "next-auth": "^3.3.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-loading": "^2.0.3",
