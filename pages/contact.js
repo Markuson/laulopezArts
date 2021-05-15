@@ -1,17 +1,16 @@
 import Head from 'next/head'
-
 import Header from '../Components/Header'
-
+import randomize from "../utils/randomizeHeader"
 import styles from '../styles/styles.module.css'
 
-export default function Contact() {
+export default function Contact({color, image, textColor}) {
   return (
     <div className={styles.container}>
       <Head>
         <title>laulopez Arts | Contact</title>
       </Head>
 
-      <Header selected='Contact' />
+      <Header selected='Contact'  randColor={color} image={image} textColor={textColor} />
 
       <main>
         <div className="uk-padding uk-padding-remove-bottom">
@@ -63,4 +62,15 @@ export default function Contact() {
 
     </div>
   )
+}
+
+export async function getServerSideProps() {
+  const { textColor, color, image } = randomize()
+  return {
+    props: {
+      image,
+      color,
+      textColor
+    },
+  };
 }

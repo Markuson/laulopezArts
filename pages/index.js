@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { connectToDatabase } from "../utils/mongodb";
+import randomize from "../utils/randomizeHeader"
 import Header from '../Components/Header'
 import PortfolioGallery from '../Components/PortfolioGallery'
 import logic from '../logic/app'
 import styles from '../utils/styles/styles.module.css'
 
-export default function Home({ portfolio }) {
+export default function Home({ portfolio, image, color, textColor }) {
   const [imageList, setImageList] = useState([])
   const [section, setSection] = useState(undefined)
 
   useEffect(() => {
     let result = logic.getImages(portfolio, section)
     setImageList(result)
+    console.log('image: ', image)
   }, [section])
 
   return (
@@ -21,7 +23,7 @@ export default function Home({ portfolio }) {
         <title>laulópez Arts</title>
       </Head>
 
-      <Header selected="Home" />
+      <Header selected="Home" randColor={color} image={image} textColor={textColor} />
       <main className="uk-padding-large uk-padding-remove-top">
         <div className="uk-animation-scale-up uk-padding">
           <ul className=" uk-breadcrumb uk-visible@m">
@@ -64,9 +66,13 @@ export async function getServerSideProps() {
     .collection("portfolios")
     .findOne({})
 
+  const { textColor, color, image } = randomize()
   return {
     props: {
       portfolio: portfolio == null ? [] : JSON.parse(JSON.stringify(portfolio.sections)),
+      image,
+      color,
+      textColor
     },
   };
 }
