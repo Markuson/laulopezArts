@@ -12,7 +12,7 @@ import AddImageModal from '../Components/AddImageModal';
 import logic from '../logic/app'
 import styles from '../utils/styles/styles.module.css'
 
-export default function Administradora({ portfolio, color, image, textColor }) {
+export default function Administradora({ portfolio, color, image }) {
 
     const router = useRouter()
     const [session, loading] = useSession()
@@ -123,7 +123,7 @@ export default function Administradora({ portfolio, color, image, textColor }) {
                 <title>laulópez Arts</title>
             </Head>
 
-            <Header selected={undefined} randColor={color} image={image} textColor={textColor} />
+            <Header selected={undefined} randColor={color} image={image} />
             {!session &&
                 <main className="uk-padding-large">
                     <div className="uk-padding-large uk-text-center uk-height-1-1">
@@ -180,13 +180,12 @@ export async function getServerSideProps() {
         .collection("portfolios")
         .findOne({})
 
-    const { textColor, color, image } = randomize()
+    const { color, image } = randomize()
     return {
         props: {
             portfolio: portfolio == null ? [] : JSON.parse(JSON.stringify(portfolio.sections)),
             image,
-            color,
-            textColor
+            color
         },
     };
 }

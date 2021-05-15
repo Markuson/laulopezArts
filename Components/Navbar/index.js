@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 export default function Navbar({
     color,
     selected = undefined,
-    textColor = '#353534'
 }) {
 
     const [isHide, setIsHide] = useState(true);
@@ -42,7 +41,7 @@ export default function Navbar({
                             <li className='uk-active'>
                                 <Link href="/info">
                                     <button className="uk-button uk-button-text uk-button-xlarge" disabled={selected === 'About' ? true : false} >
-                                        <strong style={selected === 'About' ? undefined : { color: textColor }}>INFO</strong>
+                                        <strong>INFO</strong>
                                     </button>
                                 </Link>
                             </li>
@@ -51,16 +50,16 @@ export default function Navbar({
                             <li>
                                 <Link href="/">
                                     <button className="uk-button uk-button-text uk-button-xlarge" disabled={selected === 'Home' ? true : false} >
-                                        <strong style={selected === 'Home' ? undefined : { color: textColor }}>PORTFOLIO</strong>
+                                        <strong>PORTFOLIO</strong>
                                     </button>
                                 </Link>
                             </li>
                         </div>
                         <div className='uk-padding uk-padding-remove-vertical'>
                             <li>
-                                <a href="https://www.etsy.com/es/shop/LauLopezArts" rel="noopener noreferrer" target="_blank">
+                                <a href="https://laulopezarts.bigcartel.com/products" rel="noopener noreferrer" target="_blank">
                                     <button className="uk-button uk-button-text uk-button-xlarge" disabled={selected === 'Contact' ? true : false} >
-                                        <strong style={selected === 'Contact' ? undefined : { color: textColor }}>SHOP</strong>
+                                        <strong>SHOP</strong>
                                     </button>
                                 </a>
                             </li>
