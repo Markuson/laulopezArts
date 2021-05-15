@@ -2,8 +2,9 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
 export default function Navbar({
-    color ,
-    selected = undefined
+    color,
+    selected = undefined,
+    textColor = '#353534'
 }) {
 
     const [isHide, setIsHide] = useState(true);
@@ -27,7 +28,7 @@ export default function Navbar({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "#f5e3ae",
+            backgroundColor: color,
             height: "2.5rem"
         }
     }
@@ -41,7 +42,7 @@ export default function Navbar({
                             <li className='uk-active'>
                                 <Link href="/info">
                                     <button className="uk-button uk-button-text uk-button-xlarge" disabled={selected === 'About' ? true : false} >
-                                        <strong>INFO</strong>
+                                        <strong style={selected === 'About' ? undefined : { color: textColor }}>INFO</strong>
                                     </button>
                                 </Link>
                             </li>
@@ -50,7 +51,7 @@ export default function Navbar({
                             <li>
                                 <Link href="/">
                                     <button className="uk-button uk-button-text uk-button-xlarge" disabled={selected === 'Home' ? true : false} >
-                                        <strong>PORTFOLIO</strong>
+                                        <strong style={selected === 'Home' ? undefined : { color: textColor }}>PORTFOLIO</strong>
                                     </button>
                                 </Link>
                             </li>
@@ -59,7 +60,7 @@ export default function Navbar({
                             <li>
                                 <a href="https://www.etsy.com/es/shop/LauLopezArts" rel="noopener noreferrer" target="_blank">
                                     <button className="uk-button uk-button-text uk-button-xlarge" disabled={selected === 'Contact' ? true : false} >
-                                        <strong>SHOP</strong>
+                                        <strong style={selected === 'Contact' ? undefined : { color: textColor }}>SHOP</strong>
                                     </button>
                                 </a>
                             </li>
