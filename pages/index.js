@@ -7,7 +7,7 @@ import PortfolioGallery from '../Components/PortfolioGallery'
 import logic from '../logic/app'
 import styles from '../utils/styles/styles.module.css'
 
-export default function Home({ portfolio, image, color, textColor }) {
+export default function Home({ portfolio, image, color }) {
   const [imageList, setImageList] = useState([])
   const [section, setSection] = useState(undefined)
 
@@ -23,7 +23,7 @@ export default function Home({ portfolio, image, color, textColor }) {
         <title>laulópez Arts</title>
       </Head>
 
-      <Header selected="Home" randColor={color} image={image} textColor={textColor} />
+      <Header selected="Home" randColor={color} image={image} />
       <main className="uk-padding-large uk-padding-remove-top">
         <div className="uk-animation-scale-up uk-padding">
           <ul className=" uk-breadcrumb uk-visible@m">
@@ -46,7 +46,6 @@ export default function Home({ portfolio, image, color, textColor }) {
             <option value="other">Other</option>
           </select>
         </div>
-
         <PortfolioGallery imageList={imageList} />
       </main>
 
@@ -66,13 +65,12 @@ export async function getServerSideProps() {
     .collection("portfolios")
     .findOne({})
 
-  const { textColor, color, image } = randomize()
+  const { color, image } = randomize()
   return {
     props: {
       portfolio: portfolio == null ? [] : JSON.parse(JSON.stringify(portfolio.sections)),
       image,
-      color,
-      textColor
+      color
     },
   };
 }
