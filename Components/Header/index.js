@@ -9,7 +9,7 @@ export default function Header({
 }) {
   return <header style={{ backgroundColor: randColor }} className="uk-animation-fade">
     <Link href="/">
-      <img src={image} alt="laulópez Arts" width="460px" />
+      <img src={image} alt="laulópez Arts" width="460px" className="uk-animation-fade"/>
     </Link>
     <Navbar selected={selected} color={randColor} />
   </header>
