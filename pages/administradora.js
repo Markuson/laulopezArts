@@ -5,13 +5,14 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Uikit from 'uikit/dist/js/uikit.min.js';
 import { connectToDatabase } from '../utils/mongodb';
+import randomize from "../utils/randomizeHeader"
 import Header from '../Components/Header';
 import EditGallery from '../Components/EditGallery';
 import AddImageModal from '../Components/AddImageModal';
 import logic from '../logic/app'
 import styles from '../utils/styles/styles.module.css'
 
-export default function Administradora({ portfolio }) {
+export default function Administradora({ portfolio, color, image, textColor }) {
 
     const router = useRouter()
     const [session, loading] = useSession()
@@ -122,7 +123,7 @@ export default function Administradora({ portfolio }) {
                 <title>laulópez Arts</title>
             </Head>
 
-            <Header selected={undefined} />
+            <Header selected={undefined} randColor={color} image={image} textColor={textColor} />
             {!session &&
                 <main className="uk-padding-large">
                     <div className="uk-padding-large uk-text-center uk-height-1-1">
@@ -179,9 +180,13 @@ export async function getServerSideProps() {
         .collection("portfolios")
         .findOne({})
 
+    const { textColor, color, image } = randomize()
     return {
         props: {
             portfolio: portfolio == null ? [] : JSON.parse(JSON.stringify(portfolio.sections)),
+            image,
+            color,
+            textColor
         },
     };
 }

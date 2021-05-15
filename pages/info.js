@@ -1,15 +1,16 @@
 import Head from 'next/head'
 import Header from '../Components/Header'
+import randomize from "../utils/randomizeHeader"
 import styles from '../styles/styles.module.css'
 
-export default function Info() {
+export default function Info({color, image, textColor}) {
     return (
         <div className={styles.container}>
             <Head>
                 <title>laulopez Arts | Info</title>
             </Head>
 
-            <Header selected='About' />
+            <Header selected='About'  randColor={color} image={image} textColor={textColor} />
 
             <main className="uk-flex uk-flex-column uk-flex-center uk-padding-small uk-padding-remove-bottom">
                 <div className="uk-flex uk-flex-middle uk-flex-center uk-flex-row" data-uk-grid>
@@ -49,3 +50,14 @@ export default function Info() {
         </div>
     )
 }
+
+export async function getServerSideProps() {
+    const { textColor, color, image } = randomize()
+    return {
+      props: {
+        image,
+        color,
+        textColor
+      },
+    };
+  }
