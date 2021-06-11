@@ -26,7 +26,7 @@ export default function EditModal({
                 <form onSubmit={(e) => { e.preventDefault(); handleSubmit(e) }}>
                     <fieldset className="uk-fieldset">
                         <div className="uk-margin uk-text-center">
-                            <legend className="uk-legend" path="title">Editar Imatge:</legend>
+                            <legend className="uk-legend" path="title">Editar Imagen:</legend>
                         </div>
                         <div className="uk-text-center">
                             <Image alt={description} publicId={publicId}>
@@ -35,21 +35,21 @@ export default function EditModal({
 
                         </div>
                         <div className="uk-margin">
-                            <label className="uk-form-label" >Seccció:</label>
+                            <label className="uk-form-label" >Seccción:</label>
                             <select
                                 className="uk-select"
                                 onChange={(e) => onSelectChange(e.target.value)}
                                 id='sectionSelect'
                                 value={section}
                             >
-                                <option value="screenprinting">Screenprinting</option>
-                                <option value="ilustration">Ilustration</option>
-                                <option value="science">Science</option>
-                                <option value="other">Other</option>
+                                <option value="screenprinting">Serigrafía</option>
+                                <option value="ilustration">Ilustración</option>
+                                <option value="science">Ciencia</option>
+                                <option value="other">Otras técnicas</option>
                             </select>
                         </div>
                         <div className="uk-margin">
-                            <label className="uk-form-label" >Descripció:</label>
+                            <label className="uk-form-label" >Descripción:</label>
                             <input
                                 className="uk-input"
                                 type="text"
@@ -60,12 +60,12 @@ export default function EditModal({
                         </div>
                         <div className="uk-margin uk-flex uk-flex-auto uk-flex-between uk-flex-middle">
                             <button type="button" onClick={() => setConfirmDelete(true)} className='uk-button uk-button-danger'>Esborra</button>
-                            <button type="submit" className='uk-button uk-button-default'>Desa</button>
+                            <button type="submit" className='uk-button uk-button-default'>Guarda</button>
                         </div>
                         {confirmDelete &&
                             <div className="uk-margin-small uk-flex uk-flex-column">
                                 <div className="uk-text-center" >
-                                    <span className="uk-text-center">Segur que vols esborrar la imatge? </span>
+                                    <span className="uk-text-center">Seguro que quieres borrar la imagen? </span>
                                 </div>
                                 <div className="uk-margin uk-flex uk-flex-auto uk-flex-around uk-flex-middle">
                                     <button type="button" onClick={() => setConfirmDelete(false)} className='uk-button uk-button-default'>Cancela</button>

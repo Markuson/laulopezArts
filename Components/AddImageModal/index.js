@@ -22,24 +22,24 @@ export default function AddImageModal({
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <fieldset className="uk-fieldset">
                         <div className="uk-margin">
-                            <legend className="uk-legend" path="title">Afegir Imatges:</legend>
+                            <legend className="uk-legend" path="title">Añadir Imágenes:</legend>
                         </div>
                         <div className="uk-margin">
-                            <label className="uk-form-label" >Seccció:</label>
+                            <label className="uk-form-label" >Seccción:</label>
                             <select
                                 className="uk-select"
                                 onChange={(e) => onSectionChange(e.target.value)}
                                 id='sectionSelect'
                                 defaultValue='other'
                             >
-                                <option value="screenprinting">Screenprinting</option>
-                                <option value="ilustration">Ilustration</option>
-                                <option value="science">Science</option>
-                                <option value="other">Other</option>
+                                <option value="screenprinting">Serigrafía</option>
+                                <option value="ilustration">Ilustración</option>
+                                <option value="science">Ciencia</option>
+                                <option value="other">Otras técnicas</option>
                             </select>
                         </div>
                         <div className="uk-margin">
-                            <label className="uk-form-label" >Descripció:</label>
+                            <label className="uk-form-label" >Descripción:</label>
                             <input
                                 className="uk-input"
                                 type="text"
