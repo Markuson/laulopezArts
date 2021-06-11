@@ -55,10 +55,19 @@ export default function Navbar({
                                 </Link>
                             </li>
                         </div>
+                        {/* <div className='uk-padding uk-padding-remove-vertical'>
+                            <li>
+                                <a href="/talleres">
+                                    <button className="uk-button uk-button-text uk-button-xlarge" disabled={selected === 'Workshops' ? true : false} >
+                                        <strong>TALLERES</strong>
+                                    </button>
+                                </a>
+                            </li>
+                        </div> */}
                         <div className='uk-padding uk-padding-remove-vertical'>
                             <li>
                                 <a href="https://laulopezarts.bigcartel.com/products" rel="noopener noreferrer" target="_blank">
-                                    <button className="uk-button uk-button-text uk-button-xlarge" disabled={selected === 'Contact' ? true : false} >
+                                    <button className="uk-button uk-button-text uk-button-xlarge">
                                         <strong>SHOP</strong>
                                     </button>
                                 </a>

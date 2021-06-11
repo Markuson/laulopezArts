@@ -66,7 +66,7 @@ export default function Administradora({ portfolio, color, image }) {
                 if (message === 'OK') {
                     await logic.addImageData({ publicId: public_id, description, section, url: secure_url });
                 } else {
-                    handleNotification('danger', `ERROR! No s'ha pogut pujar la imatge`);
+                    handleNotification('danger', `ERROR! No se ha podido subir la imagen`);
                     throw Error('Error en la pujada');
                 }
                 setUploadingImage(false);
@@ -85,12 +85,12 @@ export default function Administradora({ portfolio, color, image }) {
         if (response.data && response.data.data && response.data.data.result == "ok"){
             const res = await logic.deleteImageData(publicId);
             if (res.data.status === 'OK') {
-                handleNotification('success', "Imatge eliminada correctament!");
+                handleNotification('success', "Imagen eliminada correctamente!");
             } else {
                 handleNotification('danger', `ERROR! ${res.data.message}`);
             }
         } else {
-            handleNotification('danger', `ERROR! No sha pogut eliminar`);
+            handleNotification('danger', `ERROR! No se ha podido eliminar`);
         }
         refreshData();
     }
@@ -100,7 +100,7 @@ export default function Administradora({ portfolio, color, image }) {
         const res = await logic.editImageData(id, { publicId, description, section })
 
         if (res.data && res.data.status === 'OK') {
-            handleNotification('success', "Imatge editada correctament!");
+            handleNotification('success', "Imagen editada correctamente!");
         } else if (res.data) {
             handleNotification('danger', `ERROR! ${res.data.message}`);
         } else console.error(res);
@@ -135,19 +135,19 @@ export default function Administradora({ portfolio, color, image }) {
                 <main className="uk-padding-large">
                     <div className=" uk-padding-large uk-text-center">
                         <button className='uk-button uk-button-default uk-button-large' data-uk-toggle="target: #add-image-modal" type="button">
-                            ADD NEW IMAGE
+                            AÑADIR IMAGEN
                             </button>
                     </div>
                     <div className='uk-text-center uk-padding-large' >
-                        EDIT IMAGES:
+                        EDITAR IMÁGENES:
                             </div>
                     <div className="uk-animation-scale-up ">
                         <ul className="uk-breadcrumb uk-visible@s">
-                            <li><a onClick={() => setDisplaySection(undefined)}>All my works</a></li>
-                            <li><a onClick={() => setDisplaySection('screenprinting')}>Screenprinting</a></li>
-                            <li><a onClick={() => setDisplaySection('ilustration')}>Ilustration</a></li>
-                            <li><a onClick={() => setDisplaySection('science')}>Science</a></li>
-                            <li><a onClick={() => setDisplaySection('other')}>Other works</a></li>
+                            <li><a onClick={() => setDisplaySection(undefined)}>Todo</a></li>
+                            <li><a onClick={() => setDisplaySection('screenprinting')}>Serigrafía</a></li>
+                            <li><a onClick={() => setDisplaySection('ilustration')}>Ilustración</a></li>
+                            <li><a onClick={() => setDisplaySection('science')}>Ciencia</a></li>
+                            <li><a onClick={() => setDisplaySection('other')}>Otras técnicas</a></li>
                         </ul>
                     </div>
                     <div className="uk-padding uk-text-center">

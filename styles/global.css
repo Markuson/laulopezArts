@@ -1,12 +1,17 @@
 @import '../node_modules/uikit/dist/css/uikit.min.css';
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;700&display=swap');
 
-html,
+html {
+    background-color: lightgrey
+}
+
 body {
     padding: 0;
-    margin: 0;
+    margin: auto;
     font-family: 'Poppins', sans-serif;
     background-color:whitesmoke;
+    max-width: 1920px;
+    min-height: 100vh;
 }
 
 * {
