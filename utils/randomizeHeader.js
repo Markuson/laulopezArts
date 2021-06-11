@@ -3,13 +3,13 @@ const randomize = () => {
     let color = 'wheat';
     switch (randColor) {
         case 0:
-            color = 'wheat';
+            color = '#f5e3ae';
             break;
         case 1:
-            color = '#338F8E'
+            color = '#edb0ce'
             break;
         case 2:
-            color = '#CE93A9'
+            color = '#81ccc6'
             break;
         default:
             break;

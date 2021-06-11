@@ -27,11 +27,11 @@ export default function Home({ portfolio, image, color }) {
       <main className="uk-padding-large uk-padding-remove-top">
         <div className="uk-animation-scale-up uk-padding">
           <ul className=" uk-breadcrumb uk-visible@m">
-            <li><a onClick={() => setSection(undefined)}>All my works</a></li>
-            <li><a onClick={() => setSection('screenprinting')}>Screenprinting</a></li>
-            <li><a onClick={() => setSection('ilustration')}>Ilustration</a></li>
-            <li><a onClick={() => setSection('science')}>Science</a></li>
-            <li><a onClick={() => setSection('other')}>Other works</a></li>
+            <li><a onClick={() => setSection(undefined)}>Todo</a></li>
+            <li><a onClick={() => setSection('screenprinting')}>Serigrafía</a></li>
+            <li><a onClick={() => setSection('ilustration')}>Ilustración</a></li>
+            <li><a onClick={() => setSection('science')}>Ciencia</a></li>
+            <li><a onClick={() => setSection('other')}>Otras técnicas</a></li>
           </ul>
           <select
             className="uk-select uk-hidden@m  "
