@@ -44,7 +44,7 @@ export default function Info({color, image}) {
                 </div>
                 <div className="uk-flex uk-flex-center">
                     <div className='uk-padding-small'>
-                        <a className={styles.growRotate} target='_blank' href="www.instagram.com/laulopezarts"><img src='icons/instagram.png' width='60px' /></a>
+                        <a className={styles.growRotate} target='_blank' href="https://www.instagram.com/laulopezarts/"><img src='icons/instagram.png' width='60px' /></a>
                     </div>
                     <div className='uk-padding-small'>
                         <a className={styles.growRotate} target='_blank' href="https://www.linkedin.com/in/laura-l%C3%B3pez-8a59a351/"><img src='icons/linkedin.png' width='60px' /></a>
