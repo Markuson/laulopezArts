@@ -39,11 +39,11 @@ export default function Home({ portfolio, image, color }) {
             id='sectionSelect'
             defaultValue={undefined}
           >
-            <option value='undefined'>All my works</option>
-            <option value="screenprinting">Screenprinting</option>
-            <option value="ilustration">Ilustration</option>
-            <option value="science">Science</option>
-            <option value="other">Other</option>
+            <option value='undefined'>Todo</option>
+            <option value="screenprinting">Serigrafía</option>
+            <option value="ilustration">Ilustración</option>
+            <option value="science">Ciencia</option>
+            <option value="other">Otras técnicas</option>
           </select>
         </div>
         <PortfolioGallery imageList={imageList} />
@@ -51,7 +51,7 @@ export default function Home({ portfolio, image, color }) {
 
       <footer>
         <a className="uk-button uk-button-text" href="#top" data-uk-scroll>
-          go to top
+          ir arriba
         </a>
       </footer>
     </div >
