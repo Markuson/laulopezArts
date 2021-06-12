@@ -4,7 +4,6 @@ import { useSession } from 'next-auth/client';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Uikit from 'uikit/dist/js/uikit.min.js';
-import { connectToDatabase } from '../utils/mongodb';
 import randomize from "../utils/randomizeHeader"
 import Header from '../Components/Header';
 import EditGallery from '../Components/EditGallery';
