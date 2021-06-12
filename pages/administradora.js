@@ -174,16 +174,10 @@ export default function Administradora({ portfolio, color, image }) {
 
 export async function getServerSideProps() {
 
-    const { db } = await connectToDatabase();
-
-    let portfolio = await db
-        .collection("portfolios")
-        .findOne({})
-
     const { color, image } = randomize()
     return {
         props: {
-            portfolio: portfolio == null ? [] : JSON.parse(JSON.stringify(portfolio.sections)),
+            portfolio: [],
             image,
             color
         },

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import { connectToDatabase } from "../utils/mongodb";
 import randomize from "../utils/randomizeHeader"
 import Header from '../Components/Header'
 import PortfolioGallery from '../Components/PortfolioGallery'
@@ -59,16 +58,11 @@ export default function Home({ portfolio, image, color }) {
 }
 
 export async function getServerSideProps() {
-  const { db } = await connectToDatabase();
-
-  const portfolio = await db
-    .collection("portfolios")
-    .findOne({})
 
   const { color, image } = randomize()
   return {
     props: {
-      portfolio: portfolio == null ? [] : JSON.parse(JSON.stringify(portfolio.sections)),
+      portfolio: [],
       image,
       color
     },
