@@ -3,6 +3,7 @@ import Header from '../Components/Header'
 import randomize from "../utils/randomizeHeader"
 import ContactForm from '../Components/ContactForm'
 import styles from '../styles/styles.module.css'
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 import logic from '../logic/app'
 
