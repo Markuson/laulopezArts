@@ -2,7 +2,7 @@ const validate = require('validate')
 const { LogicError } = require('errors')
 const { models } = require('data')
 const cloudinary = require('cloudinary').v2
-const sendEmail = require('../utils/nodemailer')
+const transporter = require('../utils/nodemailer')
 require('dotenv').config()
 
 const { Portfolio, Images, Sections } = models
@@ -181,14 +181,14 @@ const logic = {
         const message = {
             from: email,
             to: process.env.EMAIL,
-            subject: `SOULMOUNTAIN.CAT --> FROM: ${email}, SUBJECT: ${subject}`,
+            subject: `LAULOPEZARTS.COM --> FROM: ${email}, SUBJECT: ${subject}`,
             text,
             replyTo: email
         };
 
         return (async () => {
             try {
-                const response = await sendMail(message)
+                const response = await transporter.sendMail(message)
                 if (response.accepted.length > 0 ) return {status:"OK", description: "email sent"}
                 else return {status:"error", description:"error sending email"}
             } catch (error) {

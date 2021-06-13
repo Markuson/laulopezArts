@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { 
+import {
   GoogleReCaptchaProvider,
   GoogleReCaptcha
 } from 'react-google-recaptcha-v3';
+import Uikit from 'uikit/dist/js/uikit.min.js';
 
 export default function ContactFrom({ onContactFrom }) {
   const [recaptchaOK, setRecaptchaOK] = useState(false)
@@ -17,13 +18,25 @@ export default function ContactFrom({ onContactFrom }) {
     const { email, subject, text } = e.target;
     (async () => {
       response = await onContactFrom(email.value, subject.value, text.value)
+      console.log(response)
       if (response === 'done') {
         email.value = ""
         subject.value = ""
         text.value = ""
+        handleNotification('success', "Gracias por contactar! Recibiras una respuesta tan pronto como pueda.")
+      }else{
+        handleNotification('danger', "Error en el envío. Si el error persiste, escríbeme un correo a: laulopezarts@gmail.com.")
       }
     })();
-    setRecaptchaOK(false)
+  }
+
+  const handleNotification = (status, message) => {
+    Uikit.notification({
+      message: message,
+      pos: "top-center",
+      status: status,
+      timeout: 3000,
+    })
   }
 
   return <GoogleReCaptchaProvider
@@ -56,8 +69,12 @@ export default function ContactFrom({ onContactFrom }) {
               <GoogleReCaptcha onVerify={handleRecaptchaOK} />
             </div>
             <div className="uk-margin uk-text-center">
-              {recaptchaOK && <button className="uk-button uk-button-default">Enviar</button>}
-              {!recaptchaOK && <button className="uk-button uk-button-default" disabled data-uk-tooltip="Aceptar el CAPTCHA para poder enviar el correo">Enviar</button>}
+              {recaptchaOK &&
+                <button className="uk-button uk-button-default">Enviar</button>
+              }
+              {!recaptchaOK &&
+                <button className="uk-button uk-button-default" disabled data-uk-tooltip="Aceptar el CAPTCHA para poder enviar el correo">Enviar</button>
+              }
             </div>
           </fieldset>
         </form>
