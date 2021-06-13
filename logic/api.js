@@ -2,10 +2,10 @@ const validate = require('validate')
 const { LogicError } = require('errors')
 const { models } = require('data')
 const cloudinary = require('cloudinary').v2
+const sendEmail = require('../utils/nodemailer')
 require('dotenv').config()
 
 const { Portfolio, Images, Sections } = models
-// const jsonfile = require('jsonfile')
 
 cloudinary.config({
     cloud_name: process.env.CLOUDNAME,
@@ -170,6 +170,32 @@ const logic = {
             }
         })();
     },
+
+    nodemailerSend(email, subject, text) {
+        validate.arguments([
+            { name: 'subject', value: subject, type: 'string', notEmpty: true },
+            { name: 'text', value: text, type: 'string', notEmpty: true }
+        ])
+        validate.email(email)
+
+        const message = {
+            from: email,
+            to: process.env.EMAIL,
+            subject: `SOULMOUNTAIN.CAT --> FROM: ${email}, SUBJECT: ${subject}`,
+            text,
+            replyTo: email
+        };
+
+        return (async () => {
+            try {
+                const response = await sendMail(message)
+                if (response.accepted.length > 0 ) return {status:"OK", description: "email sent"}
+                else return {status:"error", description:"error sending email"}
+            } catch (error) {
+                throw new Error(error.message)
+            }
+        })();
+    }
 }
 // export default logic
 module.exports = logic

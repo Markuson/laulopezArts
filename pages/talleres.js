@@ -14,7 +14,7 @@ export default function Workshops({ color, image }) {
       <Header selected='Workshops' randColor={color} image={image} />
 
       <main className="uk-padding-large uk-padding-remove-top">
-        <WrokshopGallery />
+        <WrokshopGallery color={color} />
       </main>
 
 

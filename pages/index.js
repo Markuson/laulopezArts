@@ -13,7 +13,6 @@ export default function Home({ portfolio, image, color }) {
   useEffect(() => {
     let result = logic.getImages(portfolio, section)
     setImageList(result)
-    console.log('image: ', image)
   }, [section])
 
   return (
