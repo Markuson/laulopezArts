@@ -1,65 +1,96 @@
-export default function WorkshopModal({onGoToContact}) {
+import { Image, Transformation } from 'cloudinary-react';
 
+export default function WorkshopModal({
+    description,
+    included,
+    images,
+    onClose,
+    onGoToContact,
+    other,
+    place,
+    price,
+    title,
+    video
+}) {
     const handleGoToContact = (e) => {
         e.preventDefault();
-        onGoToContact(e); 
+        onGoToContact(e);
     }
 
     return (
         <div id="workshop-modal" className="uk-modal-container" data-uk-modal>
-                <div className="uk-modal-dialog uk-margin-auto-vertical uk-modal-body">
-                    <button className="uk-modal-close-default" type="button" data-uk-close></button>
-                    <div className="uk-margin">
-                        <h2 className="uk-text-center">INTRODUCCIÓN A LA SERIGRAFÍA</h2>
-                        <div style={{ maxWidth: "640px", margin: "auto" }} className="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" data-uk-slideshow>
-                            <ul className="uk-slideshow-items">
-                                <li>
-                                    <img src="images/artica.jpg" alt="" data-uk-cover />
-                                </li>
-                                <li>
-                                    <img src="images/profilePic.jpg" alt="" data-uk-cover />
-                                </li>
-                                <li>
-                                    <img src="images/profilePic_OLD.jpg" alt="" data-uk-cover />
-                                </li>
-                                <li>
+            <div className="uk-modal-dialog uk-margin-auto-vertical uk-modal-body">
+                <button className="uk-modal-close-default" type="button" data-uk-close></button>
+                <div className="uk-margin">
+                    <h2 className="uk-text-center">{title}</h2>
+                    <div id="slideshow" style={{ maxWidth: "640px", margin: "auto" }} className="uk-position-relative uk-visible-toggle uk-light" tabIndex="-1" data-uk-slideshow="">
+                        <ul  className="uk-slideshow-items">
+                            {
+                                images.map((image, index) => {
+                                    return <li id={index} key={index}>
+                                        <Image publicId={image.publicId} alt={`${title}${index}`}>
+                                            <Transformation quality="auto" height={300} crop="scale" />
+                                        </Image>
+                                    </li>
+                                })
+                            }
+                            {!!video &&
+                                <li key="video">
                                     <iframe
-                                        src="https://player.vimeo.com/video/561026227?autoplay=1&loop=1&title=0&byline=0&portrait=0"
+                                        src={`https://player.vimeo.com/video/${video}?muter=1&autoplay=1&loop=1&title=0&byline=0&portrait=0`}
                                         width="640"
                                         height="360"
-                                        frameborder="0"
+                                        frameBorder="0"
                                         allow="autoplay; fullscreen; picture-in-picture"
-                                        allowfullscreen
-                                        data-uk-video
-                                        data-uk-responsive
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        data-uk-cover
                                     />
                                 </li>
-                            </ul>
-                            <a className="uk-position-center-left uk-position-small uk-hidden-hover" href="#" data-uk-slidenav-previous data-uk-slideshow-item="previous"></a>
-                            <a className="uk-position-center-right uk-position-small uk-hidden-hover" href="#" data-uk-slidenav-next data-uk-slideshow-item="next"></a>
-                        </div>
-                        <p className="uk-text-justify uk-padding uk-padding-remove-vertical">
-                            Cuatro sesiones de 4 horas donde se explicará y se practicará en profundidad todo el proceso de estampación serigráfica. Desde la preparación del fotolito manual o digitalmente, dónde conseguir los materiales, la preparación de la pantalla en el laboratorio, la variedad de tintas y cómo aplicarlas, cómo imprimir sobre papel y tela, etc.
+                            }
+                        </ul>
+                        <a className="uk-position-center-left uk-position-small" href="#" data-uk-slidenav-previous data-uk-slideshow-item="previous"></a>
+                        <a className="uk-position-center-right uk-position-small" href="#" data-uk-slidenav-next data-uk-slideshow-item="next"></a>
+                        <ul className="uk-slideshow-nav uk-dotnav"></ul>
+                    </div>
+                    {
+
+                        description.split("\n").map((text, index) => {
+                            return <p key={index} className="uk-text-justify uk-padding uk-padding-remove-vertical">
+                                {text}
+                            </p>
+                        })
+                    }
+                    <div className="uk-padding uk-padding-remove-vertical">
+                        <p className="uk-text-meta uk-text-justify uk-padding-remove-vertical uk-margin-remove-vertical">
+                            <strong>Precio: </strong>{price}
                         </p>
-                        <div className="uk-padding uk-padding-remove-vertical">
-                            <p className="uk-text-meta uk-text-justify uk-padding-remove-vertical uk-margin-remove-vertical">
-                                <strong>Precio: </strong>195 € las 4 sesiones.
+                        <p className="uk-text-meta uk-text-justify uk-padding-remove-vertical uk-margin-remove-vertical">
+                            <strong>Lugar: </strong>{place}
+                        </p>
+                        <p className="uk-text-meta uk-text-justify uk-padding-remove-vertical uk-margin-remove-vertical">
+                            <strong>Material incluido: </strong> {!included.includes('\n') && included}<br />
+                        </p>
+                        {included.includes('\n') && included.split("\n").map((text, index) => {
+                            return <p key={index} className="uk-text-meta uk-text-justify uk-padding-small uk-padding-remove-vertical uk-margin-remove-vertical">
+                                <strong>·</strong> {text}
                             </p>
-                            <p className="uk-text-meta uk-text-justify uk-padding-remove-vertical uk-margin-remove-vertical">
-                                <strong>Lugar: </strong>Àrtica taller (C/ Sant Elm 45, Barcelona)
+                        })
+                        }
+                        {other.split("\n").map((text, index) => {
+                            return <p key={index} className="uk-text-justify uk-padding-remove-vertical">
+                                {text}
                             </p>
-                            <p className="uk-text-meta uk-text-justify uk-padding-remove-vertical uk-margin-remove-vertical">
-                                <strong>Material incluido: </strong>primera pantalla, emulsión, recuperador, tintas utilizadas en clase y fungibles.<br />
-                            </p>
-                            <p className="uk-text-meta uk-text-justify uk-padding-remove-vertical uk-margin-remove-vertical">
-                                Aforo limitado. Sesiones personalizadas donde podremos planear los diferentes proyectos de las participantes!
-                            </p>
-                        </div>
-                        <div className="uk-card-footer uk-text-center">
-                            <a className="uk-button uk-button-default" onClick={handleGoToContact}>contactar</a>
-                        </div>
+                        })
+                        }
+                    </div>
+                    <div className="uk-card-footer uk-text-center">
+                        <a className="uk-button uk-button-default" onClick={handleGoToContact}>contactar</a>
                     </div>
                 </div>
             </div>
+        </div>
     )
 }

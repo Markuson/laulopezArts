@@ -3,7 +3,6 @@ import {
   GoogleReCaptchaProvider,
   GoogleReCaptcha
 } from 'react-google-recaptcha-v3';
-import Uikit from 'uikit/dist/js/uikit.min.js';
 
 export default function ContactFrom({ onContactFrom }) {
   const [recaptchaOK, setRecaptchaOK] = useState(false)
@@ -18,25 +17,12 @@ export default function ContactFrom({ onContactFrom }) {
     const { email, subject, text } = e.target;
     (async () => {
       response = await onContactFrom(email.value, subject.value, text.value)
-      console.log(response)
       if (response === 'done') {
         email.value = ""
         subject.value = ""
         text.value = ""
-        handleNotification('success', "Gracias por contactar! Recibiras una respuesta tan pronto como pueda.")
-      }else{
-        handleNotification('danger', "Error en el envío. Si el error persiste, escríbeme un correo a: laulopezarts@gmail.com.")
       }
     })();
-  }
-
-  const handleNotification = (status, message) => {
-    Uikit.notification({
-      message: message,
-      pos: "top-center",
-      status: status,
-      timeout: 3000,
-    })
   }
 
   return <GoogleReCaptchaProvider

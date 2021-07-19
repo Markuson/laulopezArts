@@ -5,7 +5,7 @@ const cloudinary = require('cloudinary').v2
 const transporter = require('../utils/nodemailer')
 require('dotenv').config()
 
-const { Portfolio, Images, Sections } = models
+const { Portfolio, Images, Sections, Workshops } = models
 
 cloudinary.config({
     cloud_name: process.env.CLOUDNAME,
@@ -18,7 +18,7 @@ const logic = {
 
         const { description, publicId, section, url } = newImageData
         validate.arguments([
-            { name: 'description', value: description, type: 'string'},
+            { name: 'description', value: description, type: 'string' },
             { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
             { name: 'section', value: section, type: 'string', notEmpty: true },
             { name: 'url', value: url, type: 'string', notEmpty: true }
@@ -110,10 +110,10 @@ const logic = {
     },
 
     editImage(imageData) {
-        const {publicId, description, section } = imageData
+        const { publicId, description, section } = imageData
         validate.arguments([
             { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
-            { name: 'description', value: description, type: 'string'},
+            { name: 'description', value: description, type: 'string' },
             { name: 'section', value: section, type: 'string', notEmpty: true },
         ])
 
@@ -163,11 +163,120 @@ const logic = {
 
                 if (!imageFound) throw new LogicError(`The image you want to edit doesn't exist in your portfolio`)
 
-                await Portfolio.findOneAndUpdate({_id: _portfolio.id}, _portfolio)
+                await Portfolio.findOneAndUpdate({ _id: _portfolio.id }, _portfolio)
 
             } catch (error) {
                 throw new LogicError(error.message)
             }
+        })();
+    },
+
+    addWorkshop(newWorkshopData) {
+        const { title, subtitle, description, price, place, included, other, images, video } = newWorkshopData
+        validate.arguments([
+            { name: 'title', value: title, type: 'string', notEmpty: true },
+            { name: 'subtitle', value: subtitle, type: 'string', notEmpty: true },
+            { name: 'description', value: description, type: 'string', notEmpty: true },
+            { name: 'price', value: price, type: 'string', notEmpty: false, optional: true },
+            { name: 'place', value: place, type: 'string', notEmpty: false, optional: true },
+            { name: 'included', value: included, type: 'string', notEmpty: false, optional: true },
+            { name: 'other', value: other, type: 'string', notEmpty: false, optional: true },
+            { name: 'images', value: images, type: 'object', notEmpty: true },
+            { name: 'video', value: video, type: 'string', notEmpty: false, optional: true },
+        ])
+        validate.url(video)
+
+        return (async () => {
+            try {
+                await Workshops.create({
+                    title,
+                    subtitle,
+                    description,
+                    price,
+                    place,
+                    included,
+                    other,
+                    images,
+                    video,
+                    date:Date.now()
+                })
+            } catch (error) {
+                throw new LogicError(error.message)
+            }
+
+        })();
+
+    },
+
+    editWorkshop(workshopData) {
+        const { id, title, subtitle, description, price, place, included, other, images, video } = workshopData
+        validate.arguments([
+            { name: 'id', value: id, type: 'string', notEmpty: true },
+            { name: 'title', value: title, type: 'string', notEmpty: true },
+            { name: 'subtitle', value: subtitle, type: 'string', notEmpty: true },
+            { name: 'description', value: description, type: 'string', notEmpty: true },
+            { name: 'price', value: price, type: 'string', notEmpty: false, optional: true },
+            { name: 'place', value: place, type: 'string', notEmpty: false, optional: true },
+            { name: 'included', value: included, type: 'string', notEmpty: false, optional: true },
+            { name: 'other', value: other, type: 'string', notEmpty: false, optional: true },
+            { name: 'images', value: images, type: 'array', notEmpty: true },
+            { name: 'video', value: video, type: 'string', notEmpty: false, optional: true },
+        ])
+        validate.url(video)
+
+        return (async () => {
+            try {
+                let _workshop = await Workshops.findOne({'id': id})
+                if (_workshop == null) {
+                    throw new LogicError(`Workshop not found`)
+                }
+                _workshop = {
+                    title,
+                    subtitle,
+                    description,
+                    price,
+                    place,
+                    included,
+                    other,
+                    images,
+                    video
+                }
+                await Workshops.findOneAndUpdate({ _id: id }, _workshop)
+            } catch (error) {
+                throw new LogicError(error.message)
+            }
+        })();
+    },
+
+    deleteImage(publicId) {
+        validate.arguments([
+            { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
+        ])
+
+        return (async () => {
+            try {
+                let response = await Portfolio.deleteOne({ _id: id })
+                console.log(response)
+            } catch (error) {
+                throw new LogicError(error.message)
+            }
+
+        })();
+    },
+
+    deleteWorkshop(publicId) {
+        validate.arguments([
+            { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
+        ])
+
+        return (async () => {
+            try {
+                let response = await Workshops.deleteOne({ _id: id })
+                console.log(response)
+            } catch (error) {
+                throw new LogicError(error.message)
+            }
+
         })();
     },
 
@@ -189,8 +298,8 @@ const logic = {
         return (async () => {
             try {
                 const response = await transporter.sendMail(message)
-                if (response.accepted.length > 0 ) return {status:"OK", description: "email sent"}
-                else return {status:"error", description:"error sending email"}
+                if (response.accepted.length > 0) return { status: "OK", description: "email sent" }
+                else return { status: "error", description: "error sending email" }
             } catch (error) {
                 throw new Error(error.message)
             }

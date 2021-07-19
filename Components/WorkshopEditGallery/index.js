@@ -1,52 +1,67 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react'
+import {useEffect, useState} from 'react';
 import { CloudinaryContext } from 'cloudinary-react';
 import Uikit from 'uikit/dist/js/uikit.min.js'
-import WorkshopModal from '../WorkshopModal';
+import WorkshopEditModal from '../WorkshopEditModal';
 import WorkshopCard from '../WorkshopCard';
 
-export default function WorkshopGallery({
-    workshops,
-    color
-}) {
 
+export default function WorkshopEditGallery({
+    color,
+    onDelete,
+    onEdit,
+    workshops,
+}) {
     useEffect(() => {
-        Uikit.util.on('#workshop-modal', 'hide', function () {
+        Uikit.util.on('#edit-workshop-modal', 'hide', function () {
             Uikit.slideshow("#slideshow").show(0);
         });
-        Uikit.util.on('#workshop-modal', 'show', function () {
+        Uikit.util.on('#edit-workshop-modal', 'show', function () {
             Uikit.slideshow("#slideshow").show(0);
         });
     }, [])
 
-    const router = useRouter()
     const [workshopDescription, setWorkshopDescription] = useState('')
-    const [workshopImages, setWorkshopImages] = useState([])
+    const [workshopId, setWorkshopId] = useState('')
     const [workshopIncluded, setWorkshopIncluded] = useState('')
+    const [workshopImages, setWorkshopImages] = useState([])
     const [workshopOther, setWorkshopOther] = useState('')
     const [workshopPlace, setWorkshopPlace] = useState('')
     const [workshopPrice, setWorkshopPrice] = useState('')
+    const [workshopSubtitle, setWorkshopSubtitle] = useState('')
     const [workshopTitle, setWorkshopTitle] = useState('')
     const [workshopVideo, setWorkshopVideo] = useState('')
-
-    const handleGoToContact = (e) => {
-        Uikit.modal(`#workshop-modal`).hide();
-        router.push('/info#contact', undefined, {scroll:false})
-    }
-
+    const [workshopVideoLink, setWorkshopVideoLink] = useState('')
 
     const handleWorkshopClick = (workshopData) => {
-        const {description, images, included, other, place, price, title, video} = workshopData
+        const {description, _id: id, images, included, other, place, price, subtitle, title, video} = workshopData
         setWorkshopDescription(description)
+        setWorkshopId(id)
         setWorkshopImages(images)
         setWorkshopIncluded(included)
         setWorkshopOther(other)
         setWorkshopPlace(place)
         setWorkshopPrice(price)
+        setWorkshopSubtitle(subtitle)
         setWorkshopTitle(title)
+        setWorkshopVideoLink(video)
         let arr = video.split('/')
         setWorkshopVideo(arr[arr.length - 1])
-        Uikit.modal("#workshop-modal").show();
+        Uikit.modal("#edit-workshop-modal").show();
+    }
+
+    const handleWorkshopEdit = () => {
+        const data = {
+            description: workshopDescription,
+            id: workshopId,
+            included: workshopIncluded,
+            other: workshopOther,
+            place: workshopPlace,
+            price: workshopPrice,
+            subtitle: workshopSubtitle,
+            title: workshopTitle,
+            video: workshopVideoLink
+        }
+        onEdit(data)
     }
 
     return (
@@ -59,6 +74,7 @@ export default function WorkshopGallery({
                     {!!workshops &&
                         workshops.map(workshop => {
                             return <WorkshopCard
+                            buttonTitle={"EDITAR"}
                             key={workshop._id}
                             color={color}
                             id={workshop._id}
@@ -73,16 +89,27 @@ export default function WorkshopGallery({
                 <div>
                 </div>
             </div>
-            <WorkshopModal
+            <WorkshopEditModal
+                onDelete={() => onDelete(workshopId)}
+                onDescriptionChange={(value) => setWorkshopDescription(value)}
+                onIncludedChange={(value) => setWorkshopIncluded(value)}
+                onOtherChange={(value) => setWorkshopOther(value)}
+                onPlaceChange={(value) => setWorkshopPlace(value)}
+                onPriceChange={(value) => setWorkshopPrice(value)}
+                onSubtitleChange={(value) => setWorkshopSubtitle(value)}
+                onTitleChange={(value) => setWorkshopTitle(value)}
+                onVideoChange={(value) => setWorkshopVideoLink(value)}
+                onSubmit={() => handleWorkshopEdit()}
                 description={workshopDescription}
-                included={workshopIncluded}
                 images={workshopImages}
-                onGoToContact={() => handleGoToContact()}
+                inculded={workshopIncluded}
                 other={workshopOther}
                 place={workshopPlace}
                 price={workshopPrice}
+                subtitle={workshopSubtitle}
                 title={workshopTitle}
                 video={workshopVideo}
+                videoLink={workshopVideoLink}
             />
         </CloudinaryContext >
     )

@@ -41,7 +41,7 @@ export default function EditGallery({
     }
 
     return (
-        <CloudinaryContext cloudName="laulopezarts">
+        <CloudinaryContext cloudName="marcuson">
             <div
                 className="uk-padding-large uk-padding-remove-vertical uk-child-width-1-3@m uk-grid-small uk-grid-match uk-text-center uk-flex-middle"
                 data-uk-grid

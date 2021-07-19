@@ -1,10 +1,12 @@
 import Head from 'next/head'
 import Header from '../Components/Header'
+import { connectToDatabase } from "../utils/mongodb";
+import WrokshopGallery from '../Components/WorkshopGallery'
 import randomize from "../utils/randomizeHeader"
 import styles from '../styles/styles.module.css'
-import WrokshopGallery from '../Components/WorkshopGallery'
 
-export default function Workshops({ color, image }) {
+export default function Workshops({ color, image, workshops }) {
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,7 +16,7 @@ export default function Workshops({ color, image }) {
       <Header selected='Workshops' randColor={color} image={image} />
 
       <main className="uk-padding-large uk-padding-remove-top">
-        <WrokshopGallery color={color} />
+        {!!workshops && <WrokshopGallery workshops={workshops} color={color} />}
       </main>
 
 
@@ -29,9 +31,17 @@ export default function Workshops({ color, image }) {
 }
 
 export async function getServerSideProps() {
+  const { db } = await connectToDatabase();
+
+  const workshop = await db
+    .collection("workshops")
+    .find({})
+    .toArray()
+
   const { color, image } = randomize()
   return {
     props: {
+      workshops: workshop == null ? [] : JSON.parse(JSON.stringify(workshop)),
       image,
       color
     },

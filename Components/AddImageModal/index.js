@@ -65,7 +65,7 @@ export default function AddImageModal({
                                     </div>
                                 }
                             </div>
-                            <button className='uk-button uk-button-default'>Puja</button>
+                            <button className='uk-button uk-button-default'>Subir</button>
                         </div>
                     </fieldset>
                 </form>
