@@ -4,7 +4,7 @@ import { Image, Transformation } from 'cloudinary-react';
 export default function WorkshopCard({
     buttonTitle = "+ INFO",
     color,
-    height = 200,
+    height = 600,
     id,
     imageId,
     onClick,

@@ -61,15 +61,8 @@ export default function userHandler(req, res) {
             res.status(200).json({status:'KO', message:'unrecognized command'})
         }
         break
-
-      case 'DELETE':
-        return (async () => {
-          const response = await logic.deleteImage(id)
-          res.status(200).json(response)
-        })();
-        break
       default:
-        res.setHeader('Allow', ['GET', 'PUT', 'DELETE'])
+        res.setHeader('Allow', ['GET', 'PUT'])
         res.status(405).end(`Method ${method} Not Allowed`)
     }
   }

@@ -50,7 +50,7 @@ export default function userHandler(req, res) {
         case 'delete':
           return (async () => {
             try {
-              await logic.deleteWorkshop(data.publicId)
+              await logic.deleteWorkshop(data.id)
               res.status(200).json({ status: 'OK', message: 'workshop deleted' })
             } catch (error) {
               res.status(200).json({ status: 'KO', message: error.message })

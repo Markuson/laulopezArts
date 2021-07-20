@@ -129,7 +129,6 @@ const logic = {
         return (async () => {
             let url = `/api/admin/image/delete`
             // let url = `http://localhost:3000/api/admin/image/delete` //FOR TESTING
-            console.log('MARC PUBLIC ID: ',publicId)
             try {
                 const response = await axios({
                     method: 'put',
@@ -166,12 +165,12 @@ const logic = {
             { name: 'title', value: title, type: 'string', notEmpty: true },
             { name: 'subtitle', value: subtitle, type: 'string', notEmpty: true },
             { name: 'description', value: description, type: 'string', notEmpty: true },
-            { name: 'price', value: price, type: 'string', notEmpty: false, optional: true },
-            { name: 'place', value: place, type: 'string', notEmpty: false, optional: true },
-            { name: 'included', value: included, type: 'string', notEmpty: false, optional: true },
-            { name: 'other', value: other, type: 'string', notEmpty: false, optional: true },
+            { name: 'price', value: price, type: 'string'},
+            { name: 'place', value: place, type: 'string'},
+            { name: 'included', value: included, type: 'string'},
+            { name: 'other', value: other, type: 'string'},
             { name: 'images', value: images, type: 'object', notEmpty: true },
-            { name: 'video', value: video, type: 'string', notEmpty: false, optional: true },
+            { name: 'video', value: video, type: 'string'},
         ])
         if(video) validate.url(video)
         return (async () => {
@@ -207,18 +206,19 @@ const logic = {
         })();
     },
 
-    editWorkshop(id, data) {
-        const {title, subtitle, description, price, place, included, other, images, video} = data
+    editWorkshop(data) {
+        const {description, id, images, included, other, place, price, subtitle, title, video} = data
         validate.arguments([
-            { name: 'title', value: title, type: 'string', notEmpty: true },
-            { name: 'subtitle', value: subtitle, type: 'string', notEmpty: true },
             { name: 'description', value: description, type: 'string', notEmpty: true },
-            { name: 'price', value: price, type: 'string', notEmpty: false, optional: true },
-            { name: 'place', value: place, type: 'string', notEmpty: false, optional: true },
-            { name: 'included', value: included, type: 'string', notEmpty: false, optional: true },
-            { name: 'other', value: other, type: 'string', notEmpty: false, optional: true },
-            { name: 'images', value: images, type: 'array', notEmpty: true },
-            { name: 'video', value: video, type: 'string', notEmpty: false, optional: true },
+            { name: 'id', value: id, type: 'string', notEmpty: true},
+            { name: 'images', value: images, type: 'object', notEmpty: true },
+            { name: 'included', value: included, type: 'string'},
+            { name: 'other', value: other, type: 'string'},
+            { name: 'place', value: place, type: 'string'},
+            { name: 'price', value: price, type: 'string'},
+            { name: 'subtitle', value: subtitle, type: 'string', notEmpty: true },
+            { name: 'title', value: title, type: 'string', notEmpty: true },
+            { name: 'video', value: video, type: 'string'},
         ])
         return (async () => {
             let url = `/api/admin/workshop`
@@ -259,10 +259,11 @@ const logic = {
                     },
                     data: {
                         command: "delete",
-                        data:{publicId}
+                        data:{id}
                     }
                 })
-                if (response.data.data.result == 'not found') throw Error(response.data.data.result)
+                console.log('MARC RESPONSE IS: ', response)
+                if (response.data.status !== 'OK') throw Error(response.data.message)
                 return response
             }
             catch (e) {

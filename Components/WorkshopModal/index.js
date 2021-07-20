@@ -29,7 +29,7 @@ export default function WorkshopModal({
                                 images.map((image, index) => {
                                     return <li id={index} key={index}>
                                         <Image publicId={image.publicId} alt={`${title}${index}`}>
-                                            <Transformation quality="auto" height={300} crop="scale" />
+                                            {/* <Transformation quality="auto" height={100} crop="scale" /> */}
                                         </Image>
                                     </li>
                                 })
@@ -37,7 +37,7 @@ export default function WorkshopModal({
                             {!!video &&
                                 <li key="video">
                                     <iframe
-                                        src={`https://player.vimeo.com/video/${video}?muter=1&autoplay=1&loop=1&title=0&byline=0&portrait=0`}
+                                        src={`https://player.vimeo.com/video/${video}?muted=1&autoplay=1&loop=1&title=0&byline=0&portrait=0`}
                                         width="640"
                                         height="360"
                                         frameBorder="0"
@@ -64,22 +64,22 @@ export default function WorkshopModal({
                         })
                     }
                     <div className="uk-padding uk-padding-remove-vertical">
-                        <p className="uk-text-meta uk-text-justify uk-padding-remove-vertical uk-margin-remove-vertical">
+                        {!!price && <p className="uk-text-meta uk-text-justify uk-padding-remove-vertical uk-margin-remove-vertical">
                             <strong>Precio: </strong>{price}
-                        </p>
-                        <p className="uk-text-meta uk-text-justify uk-padding-remove-vertical uk-margin-remove-vertical">
+                        </p>}
+                        {!!place && <p className="uk-text-meta uk-text-justify uk-padding-remove-vertical uk-margin-remove-vertical">
                             <strong>Lugar: </strong>{place}
-                        </p>
-                        <p className="uk-text-meta uk-text-justify uk-padding-remove-vertical uk-margin-remove-vertical">
+                        </p>}
+                        {!!included && <p className="uk-text-meta uk-text-justify uk-padding-remove-vertical uk-margin-remove-vertical">
                             <strong>Material incluido: </strong> {!included.includes('\n') && included}<br />
-                        </p>
-                        {included.includes('\n') && included.split("\n").map((text, index) => {
+                        </p>}
+                        {!!included && included.includes('\n') && included.split("\n").map((text, index) => {
                             return <p key={index} className="uk-text-meta uk-text-justify uk-padding-small uk-padding-remove-vertical uk-margin-remove-vertical">
                                 <strong>·</strong> {text}
                             </p>
                         })
                         }
-                        {other.split("\n").map((text, index) => {
+                        {!!other && other.split("\n").map((text, index) => {
                             return <p key={index} className="uk-text-justify uk-padding-remove-vertical">
                                 {text}
                             </p>

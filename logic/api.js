@@ -177,14 +177,14 @@ const logic = {
             { name: 'title', value: title, type: 'string', notEmpty: true },
             { name: 'subtitle', value: subtitle, type: 'string', notEmpty: true },
             { name: 'description', value: description, type: 'string', notEmpty: true },
-            { name: 'price', value: price, type: 'string', notEmpty: false, optional: true },
-            { name: 'place', value: place, type: 'string', notEmpty: false, optional: true },
-            { name: 'included', value: included, type: 'string', notEmpty: false, optional: true },
-            { name: 'other', value: other, type: 'string', notEmpty: false, optional: true },
+            { name: 'price', value: price, type: 'string'},
+            { name: 'place', value: place, type: 'string'},
+            { name: 'included', value: included, type: 'string'},
+            { name: 'other', value: other, type: 'string'},
             { name: 'images', value: images, type: 'object', notEmpty: true },
-            { name: 'video', value: video, type: 'string', notEmpty: false, optional: true },
+            { name: 'video', value: video, type: 'string'},
         ])
-        validate.url(video)
+        if (video) validate.url(video)
 
         return (async () => {
             try {
@@ -219,14 +219,14 @@ const logic = {
             { name: 'place', value: place, type: 'string', notEmpty: false, optional: true },
             { name: 'included', value: included, type: 'string', notEmpty: false, optional: true },
             { name: 'other', value: other, type: 'string', notEmpty: false, optional: true },
-            { name: 'images', value: images, type: 'array', notEmpty: true },
+            { name: 'images', value: images, type: 'object', notEmpty: true },
             { name: 'video', value: video, type: 'string', notEmpty: false, optional: true },
         ])
-        validate.url(video)
+        if (video) validate.url(video)
 
         return (async () => {
             try {
-                let _workshop = await Workshops.findOne({'id': id})
+                let _workshop = await Workshops.findOne({_id: id})
                 if (_workshop == null) {
                     throw new LogicError(`Workshop not found`)
                 }
@@ -248,15 +248,14 @@ const logic = {
         })();
     },
 
-    deleteImage(publicId) {
+    deleteWorkshopImage(id) {
         validate.arguments([
-            { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
+            { name: 'id', value: id, type: 'string', notEmpty: true },
         ])
 
         return (async () => {
             try {
-                let response = await Portfolio.deleteOne({ _id: id })
-                console.log(response)
+                let response = await Workshop.deleteOne({ _id: id })
             } catch (error) {
                 throw new LogicError(error.message)
             }
@@ -264,15 +263,14 @@ const logic = {
         })();
     },
 
-    deleteWorkshop(publicId) {
+    deleteWorkshop(id) {
         validate.arguments([
-            { name: 'publicId', value: publicId, type: 'string', notEmpty: true },
+            { name: 'id', value: id, type: 'string', notEmpty: true },
         ])
 
         return (async () => {
             try {
                 let response = await Workshops.deleteOne({ _id: id })
-                console.log(response)
             } catch (error) {
                 throw new LogicError(error.message)
             }

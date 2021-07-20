@@ -53,6 +53,7 @@ export default function WorkshopEditGallery({
         const data = {
             description: workshopDescription,
             id: workshopId,
+            images: workshopImages,
             included: workshopIncluded,
             other: workshopOther,
             place: workshopPlace,
@@ -90,7 +91,7 @@ export default function WorkshopEditGallery({
                 </div>
             </div>
             <WorkshopEditModal
-                onDelete={() => onDelete(workshopId)}
+                onDelete={() => onDelete(workshopId, workshopImages)}
                 onDescriptionChange={(value) => setWorkshopDescription(value)}
                 onIncludedChange={(value) => setWorkshopIncluded(value)}
                 onOtherChange={(value) => setWorkshopOther(value)}

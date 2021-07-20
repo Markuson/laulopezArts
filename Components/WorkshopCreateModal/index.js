@@ -57,7 +57,7 @@ export default function WorkshopCreateModal({
                             />
                         </div>
                         <div className="uk-margin">
-                            <label className="uk-form-label" >Video:</label>
+                            <label className="uk-form-label" >Video: (opcional)</label>
                             <input
                                 placeholder='https://linkAtuVideo.com/xxxx'
                                 className="uk-input"
@@ -100,7 +100,7 @@ export default function WorkshopCreateModal({
                             />
                         </div>
                         <div className="uk-margin">
-                            <label className="uk-form-label" >Precio:</label>
+                            <label className="uk-form-label" >Precio: (opcional)</label>
                             <input
                                 className="uk-input"
                                 type="text"
@@ -110,7 +110,7 @@ export default function WorkshopCreateModal({
                             />
                         </div>
                         <div className="uk-margin">
-                            <label className="uk-form-label" >Lugar:</label>
+                            <label className="uk-form-label" >Lugar: (opcional)</label>
                             <input
                                 className="uk-input"
                                 type="text"
@@ -120,7 +120,7 @@ export default function WorkshopCreateModal({
                             />
                         </div>
                         <div className="uk-margin">
-                            <label className="uk-form-label" >Material incluido:</label>
+                            <label className="uk-form-label" >Material incluido: (opcional)</label>
                             <textarea
                                 className="uk-input"
                                 type="text"
@@ -132,7 +132,7 @@ export default function WorkshopCreateModal({
                             />
                         </div>
                         <div className="uk-margin">
-                            <label className="uk-form-label" >Otra info:</label>
+                            <label className="uk-form-label" >Otra info: (opcional)</label>
                             <textarea
                                 className="uk-input"
                                 type="text"

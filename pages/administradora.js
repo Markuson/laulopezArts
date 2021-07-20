@@ -134,6 +134,7 @@ export default function Administradora({ portfolio, color, image, workshops }) {
     }
 
     const handleImageEdit = async (data) => {
+        Uikit.modal('#edit-image-modal').hide();
         const { id, publicId, description, section } = data
         const res = await logic.editImageData(id, { publicId, description, section })
 
@@ -142,7 +143,6 @@ export default function Administradora({ portfolio, color, image, workshops }) {
         } else if (res.data) {
             handleNotification('danger', `ERROR! ${res.data.message}`);
         } else console.error(res);
-        Uikit.modal('#edit-image-modal').hide();
         refreshData();
     }
 
@@ -183,8 +183,8 @@ export default function Administradora({ portfolio, color, image, workshops }) {
                             url: response.secure_url 
                         })
                     })
-                    console.log("Workshop add submit: ", workshopData)
-                    await logic.addWorkshop(workshopData);
+                    const res = await logic.addWorkshop(workshopData);
+                    console.log('MARC RESPONSE: ', res)
                     handleNotification('success', "Workshop creado correctamente!");
                 }else{
                     handleNotification('danger', `ERROR! No se han podido subir todas las imagenes`);
@@ -199,27 +199,40 @@ export default function Administradora({ portfolio, color, image, workshops }) {
         }
     }
 
-    const handleWorkshopDelete = async (id) => {
+    const handleWorkshopDelete = async (id, images) => {
         Uikit.modal('#edit-workshop-modal').hide();
-        const res = await logic.deleteWorkshop(id);
-        if (res.data.status === 'OK') {
-            handleNotification('success', "Workshop eliminado correctamente!");
+        let responses = []
+        let wrongResponse = false
+        for (let image of images) {
+            const response = await logic.deleteImage(image.publicId);
+            (response.data && response.data.data && response.data.data.result == "ok") ?
+                responses.push(responses.data)
+                :
+                wrongResponse = true
+        }
+        if (!wrongResponse) {
+            const res = await logic.deleteWorkshop(id);
+            console.log(res)
+            if (res.data.status === 'OK') {
+                handleNotification('success', "Workshop eliminado correctamente!");
+            } else {
+                handleNotification('danger', `ERROR! ${res.data.message}`);
+            }
         } else {
-            handleNotification('danger', `ERROR! ${res.data.message}`);
+            handleNotification('danger', `ERROR! No se han podido eliminar todas las imagenes del workshop, prueba otra vez`);
         }
         refreshData();
     }
 
     const handleWorkshopEdit = async (data) => {
-        console.log(data)
-        // const res = await logic.editWorkshop(data)
-        // if (res.data && res.data.status === 'OK') {
-        //     handleNotification('success', "Workshop editado correctamente!");
-        // } else if (res.data) {
-        //     handleNotification('danger', `ERROR! ${res.data.message}`);
-        // } else console.error(res);
-        // Uikit.modal('#edit-workshop-modal').hide();
-        // refreshData();
+        Uikit.modal('#edit-workshop-modal').hide();
+        const res = await logic.editWorkshop(data)
+        if (res.data && res.data.status === 'OK') {
+            handleNotification('success', "Workshop editado correctamente!");
+        } else if (res.data) {
+            handleNotification('danger', `ERROR! ${res.data.message}`);
+        } else console.error(res);
+        refreshData();
     }
 
     const handleGetImages = async (_section = undefined) => {

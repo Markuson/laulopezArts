@@ -59,7 +59,7 @@ export default function WorkshopEditModal({
                             {!!video &&
                                 <li key="video">
                                     <iframe
-                                        src={`https://player.vimeo.com/video/${video}?muter=1&autoplay=1&loop=1&title=0&byline=0&portrait=0`}
+                                        src={`https://player.vimeo.com/video/${video}?muted=1&autoplay=1&loop=1&title=0&byline=0&portrait=0`}
                                         width="640"
                                         height="360"
                                         frameBorder="0"
@@ -83,7 +83,7 @@ export default function WorkshopEditModal({
                                 <legend className="uk-legend" path="title">Editar Workshop:</legend>
                             </div>
                             <div className="uk-margin">
-                                <label className="uk-form-label" >Video:</label>
+                                <label className="uk-form-label" >Video: (opcional)</label>
                                 <input
                                     placeholder='https://linkAtuVideo.com/xxxx'
                                     className="uk-input"
@@ -126,7 +126,7 @@ export default function WorkshopEditModal({
                                 />
                             </div>
                             <div className="uk-margin">
-                                <label className="uk-form-label" >Precio:</label>
+                                <label className="uk-form-label" >Precio: (opcional)</label>
                                 <input
                                     className="uk-input"
                                     type="text"
@@ -136,7 +136,7 @@ export default function WorkshopEditModal({
                                 />
                             </div>
                             <div className="uk-margin">
-                                <label className="uk-form-label" >Lugar:</label>
+                                <label className="uk-form-label" >Lugar: (opcional)</label>
                                 <input
                                     className="uk-input"
                                     type="text"
@@ -146,7 +146,7 @@ export default function WorkshopEditModal({
                                 />
                             </div>
                             <div className="uk-margin">
-                                <label className="uk-form-label" >Material incluido:</label>
+                                <label className="uk-form-label" >Material incluido: (opcional)</label>
                                 <textarea
                                     className="uk-input"
                                     type="text"
@@ -158,7 +158,7 @@ export default function WorkshopEditModal({
                                 />
                             </div>
                             <div className="uk-margin">
-                                <label className="uk-form-label" >Otra info:</label>
+                                <label className="uk-form-label" >Otra info: (opcional)</label>
                                 <textarea
                                     className="uk-input"
                                     type="text"
