@@ -4,6 +4,7 @@ import { CloudinaryContext } from 'cloudinary-react';
 import Uikit from 'uikit/dist/js/uikit.min.js'
 import WorkshopModal from '../WorkshopModal';
 import WorkshopCard from '../WorkshopCard';
+import styles from '../../styles/styles.module.css';
 
 export default function WorkshopGallery({
     workshops,
@@ -73,6 +74,15 @@ export default function WorkshopGallery({
                 <div>
                 </div>
             </div>
+            {!workshops.length && <div className="uk-padding-large">
+                <p className={styles.text}>
+                        Lo siento, ahora mismo no tengo talleres en marcha...
+                    </p>
+                    <p className={styles.text}>
+                        Pero permanece atenta a esta página si quieres apuntarte a uno. También puedes <a className="uk-link" onClick={() => handleGoToContact()}> contactar conmigo</a> para más información.
+                    </p>
+                </div>
+                }
             <WorkshopModal
                 description={workshopDescription}
                 included={workshopIncluded}

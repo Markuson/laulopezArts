@@ -90,7 +90,7 @@ export default function Info({ color, image }) {
                     </div>
                 </div>
                 <div className="uk-padding uk-padding-remove-bottom">
-                    <p className={styles.text}>O ESCRIBEME UN CORREO:</p>
+                    <p className={styles.text}>O ESCRÍBEME UN CORREO:</p>
                 </div>
                 <ContactForm onContactFrom={handleSendContactForm} />
             </main>

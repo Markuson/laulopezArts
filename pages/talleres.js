@@ -6,7 +6,6 @@ import randomize from "../utils/randomizeHeader"
 import styles from '../styles/styles.module.css'
 
 export default function Workshops({ color, image, workshops }) {
-
   return (
     <div className={styles.container}>
       <Head>
