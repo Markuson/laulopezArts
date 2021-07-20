@@ -40,7 +40,7 @@ export default function Administradora({ portfolio, color, image, workshops }) {
         verb: 'POST',
         path: 'api/admin/image/upload'
     });
-    const { mutate: uploadWorkshop} = useMutate({
+    const { mutate: uploadWorkshop } = useMutate({
         verb: 'POST',
         path: 'api/admin/workshop/upload',
     });
@@ -95,7 +95,7 @@ export default function Administradora({ portfolio, color, image, workshops }) {
     }
 
     const handleImageAdd = async () => {
-        if(fileInput.files[0]){
+        if (fileInput.files[0]) {
             try {
                 const formData = new FormData();
                 formData.append('image', fileInput.files[0]);
@@ -120,7 +120,7 @@ export default function Administradora({ portfolio, color, image, workshops }) {
     const handleImageDelete = async (publicId) => {
         Uikit.modal('#edit-image-modal').hide();
         const response = await logic.deleteImage(publicId);
-        if (response.data && response.data.data && response.data.data.result == "ok"){
+        if (response.data && response.data.data && response.data.data.result == "ok") {
             const res = await logic.deleteImageData(publicId);
             if (res.data.status === 'OK') {
                 handleNotification('success', "Imagen eliminada correctamente!");
@@ -147,19 +147,23 @@ export default function Administradora({ portfolio, color, image, workshops }) {
     }
 
     const handleWorkshopAdd = async () => {
-        let workshopData = {
-            title: workshopTitle,
-            subtitle: workshopSubtitle,
-            description: workshopDescription,
-            video: workshopVideo,
-            included: workshopIncluded,
-            other: workshopOther,
-            place: workshopPlace,
-            price: workshopPrice,
-            images: []
-        }
-        if(workshopFileInput.files){
-            try {
+        try {
+            if (workshopFileInput.files.length == 0) throw Error("Hay que añadir por lo menos una imagen")
+            if (!workshopTitle || workshopTitle.length <= 0) throw Error("El título esta vacío.")
+            if (!workshopSubtitle || workshopSubtitle.length <= 0) throw Error("El subtítulo esta vacío.")
+            if (!workshopDescription || workshopDescription.length <= 0) throw Error("La descripción esta vacía.")
+            let workshopData = {
+                title: workshopTitle,
+                subtitle: workshopSubtitle,
+                description: workshopDescription,
+                video: workshopVideo,
+                included: workshopIncluded,
+                other: workshopOther,
+                place: workshopPlace,
+                price: workshopPrice,
+                images: []
+            }
+            if (workshopFileInput.files) {
                 setUploadingWorkshop(true);
                 let requests = []
                 let responses = []
@@ -176,26 +180,25 @@ export default function Administradora({ portfolio, color, image, workshops }) {
                         :
                         wrongResponse = true
                 }
-                if (!wrongResponse){
+                if (!wrongResponse) {
                     responses.forEach(response => {
                         workshopData.images.push({
                             publicId: response.public_id,
-                            url: response.secure_url 
+                            url: response.secure_url
                         })
                     })
                     const res = await logic.addWorkshop(workshopData);
-                    console.log('MARC RESPONSE: ', res)
                     handleNotification('success', "Workshop creado correctamente!");
-                }else{
+                } else {
                     handleNotification('danger', `ERROR! No se han podido subir todas las imagenes`);
                 }
                 setUploadingWorkshop(false);
                 handleWorkshopUploadFinished();
                 refreshData();
-            } catch (error) {
-                console.error(error.message);
-                handleNotification('danger', `${error.message}`);
             }
+        } catch (error) {
+            console.error(error.message);
+            handleNotification('danger', `${error.message}`);
         }
     }
 
@@ -212,7 +215,6 @@ export default function Administradora({ portfolio, color, image, workshops }) {
         }
         if (!wrongResponse) {
             const res = await logic.deleteWorkshop(id);
-            console.log(res)
             if (res.data.status === 'OK') {
                 handleNotification('success', "Workshop eliminado correctamente!");
             } else {
@@ -225,14 +227,22 @@ export default function Administradora({ portfolio, color, image, workshops }) {
     }
 
     const handleWorkshopEdit = async (data) => {
-        Uikit.modal('#edit-workshop-modal').hide();
-        const res = await logic.editWorkshop(data)
-        if (res.data && res.data.status === 'OK') {
-            handleNotification('success', "Workshop editado correctamente!");
-        } else if (res.data) {
-            handleNotification('danger', `ERROR! ${res.data.message}`);
-        } else console.error(res);
-        refreshData();
+        try {
+            if (!data.title || data.title.length <= 0) throw Error("El título esta vacío.")
+            if (!data.subtitle || data.subtitle.length <= 0) throw Error("El subtítulo esta vacío.")
+            if (!data.description || data.description.length <= 0) throw Error("La descripción esta vacía.")
+            Uikit.modal('#edit-workshop-modal').hide();
+            const res = await logic.editWorkshop(data)
+            if (res.data && res.data.status === 'OK') {
+                handleNotification('success', "Workshop editado correctamente!");
+            } else if (res.data) {
+                handleNotification('danger', `ERROR! ${res.data.message}`);
+            } else console.error(res);
+            refreshData();
+        } catch (error) {
+            console.error(error.message);
+            handleNotification('danger', `${error.message}`);
+        }
     }
 
     const handleGetImages = async (_section = undefined) => {
@@ -263,16 +273,16 @@ export default function Administradora({ portfolio, color, image, workshops }) {
                     <div className=" uk-padding-large uk-text-center">
                         <button className='uk-button uk-button-default uk-button-large' data-uk-toggle="target: #add-image-modal" type="button">
                             AÑADIR IMAGEN
-                            </button>
+                        </button>
                     </div>
                     <div className=" uk-padding-large uk-text-center">
                         <button className='uk-button uk-button-default uk-button-large' data-uk-toggle="target: #create-workshop-modal" type="button">
                             AÑADIR WORKSHOP
-                            </button>
+                        </button>
                     </div>
                     <div className='uk-text-center uk-padding-large' >
                         EDITAR IMÁGENES:
-                            </div>
+                    </div>
                     <div className="uk-animation-scale-up ">
                         <ul className="uk-breadcrumb uk-visible@s">
                             <li><a onClick={() => setDisplaySection(undefined)}>Todo</a></li>
@@ -282,15 +292,15 @@ export default function Administradora({ portfolio, color, image, workshops }) {
                             <li><a onClick={() => setDisplaySection('other')}>Otras técnicas</a></li>
                         </ul>
                     </div>
-                        <div>
-                            <EditGallery imageList={imageList} onImageDelete={handleImageDelete} onImageEdit={handleImageEdit} />
-                        </div>
-                        <div className='uk-text-center uk-padding-large' >
+                    <div>
+                        <EditGallery imageList={imageList} onImageDelete={handleImageDelete} onImageEdit={handleImageEdit} />
+                    </div>
+                    <div className='uk-text-center uk-padding-large' >
                         EDITAR TALLERES:
-                        </div>
-                        <div>
-                            <WorkshopEditGallery workshops={workshops} onDelete={handleWorkshopDelete} onEdit={handleWorkshopEdit} color={color} />
-                        </div>
+                    </div>
+                    <div>
+                        <WorkshopEditGallery workshops={workshops} onDelete={handleWorkshopDelete} onEdit={handleWorkshopEdit} color={color} />
+                    </div>
                     <div className="uk-padding uk-text-center">
                         <div className="uk-padding-large" >
                             <a href="/api/auth/signout/google">Sign out</a>
@@ -307,26 +317,26 @@ export default function Administradora({ portfolio, color, image, workshops }) {
                 uploadingImage={uploadingImage}
             />
             <WorkshopCreateModal
-            onDescriptionChange={(value) => setWorkshopDescription(value)}
-            onFileInput={(value) => setWorkshopFileInput(value)}
-            onIncludedChange={(value) => setWorkshopIncluded(value)}
-            onOtherChange={(value) =>setWorkshopOther(value)}
-            onPlaceChange={(value) =>setWorkshopPlace(value)}
-            onPriceChange={(value) =>setWorkshopPrice(value)}
-            onSubtitleChange={(value) =>setWorkshopSubtitle(value)}
-            onTitleChange={(value) =>setWorkshopTitle(value)}
-            onVideoChange={(value) => setWorkshopVideo(value)}
-            onSubmit={() => handleWorkshopAdd()}
-            description={workshopDescription}
-            images={(images) => console.log(images)}
-            inculded={workshopIncluded}
-            other={workshopOther}
-            place={workshopPlace}
-            price={workshopPrice}
-            subtitle={workshopSubtitle}
-            title={workshopTitle}
-            uploadingWorkshop={uploadingWorkshop}
-            video={workshopVideo}
+                onDescriptionChange={(value) => setWorkshopDescription(value)}
+                onFileInput={(value) => setWorkshopFileInput(value)}
+                onIncludedChange={(value) => setWorkshopIncluded(value)}
+                onOtherChange={(value) => setWorkshopOther(value)}
+                onPlaceChange={(value) => setWorkshopPlace(value)}
+                onPriceChange={(value) => setWorkshopPrice(value)}
+                onSubtitleChange={(value) => setWorkshopSubtitle(value)}
+                onTitleChange={(value) => setWorkshopTitle(value)}
+                onVideoChange={(value) => setWorkshopVideo(value)}
+                onSubmit={() => handleWorkshopAdd()}
+                description={workshopDescription}
+                images={(images) => console.log(images)}
+                inculded={workshopIncluded}
+                other={workshopOther}
+                place={workshopPlace}
+                price={workshopPrice}
+                subtitle={workshopSubtitle}
+                title={workshopTitle}
+                uploadingWorkshop={uploadingWorkshop}
+                video={workshopVideo}
             />
         </div >
     )

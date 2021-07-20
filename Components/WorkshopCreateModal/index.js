@@ -25,15 +25,6 @@ export default function WorkshopCreateModal({
     const handleSubmit = (e) => {
         e.preventDefault();
         onSubmit(e);
-        e.target.workshopTitle.value = '';
-        e.target.workshopVideo.value = '';
-        e.target.workshopSubtitle.value = '';
-        e.target.workshopDescription.value = '';
-        e.target.workshopPlace.value = '';
-        e.target.workshopPrice.value = '';
-        e.target.workshopIncluded.value = '';
-        e.target.workshopOther.value = '';
-        e.target.workshopFileupload.value = '';
     }
 
     return (
