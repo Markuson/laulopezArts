@@ -59,8 +59,8 @@ export default function EditModal({
                             />
                         </div>
                         <div className="uk-margin uk-flex uk-flex-auto uk-flex-between uk-flex-middle">
-                            <button type="button" onClick={() => setConfirmDelete(true)} className='uk-button uk-button-danger'>Esborra</button>
-                            <button type="submit" className='uk-button uk-button-default'>Guarda</button>
+                            <button type="button" onClick={() => setConfirmDelete(true)} className='uk-button uk-button-danger'>Borrar</button>
+                            <button type="submit" className='uk-button uk-button-default'>Guardar</button>
                         </div>
                         {confirmDelete &&
                             <div className="uk-margin-small uk-flex uk-flex-column">

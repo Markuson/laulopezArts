@@ -1,6 +1,5 @@
 import {Image, Transformation} from 'cloudinary-react';
 
-
 export default function Card({
     description,
     height = 500,
