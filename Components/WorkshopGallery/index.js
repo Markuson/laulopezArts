@@ -51,7 +51,7 @@ export default function WorkshopGallery({
     }
 
     return (
-        <CloudinaryContext cloudName="marcuson">
+        <CloudinaryContext cloudName="laulopezarts">
             <div
                 className="uk-padding-large uk-padding-remove-bottom uk-child-width-1-2@m uk-grid-large uk-grid-match uk-flex-middle"
                 data-uk-grid

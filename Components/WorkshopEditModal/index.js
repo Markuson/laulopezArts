@@ -32,7 +32,7 @@ export default function WorkshopEditModal({
     }
 
     return (
-        <CloudinaryContext cloudName="marcuson">
+        <CloudinaryContext cloudName="laulopezarts">
 
             <div id="edit-workshop-modal" data-uk-modal>
                 <div className="uk-modal-dialog uk-margin-auto-vertical uk-modal-body">
