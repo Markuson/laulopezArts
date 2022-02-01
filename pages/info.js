@@ -58,14 +58,18 @@ export default function Info({ color, image }) {
                     </div>
                     <div className="uk-container uk-width-2-5@l uk-width-2-6@m uk-width-2-3@s uk-animation-scale-up">
                         <p className={styles.description}>
-                            Soy ilustradora y mis intereses giran en torno al animalismo, el feminismo y la justicia social. Creo en el Arte como herramienta transformadora y he encontrado en la serigrafía el medio idóneo para transmitir estas ideas y acercar el arte a la sociedad.
+                        Hola :) Soy Lau, vivo en Barcelona y me dedico a la ilustración y a la serigrafía. Me interesa la biología, el animalismo, el feminismo y la justicia social. 
                         </p>
                         <p className={styles.description}>
-                            Al haberme formado como bióloga, una parte importante de mi trabajo sigue vinculada a la divulgación científica, pero enfocándola desde la producción de materiales con interés artístico.
+                        Además de ilustrar y serigrafiar, realizo murales y tonteo con la animación, el linograbado y el collage.
                         </p>
+                        <p className={styles.description}>
+                        Puedes encontrar mi trabajo en mi tienda online o hacerme una petición personalizada. Me encontrarás en <a href="https://www.articataller.com" rel="noopener noreferrer" target="_blank">Àrtica</a> dónde también organizo talleres de serigrafía, ilustración y animación para todas las edades.
+                        </p>
+
                     </div>
                 </div>
-                <div className="uk-padding uk-flex uk-flex-middle uk-flex-center uk-flex-row" data-uk-grid>
+                {/* <div className="uk-padding uk-flex uk-flex-middle uk-flex-center uk-flex-row" data-uk-grid>
                     <div className="uk-flex-last@l uk-padding uk-padding-remove-vertical uk-animation-fade">
                         <img className="" src="/images/artica.jpg" width="440px" alt="Artica Taller" />
                     </div>
@@ -77,7 +81,7 @@ export default function Info({ color, image }) {
                             Allí me encontrarás a menudo estampando para pequeñas productoras y en ocasiones impartiendo cursos y talleres principalmente de serigrafía.
                         </p>
                     </div>
-                </div>
+                </div> */}
                 <div className="uk-padding uk-padding-remove-bottom">
                     <p className={styles.text}>CONTÁCTAME :D</p>
                 </div>
@@ -87,6 +91,9 @@ export default function Info({ color, image }) {
                     </div>
                     <div className='uk-padding-small'>
                         <a className={styles.growRotate} target='_blank' href="https://www.linkedin.com/in/laura-l%C3%B3pez-8a59a351/"><img src='icons/linkedin.png' width='60px' /></a>
+                    </div>
+                    <div className='uk-padding-small'>
+                        <a className={styles.growRotate} target='_blank' href="https://vimeo.com/laulopezarts"><img src='icons/vimeo.png' width='60px' /></a>
                     </div>
                 </div>
                 <div className="uk-padding uk-padding-remove-bottom">

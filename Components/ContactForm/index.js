@@ -36,7 +36,7 @@ export default function ContactFrom({ onContactFrom }) {
       nonce: undefined // optional, default undefined
     }}
   >
-    <div id="contact" className="uk-padding uk-padding-remove-top uk-flex uk-flex-column uk-width-1-1">
+    <div id="contact" className="uk-padding-small uk-padding-remove-top uk-flex uk-flex-column uk-width-4-5@l uk-width-4-6@m uk-width-2-3@s">
       <div data-uk-scrollspy="cls:uk-animation-fade; delay:250; repeat: true">
         <form className="uk-width-1-1 uk-padding uk-padding-remove-top uk-flex uk-flex-center" onSubmit={(e) => handleSubmit(e)}>
           <fieldset className=" uk-width-1-1 uk-fieldset">
