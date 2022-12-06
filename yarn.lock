@@ -2852,9 +2852,9 @@ decamelize@^4.0.0:
   integrity sha512-9iE1PgSik9HeIIw2JO94IidnE3eBoQrFJ3w7sFuzSX4DpmZ3v5sZpUiV5Swcf6mQEF+Y0ru8Neo+p+nyh2J+hQ==
 
 decode-uri-component@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
-  integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
+  integrity sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==
 
 deep-eql@^3.0.1:
   version "3.0.1"
@@ -8076,7 +8076,7 @@ uuid@^8.0.0:
 "validate@file:./utils/validate":
   version "1.0.0"
   dependencies:
-    errors "file:C:/Users/elmar/AppData/Local/Yarn/Cache/v6/npm-validate-1.0.0-99f33d25-15df-48b9-80a9-1ba0f213e5d7-1623598135479/node_modules/errors"
+    errors "file:utils/errors"
 
 validator@^11.0.0:
   version "11.1.0"
